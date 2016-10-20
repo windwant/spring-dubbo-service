@@ -3,7 +3,7 @@ package org.windwant.spring;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootMgr
  */
 public class BootMgr {
 

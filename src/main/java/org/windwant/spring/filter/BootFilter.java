@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootFilter
  */
 @WebFilter
 public class BootFilter implements Filter {

@@ -7,7 +7,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootListener
  */
 @WebListener
 public class BootListener implements ServletContextListener {

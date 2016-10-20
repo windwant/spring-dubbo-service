@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by aayongche on 2016/8/22.
+ * BootJob
  */
 @Component
 public class BootJob {

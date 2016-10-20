@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootSevlet
  */
 @WebServlet("/web")
 public class BootSevlet implements Servlet {

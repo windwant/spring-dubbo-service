@@ -1,7 +1,7 @@
 package org.windwant.spring.service;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootService.
  */
 public interface BootService {
     String hello(String name);

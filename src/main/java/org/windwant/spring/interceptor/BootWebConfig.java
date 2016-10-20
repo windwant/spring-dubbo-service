@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootWebConfig
  */
 @Configuration
 public class BootWebConfig extends WebMvcConfigurerAdapter {
