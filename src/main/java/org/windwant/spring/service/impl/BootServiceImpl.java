@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.windwant.spring.service.BootService;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootServiceImpl
  */
 @Service
 public class BootServiceImpl implements BootService {

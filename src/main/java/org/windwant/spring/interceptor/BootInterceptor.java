@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by aayongche on 2016/8/19.
+ * BootInterceptor
  */
 public class BootInterceptor implements HandlerInterceptor {
 
