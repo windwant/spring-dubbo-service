@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.windwant.spring.listener.APListener;
 import org.windwant.spring.service.BootService;
 
 /**
@@ -39,7 +38,7 @@ public class BootSpring
         localTime = localTime.plusHours(1);
         System.out.println("Hello agin World!" + localTime.toString());
         SpringApplication sa = new SpringApplication(BootSpring.class);
-        sa.addListeners(new APListener());//注册Listener
+//        sa.addListeners(new DevAppListener());//注册Listener
         sa.run(args);
 
     }
