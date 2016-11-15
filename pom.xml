@@ -44,6 +44,47 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>test</id>
+      <properties>
+        <build.profile>test</build.profile>
+      </properties>
+      <build>
+        <filters>
+          <filter>config/application-${build.profile}.properties</filter>
+        </filters>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <build.profile>dev</build.profile>
+      </properties>
+      <build>
+        <filters>
+          <filter>config/application-${build.profile}.properties</filter>
+        </filters>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+          </resource>
+        </resources>
+      </build>
+    </profile>
+  </profiles>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
