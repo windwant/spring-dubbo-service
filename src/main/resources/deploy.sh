@@ -14,7 +14,7 @@ scp /root/.jenkins/workspace/sboot/target/spring-boot-test-1.0-SNAPSHOT-test.zip
 echo "拷贝业务服务文件成功"
 
 echo "尝试优雅退出服务"
-pid=$(ps -ef |grep ' spring-boot-test' | grep -v 'grep'|awk '{print $2}')
+pid=$(ps -ef |grep 'BootSpring' | grep -v 'grep'|awk '{print $2}')
 kill -9 \$pid
 
 sleep 3
