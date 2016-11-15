@@ -15,7 +15,7 @@ echo "拷贝业务服务文件成功"
 
 echo "尝试优雅退出服务"
 pid=$(ps -ef |grep 'BootSpring' | grep -v 'grep'|awk '{print $2}')
-kill -9 \$pid
+kill -9 $pid
 
 sleep 3
 echo "建立部署目录"
