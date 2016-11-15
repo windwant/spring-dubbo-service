@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SERVER_IP=192.168.115.129
-USER=root
+USER=jekins
 SERVER_PORT=22
 
 
