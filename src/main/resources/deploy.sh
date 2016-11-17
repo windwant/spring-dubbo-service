@@ -30,5 +30,5 @@ rm -f spring-boot-test-1.0-SNAPSHOT-test.zip
 
 echo "启动服务"
 cd /work/MyDeploy/sboot
-chmod +x startup.sh
+chmod +x *
 exec ./startup.sh >/dev/null 2>&1
