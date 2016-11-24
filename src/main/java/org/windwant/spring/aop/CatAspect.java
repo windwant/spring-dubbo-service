@@ -6,6 +6,8 @@ import com.dianping.cat.message.Transaction;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
  * Created by windwant on 2016/11/23.
  */
 @Aspect
+@Component
 public class CatAspect {
 
     private static final String CAT_TYPE = "Sboot.log";
@@ -22,15 +25,21 @@ public class CatAspect {
 
     private static final String CAT_METHOD_NAME = "hello";
 
-    @Around("execution(* org.windwant.spring.service.impl.*(..))")
+    @Pointcut("execution(* org.windwant.spring.service.impl.BootServiceImpl.*(..))")
+    public void log(){}
+
+    @Around("log()")
     public Object preLog(ProceedingJoinPoint jp) throws Throwable {
         Object[] args = jp.getArgs();
-        Transaction tran = Cat.newTransaction(CAT_TYPE, "hello");
+        String methodName = jp.getSignature().getName();
+        Transaction tran = Cat.newTransaction(CAT_TYPE, methodName);
         Object result = null;
         try{
-            Cat.logEvent(CAT_TYPE_NAME, CAT_METHOD_NAME, Message.SUCCESS, getArgValue(args));
+            String nameValuePairs = getArgValue(args);
+            Cat.logEvent(CAT_TYPE_NAME, CAT_METHOD_NAME, Message.SUCCESS, nameValuePairs);
             result = jp.proceed(args);
             tran.setStatus(Transaction.SUCCESS);
+            System.out.println("Cat log: " + jp.getSignature().getDeclaringType() + " " +  methodName + "(" + nameValuePairs + ")");
         }catch (Exception e){
             tran.setStatus(e.getClass().getSimpleName());
         }finally {
