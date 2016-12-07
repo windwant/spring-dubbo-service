@@ -5,10 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.windwant.spring.service.BootService;
 
@@ -24,10 +20,10 @@ import org.windwant.spring.service.BootService;
 //@EnableScheduling //定时任务
 public class BootSpring
 {
-    @RequestMapping("/{name}")
-    String home(@PathVariable String name){
-        return bootService.hello(name);
-    }
+//    @RequestMapping("/{name}")
+//    String home(@PathVariable String name){
+//        return bootService.hello(name);
+//    }
 
     @Autowired
     private BootService bootService;
