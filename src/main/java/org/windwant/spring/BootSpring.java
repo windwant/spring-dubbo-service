@@ -1,11 +1,19 @@
 package org.windwant.spring;
 
 import org.joda.time.LocalTime;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.windwant.spring.config.MybatisConfig;
+import org.windwant.spring.mybatis.MapperScannerConfigurerProxy;
 import org.windwant.spring.service.BootService;
 
 /**
@@ -17,16 +25,25 @@ import org.windwant.spring.service.BootService;
 @RestController
 @SpringBootApplication
 @ServletComponentScan
+@Import({MybatisConfig.class})
+@PropertySource({"classpath:config.properties"})
 //@EnableScheduling //定时任务
 public class BootSpring
 {
-//    @RequestMapping("/{name}")
-//    String home(@PathVariable String name){
-//        return bootService.hello(name);
-//    }
+    @RequestMapping("/{name}")
+    String home(@PathVariable String name){
+        return bootService.hello(name);
+    }
 
     @Autowired
     private BootService bootService;
+
+    @Bean
+    public static MapperScannerConfigurer mapperScannerConfigurer() {
+        MapperScannerConfigurerProxy configurer = new MapperScannerConfigurerProxy();
+        configurer.setBasePackage("org.windwant.spring.mapper");
+        return configurer;
+    }
 
     public static void main( String[] args )
     {
