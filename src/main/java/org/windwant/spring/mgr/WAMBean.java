@@ -5,6 +5,11 @@ import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
+import org.windwant.spring.util.FTPTransport;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * Created by windwant on 2017/4/6.
@@ -64,7 +69,25 @@ public class WAMBean {
         System.out.println(who + " 发现了 " + what);
     }
 
-    public void play(){
+    @ManagedOperation
+    public void upload() throws FileNotFoundException {
+        FileInputStream f = null;
+        try {
+            FTPTransport ft = new FTPTransport();
+            f = new FileInputStream(new File("D:\\a.json"));
+            ft.uploadFile("ajson", f);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if(f != null){
+                    f.close();
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
         System.out.println("to play....");
     }
 

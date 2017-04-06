@@ -1,8 +1,8 @@
 package org.windwant.spring.aop;
 
-import com.dianping.cat.Cat;
-import com.dianping.cat.message.Message;
-import com.dianping.cat.message.Transaction;
+//import com.dianping.cat.Cat;
+//import com.dianping.cat.message.Message;
+//import com.dianping.cat.message.Transaction;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 /**
  * Created by windwant on 2016/11/23.
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class CatAspect {
 
     private static final String CAT_TYPE = "Sboot.log";
@@ -32,19 +32,19 @@ public class CatAspect {
     public Object preLog(ProceedingJoinPoint jp) throws Throwable {
         Object[] args = jp.getArgs();
         String methodName = jp.getSignature().getName();
-        Transaction tran = Cat.newTransaction(CAT_TYPE, methodName);
+//        Transaction tran = Cat.newTransaction(CAT_TYPE, methodName);
         Object result = null;
-        try{
-            String nameValuePairs = getArgValue(args);
-            Cat.logEvent(CAT_TYPE_NAME, CAT_METHOD_NAME, Message.SUCCESS, nameValuePairs);
-            result = jp.proceed(args);
-            tran.setStatus(Transaction.SUCCESS);
-            System.out.println("Cat log: " + jp.getSignature().getDeclaringType() + " " +  methodName + "(" + nameValuePairs + ")");
-        }catch (Exception e){
-            tran.setStatus(e.getClass().getSimpleName());
-        }finally {
-            tran.complete();
-        }
+//        try{
+//            String nameValuePairs = getArgValue(args);
+//            Cat.logEvent(CAT_TYPE_NAME, CAT_METHOD_NAME, Message.SUCCESS, nameValuePairs);
+//            result = jp.proceed(args);
+//            tran.setStatus(Transaction.SUCCESS);
+//            System.out.println("Cat log: " + jp.getSignature().getDeclaringType() + " " +  methodName + "(" + nameValuePairs + ")");
+//        }catch (Exception e){
+//            tran.setStatus(e.getClass().getSimpleName());
+//        }finally {
+//            tran.complete();
+//        }
         return result;
     }
 
