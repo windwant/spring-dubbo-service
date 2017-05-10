@@ -18,7 +18,8 @@ public class BootServiceImpl implements BootService {
     public String hello(String name){
         String message = "Hello " + name + ", welcome to my world!";
         System.out.println(message);
-        System.out.println("mapper: " + mySelMapper.getStringResult(1));
+        System.out.println("mapper from @: " + mySelMapper.getStringResult(1));
+        System.out.println("mapper from xml: " + mySelMapper.getResult(1));
         return message;
     }
 }

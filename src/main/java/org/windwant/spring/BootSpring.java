@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.windwant.spring.config.MybatisConfig;
-import org.windwant.spring.mybatis.MapperScannerConfigurerProxy;
 import org.windwant.spring.service.BootService;
 
 /**
@@ -25,9 +24,9 @@ import org.windwant.spring.service.BootService;
 @RestController
 @SpringBootApplication
 @ServletComponentScan
-@Import({MybatisConfig.class})
 @PropertySource({"classpath:config.properties"})
 //@EnableScheduling //定时任务
+@Import({MybatisConfig.class})
 public class BootSpring
 {
     @RequestMapping("/{name}")
@@ -37,13 +36,6 @@ public class BootSpring
 
     @Autowired
     private BootService bootService;
-
-    @Bean
-    public static MapperScannerConfigurer mapperScannerConfigurer() {
-        MapperScannerConfigurerProxy configurer = new MapperScannerConfigurerProxy();
-        configurer.setBasePackage("org.windwant.spring.mapper");
-        return configurer;
-    }
 
     public static void main( String[] args )
     {

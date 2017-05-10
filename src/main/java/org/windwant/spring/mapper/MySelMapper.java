@@ -14,5 +14,7 @@ import org.windwant.spring.mybatis.DataSource.Type;
 public interface MySelMapper {
 
     @Select("select USER()")
-    public String getStringResult(@Param("id") Integer id);
+    String getStringResult(@Param("id") Integer id);
+
+    String getResult(@Param("id") Integer id);
 }
