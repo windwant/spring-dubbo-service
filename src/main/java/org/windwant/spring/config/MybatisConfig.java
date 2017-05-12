@@ -4,6 +4,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
@@ -52,7 +53,8 @@ public class MybatisConfig implements EnvironmentAware {
     }
 
     @Bean
-    public DataSource routingDataSource(DataSource localDatasource, DataSource remoteDatasource){
+    public DataSource routingDataSource(@Qualifier(value = "localDatasource") DataSource localDatasource,
+                                        @Qualifier(value = "remoteDatasource")DataSource remoteDatasource){
         RoutingDataSource routingDataSource = new RoutingDataSource();
         Map<Object, Object> dataSources = new HashMap<>();
         dataSources.put(Type.LOCAL.name(), localDatasource);
@@ -63,7 +65,7 @@ public class MybatisConfig implements EnvironmentAware {
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource routingDataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(@Qualifier(value = "routingDataSource")DataSource routingDataSource) throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(routingDataSource);
         factoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
