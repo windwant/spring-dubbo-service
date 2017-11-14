@@ -10,7 +10,7 @@ import org.windwant.spring.mybatis.DataSource.Type;
  * Created by windwant on 2016/12/30.
  */
 @Repository
-@DataSource(Type.REMOTE)
+@DataSource(Type.LOCAL)
 public interface MySelMapper {
 
     @Select("select USER()")
