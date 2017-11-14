@@ -9,3 +9,4 @@ springboot maven项目
 5. aop配置
 6. ftp服务
 7. 测试
+8. Metrics监控
