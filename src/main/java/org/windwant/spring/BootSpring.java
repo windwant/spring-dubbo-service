@@ -1,8 +1,6 @@
 package org.windwant.spring;
 
 import com.codahale.metrics.ConsoleReporter;
-import com.codahale.metrics.Counter;
-import com.codahale.metrics.Meter;
 import com.codahale.metrics.Slf4jReporter;
 import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,15 +30,8 @@ import java.util.concurrent.TimeUnit;
 public class BootSpring
 {
 
-    @Autowired
-    private Meter requestMeter;
-    @Autowired
-    private Counter requestCount;
-
     @RequestMapping("/{name}")
     String home(@PathVariable String name){
-        requestMeter.mark();
-        requestCount.inc();
         return bootService.hello(name);
     }
 
