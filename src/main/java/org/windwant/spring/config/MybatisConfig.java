@@ -4,6 +4,8 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,17 +46,12 @@ public class MybatisConfig implements EnvironmentAware {
         return dataSource;
     }
 
-    @Bean
+    @Bean(name = "dataSource")
+    @ConfigurationProperties(prefix = "datasource.boot")
     @Order(value = 2)
     public DataSource remoteDatasource(){
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClass"));
-        dataSource.setUrl(environment.getProperty("remote.jdbc.url"));
-        dataSource.setUsername(environment.getProperty("remote.jdbc.user"));
-        dataSource.setPassword(environment.getProperty("remote.jdbc.password"));
-        return dataSource;
+        return DataSourceBuilder.create().build();
     }
-
 
     @Bean
     @Order(value = 3)

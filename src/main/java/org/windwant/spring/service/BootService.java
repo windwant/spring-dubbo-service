@@ -6,4 +6,6 @@ package org.windwant.spring.service;
 public interface BootService {
 
     String hello(String name);
+
+    public String hellox(String name);
 }

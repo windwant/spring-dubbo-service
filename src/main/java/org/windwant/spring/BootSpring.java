@@ -3,16 +3,11 @@ package org.windwant.spring;
 import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Slf4jReporter;
 import org.joda.time.LocalTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.windwant.spring.service.BootService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,22 +17,12 @@ import java.util.concurrent.TimeUnit;
  * @SpringBootApplication = @Configration +  @EnableAutoConfiguration + @ComponentScan
  * @ServletComponentScan scan servlet filter interceptor listener
  */
-@RestController
 @SpringBootApplication
 @ServletComponentScan
 @PropertySource({"classpath:config.properties"})
 //@EnableScheduling //定时任务
 public class BootSpring
 {
-
-    @RequestMapping("/{name}")
-    String home(@PathVariable String name){
-        return bootService.hello(name);
-    }
-
-    @Autowired
-    private BootService bootService;
-
     public static void main( String[] args )
     {
         LocalTime localTime = new LocalTime();
@@ -48,7 +33,7 @@ public class BootSpring
 //        sa.addListeners(new DevAppListener());//注册Listener
         ApplicationContext ctx = sa.run(args);
 
-        //启用console metric 输出
+//        启用console metric 输出
         ConsoleReporter reporter = ctx.getBean(ConsoleReporter.class);
         reporter.start(1, TimeUnit.SECONDS);
 
