@@ -11,18 +11,11 @@ springboot maven项目
 7. 测试
 8. Metrics监控
 9. 参数验证
-   测试：/hellox?name=
-
-10.跨域处理
-
-11.添加shiro权限控制
-
-   测试用户：userName admin
-
-           passwd admin
-
-   验证码：/login/checkcode
-
-   登录：/login?userName=&passwd=&code=
-
-   测试：/hellox?name=
+    测试：/hellox?name=
+10. 跨域处理
+11. 添加shiro权限控制
+    测试用户：userName admin
+             passwd admin
+    验证码：/login/checkcode
+    登录：/login?userName=&passwd=&code=
+    测试：/hellox?name=
