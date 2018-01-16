@@ -22,8 +22,8 @@ public class BootInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println("interceptor preHandle...");
-        requestMeter.mark();
-        requestCount.inc();
+//        requestMeter.mark();
+//        requestCount.inc();
         return true;
     }
 

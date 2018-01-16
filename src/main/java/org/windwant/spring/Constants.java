@@ -1,0 +1,10 @@
+package org.windwant.spring;
+
+/**
+ * Created by Administrator on 2018/1/16.
+ */
+public class Constants {
+
+    public static final String SUCCESS = "success";
+    public static final String FAILED = "failed";
+}

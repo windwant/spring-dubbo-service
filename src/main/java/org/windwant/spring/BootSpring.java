@@ -4,6 +4,7 @@ import com.codahale.metrics.ConsoleReporter;
 import com.codahale.metrics.Slf4jReporter;
 import org.joda.time.LocalTime;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
@@ -34,11 +35,11 @@ public class BootSpring
         ApplicationContext ctx = sa.run(args);
 
 //        启用console metric 输出
-        ConsoleReporter reporter = ctx.getBean(ConsoleReporter.class);
-        reporter.start(1, TimeUnit.SECONDS);
+//        ConsoleReporter reporter = ctx.getBean(ConsoleReporter.class);
+//        reporter.start(1, TimeUnit.SECONDS);
 
         //slf4jReporter metric 输出
-        Slf4jReporter reporterSJ = ctx.getBean(Slf4jReporter.class);
-        reporterSJ.start(1, TimeUnit.SECONDS);
+//        Slf4jReporter reporterSJ = ctx.getBean(Slf4jReporter.class);
+//        reporterSJ.start(1, TimeUnit.SECONDS);
     }
 }
