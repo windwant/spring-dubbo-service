@@ -1,4 +1,4 @@
-package org.windwant.spring.core.config;
+package org.windwant.spring.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
