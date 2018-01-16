@@ -1,13 +1,11 @@
-package org.windwant.spring.aop;
+package org.windwant.spring.core.aop;
 
 //import com.dianping.cat.Cat;
 //import com.dianping.cat.message.Message;
 //import com.dianping.cat.message.Transaction;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

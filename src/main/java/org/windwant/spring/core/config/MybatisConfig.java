@@ -1,4 +1,4 @@
-package org.windwant.spring.config;
+package org.windwant.spring.core.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.windwant.spring.datasource.RoutingDataSource;
-import org.windwant.spring.mybatis.DataSource.Type;
+import org.windwant.spring.core.datasource.RoutingDataSource;
+import org.windwant.spring.core.mybatis.DataSource.Type;
 
 import javax.sql.DataSource;
 import java.util.HashMap;

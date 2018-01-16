@@ -1,4 +1,4 @@
-package org.windwant.spring.interceptor;
+package org.windwant.spring.core.interceptor;
 
 import com.codahale.metrics.Counter;
 import com.codahale.metrics.Meter;

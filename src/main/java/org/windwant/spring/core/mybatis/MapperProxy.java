@@ -1,9 +1,9 @@
-package org.windwant.spring.mybatis;
+package org.windwant.spring.core.mybatis;
 
 import org.apache.ibatis.reflection.ExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.spring.datasource.RoutingDataSource;
+import org.windwant.spring.core.datasource.RoutingDataSource;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

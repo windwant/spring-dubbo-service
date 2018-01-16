@@ -1,4 +1,4 @@
-package org.windwant.spring.config;
+package org.windwant.spring.core.config;
 
 import com.codahale.metrics.*;
 import org.slf4j.LoggerFactory;

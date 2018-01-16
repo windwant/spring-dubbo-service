@@ -1,4 +1,4 @@
-package org.windwant.spring.mgr;
+package org.windwant.spring.core.mgr;
 
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;

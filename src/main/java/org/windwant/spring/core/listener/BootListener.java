@@ -1,6 +1,6 @@
-package org.windwant.spring.listener;
+package org.windwant.spring.core.listener;
 
-import org.windwant.spring.BootMgr;
+import org.windwant.spring.core.BootMgr;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

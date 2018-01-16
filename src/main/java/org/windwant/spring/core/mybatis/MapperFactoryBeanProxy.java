@@ -1,4 +1,4 @@
-package org.windwant.spring.mybatis;
+package org.windwant.spring.core.mybatis;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;

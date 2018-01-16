@@ -1,4 +1,4 @@
-package org.windwant.spring.mybatis;
+package org.windwant.spring.core.mybatis;
 
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;

@@ -1,4 +1,4 @@
-package org.windwant.spring.servlet;
+package org.windwant.spring.core.servlet;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;

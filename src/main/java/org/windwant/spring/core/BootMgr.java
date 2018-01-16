@@ -1,4 +1,4 @@
-package org.windwant.spring;
+package org.windwant.spring.core;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

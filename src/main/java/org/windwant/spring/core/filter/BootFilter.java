@@ -1,4 +1,4 @@
-package org.windwant.spring.filter;
+package org.windwant.spring.core.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

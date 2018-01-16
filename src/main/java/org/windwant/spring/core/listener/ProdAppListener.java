@@ -1,4 +1,4 @@
-package org.windwant.spring.listener;
+package org.windwant.spring.core.listener;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;

@@ -1,4 +1,4 @@
-package org.windwant.spring.datasource;
+package org.windwant.spring.core.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

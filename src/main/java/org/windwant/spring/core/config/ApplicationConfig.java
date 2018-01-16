@@ -1,4 +1,4 @@
-package org.windwant.spring.config;
+package org.windwant.spring.core.config;
 
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +8,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.windwant.spring.interceptor.BootInterceptor;
+import org.windwant.spring.core.interceptor.BootInterceptor;
 
 /**
  * Created by Administrator on 2018/1/16.
