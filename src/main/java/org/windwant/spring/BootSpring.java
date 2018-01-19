@@ -20,7 +20,9 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication
 @ServletComponentScan
+@EnableAutoConfiguration
 @PropertySource({"classpath:config.properties"})
+@PropertySource({"classpath:application.yml"})
 //@EnableScheduling //定时任务
 public class BootSpring
 {

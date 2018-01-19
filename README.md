@@ -15,7 +15,7 @@ springboot maven项目
 10. 跨域处理
 11. 添加shiro权限控制
 
-    测试用户：userNamez: admin passwd: admin
+    测试用户：userName: admin passwd: admin
              
     验证码：/login/checkcode
     

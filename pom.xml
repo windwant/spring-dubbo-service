@@ -24,6 +24,27 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
+          <delimiters>
+            <delimiter>$[*]</delimiter>
+          </delimiters>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <compilerVersion>1.8</compilerVersion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.6</version>
         <executions>
@@ -41,17 +62,13 @@
           </descriptors>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <compilerVersion>1.8</compilerVersion>
-        </configuration>
-      </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
   </build>
 
   <profiles>
@@ -64,12 +81,6 @@
         <filters>
           <filter>src/main/resources/config/application-${build.profile}.properties</filter>
         </filters>
-        <resources>
-          <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-          </resource>
-        </resources>
       </build>
     </profile>
 
@@ -84,14 +95,7 @@
       <build>
         <filters>
           <filter>src/main/resources/config/application-${build.profile}.properties</filter>
-          <filter>src/profiles/${build.profile}/config.properties</filter>
         </filters>
-        <resources>
-          <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-          </resource>
-        </resources>
       </build>
     </profile>
 
@@ -107,12 +111,6 @@
         <filters>
           <filter>src/main/resources/config/application-${build.profile}.properties</filter>
         </filters>
-        <resources>
-          <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-          </resource>
-        </resources>
       </build>
     </profile>
   </profiles>
@@ -316,6 +314,19 @@
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
       <version>3.16</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.orbitz.consul</groupId>
+      <artifactId>consul-client</artifactId>
+      <version>0.12.4</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.ecwid.consul/consul-api -->
+    <dependency>
+      <groupId>com.ecwid.consul</groupId>
+      <artifactId>consul-api</artifactId>
+      <version>1.1.11</version>
     </dependency>
   </dependencies>
 

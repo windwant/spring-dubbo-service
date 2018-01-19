@@ -1,18 +1,37 @@
 spring:
     messages:
         basename: lang/messages
+    profiles:
+        active: $[build.profile]
 datasource:
-    boot:
-        url: ${datasource.planes.url}
-        username: ${datasource.planes.username}
-        password: ${datasource.planes.password}
+    local:
+        url: $[datasource.local.url]
+        username: $[datasource.local.user]
+        password: $[datasource.local.password]
+        driverClassName: com.mysql.cj.jdbc.Driver
+        max-active: 30
+        max-idle: 10
+        max-wait: 10
+        test-while-idle: true
+    remote:
+        url: $[datasource.remote.url]
+        username: $[datasource.remote.user]
+        password: $[datasource.remote.password]
         driverClassName: com.mysql.cj.jdbc.Driver
         max-active: 30
         max-idle: 10
         max-wait: 10
         test-while-idle: true
 log:
-    path: ${logPath}
-    level: ${logLevel}
+    path: $[logPath]
+    level: $[logLevel]
 server:
-    port: 8081
+    port: $[server.port]
+consul:
+    host: $[consul.host]
+ftp:
+    host: $[ftp.host]
+    port: $[ftp.port]
+    username: ftp
+    password: ftp
+    connectTimeOut: 10000

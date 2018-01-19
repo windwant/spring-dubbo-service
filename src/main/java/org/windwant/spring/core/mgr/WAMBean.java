@@ -1,5 +1,6 @@
 package org.windwant.spring.core.mgr;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedOperationParameter;
@@ -69,13 +70,15 @@ public class WAMBean {
         System.out.println(who + " 发现了 " + what);
     }
 
+    @Autowired
+    FTPTransport ftpTransport;
+
     @ManagedOperation
     public void upload() throws FileNotFoundException {
         FileInputStream f = null;
         try {
-            FTPTransport ft = new FTPTransport();
             f = new FileInputStream(new File("D:\\a.json"));
-            ft.uploadFile("ajson", f);
+            ftpTransport.uploadFile("ajson", f);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

@@ -36,18 +36,14 @@ public class MybatisConfig implements EnvironmentAware {
 
     @Primary
     @Bean
+    @ConfigurationProperties(prefix = "datasource.local")
     @Order(value = 1)
     public DataSource localDatasource(){
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClass"));
-        dataSource.setUrl(environment.getProperty("local.jdbc.url"));
-        dataSource.setUsername(environment.getProperty("local.jdbc.user"));
-        dataSource.setPassword(environment.getProperty("local.jdbc.password"));
-        return dataSource;
+        return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "datasource.boot")
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.remote")
     @Order(value = 2)
     public DataSource remoteDatasource(){
         return DataSourceBuilder.create().build();
