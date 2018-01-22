@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.windwant.spring.core.consul.ConsulMgr;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +36,10 @@ public class BootSpring
         SpringApplication sa = new SpringApplication(BootSpring.class);
 //        sa.addListeners(new DevAppListener());//注册Listener
         ApplicationContext ctx = sa.run(args);
+
+        //consule init
+        ConsulMgr mgr = (ConsulMgr) ctx.getBean("consulMgr");
+        mgr.init();
 
 //        启用console metric 输出
 //        ConsoleReporter reporter = ctx.getBean(ConsoleReporter.class);

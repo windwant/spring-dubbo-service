@@ -25,3 +25,5 @@ springboot maven项目
 12. 导出Excel
 
     测试：/export
+
+13. 服务启动注册到consul；并测试获取redis服务，初始化redis资源
