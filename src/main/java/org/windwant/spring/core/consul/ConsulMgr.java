@@ -7,7 +7,6 @@ import com.orbitz.consul.model.agent.ImmutableRegCheck;
 import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.health.Service;
 import com.orbitz.consul.model.health.ServiceHealth;
-import com.orbitz.consul.option.QueryOptions;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * consul.exe agent -server -bootstrap -data-dir=data -bind=127.0.0.1 -client 0.0.0.0 -ui
+ * consul agent -server -bootstrap-expect=1  -data-dir=data -node=server0 -bind=127.0.0.1 -client 0.0.0.0 -ui
  * Created by windwant on 2016/8/18.
  */
 @Component
