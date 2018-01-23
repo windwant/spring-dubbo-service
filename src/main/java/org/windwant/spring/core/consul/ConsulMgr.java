@@ -1,17 +1,13 @@
 package org.windwant.spring.core.consul;
 
 import com.google.common.net.HostAndPort;
-import com.orbitz.consul.AgentClient;
-import com.orbitz.consul.Consul;
-import com.orbitz.consul.HealthClient;
-import com.orbitz.consul.KeyValueClient;
-import com.orbitz.consul.cache.ConsulCache;
+import com.orbitz.consul.*;
 import com.orbitz.consul.cache.ServiceHealthCache;
-import com.orbitz.consul.cache.ServiceHealthKey;
 import com.orbitz.consul.model.agent.ImmutableRegCheck;
 import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.health.Service;
 import com.orbitz.consul.model.health.ServiceHealth;
+import com.orbitz.consul.option.QueryOptions;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.windwant.spring.util.JedisUtils;
 
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
 
 /**
  * consul.exe agent -server -bootstrap -data-dir=data -bind=127.0.0.1 -client 0.0.0.0 -ui
@@ -44,6 +40,7 @@ public class ConsulMgr {
     private KeyValueClient keyValueClient;
     private HealthClient healthClient;
     private AgentClient agentClient;
+    private CatalogClient catalogClient;
     private String redisService = "redis";
     private String bootService = "boot";
 
@@ -59,7 +56,7 @@ public class ConsulMgr {
         agentClient = consul.agentClient();
 
         //注册本服务到consul
-        registerService(bootService, bootService, bootService, "127.0.0.1", port, 5);
+        registerService(bootService, bootService, bootService, consulHost, port, 5);
 
         //注册测试redis服务
         registerService(redisService, redisService, redisService, redisHost, redisPort, 5);
@@ -68,7 +65,7 @@ public class ConsulMgr {
         getHealthService(redisService);
 
         //监控redis服务
-//        watchSvr();
+        watchSvrx();
     }
 
     /**
@@ -77,7 +74,6 @@ public class ConsulMgr {
     public void registerService(String svrId, String svrName, String tags, String host, Integer port, Integer interval){
         //健康检查
         ImmutableRegCheck immutableRegCheck = ImmutableRegCheck.builder().tcp(host + ":" + port).interval(interval + "s").build();
-
         ImmutableRegistration immutableRegistration = ImmutableRegistration.builder().
                 id(svrId).
                 name(svrName).
@@ -86,7 +82,6 @@ public class ConsulMgr {
                 port(port).
                 addChecks(immutableRegCheck).
                 build();
-
         agentClient.register(immutableRegistration);
     }
 
@@ -96,10 +91,14 @@ public class ConsulMgr {
      */
     public void getHealthService(String serviceName){
         List<ServiceHealth> nodes = healthClient.getHealthyServiceInstances(serviceName).getResponse();
-        if(StringUtils.isNotBlank(JedisUtils.getHost()) && nodes.size() > 0) {
-            nodes.forEach((resp) -> {
+        dealHealthSvr(nodes);
+    }
+
+    private void dealHealthSvr(List<ServiceHealth> services){
+        if(StringUtils.isNotBlank(JedisUtils.getHost()) && services.size() > 0) {
+            services.forEach((resp) -> {
                 if (StringUtils.equals(resp.getService().getAddress(), JedisUtils.getHost()) &&
-                    resp.getService().getPort() == JedisUtils.getPort()) {
+                        resp.getService().getPort() == JedisUtils.getPort()) {
                     if(JedisUtils.getJedisPool().isClosed()){
                         JedisUtils.init(resp.getService().getAddress(), resp.getService().getPort());
                         return;
@@ -109,32 +108,53 @@ public class ConsulMgr {
             });
         }
 
-        nodes.forEach((resp) -> {
-            Service service = resp.getService();
-            System.out.println("service port: " + service.getPort());
-            System.out.println("service address: " + service.getAddress());
+        if(StringUtils.isBlank(JedisUtils.getHost()) && services.size() > 0) {
+            services.forEach((resp) -> {
+                Service service = resp.getService();
+                System.out.println("service port: " + service.getPort());
+                System.out.println("service address: " + service.getAddress());
 
-            //选取一个服务器初始化redis jedispool
-            ServiceHealth random = nodes.get(ThreadLocalRandom.current().nextInt(nodes.size()));
-            if (JedisUtils.init(service.getAddress(), service.getPort())) {
-                return;
-            }
-            nodes.remove(service);
-        });
-
-        if(JedisUtils.getJedisPool() != null) {
-            JedisUtils.set("test", "test");
-            JedisUtils.get("test");
+                //选取一个服务器初始化redis jedispool
+                if (JedisUtils.init(service.getAddress(), service.getPort())) {
+                    return;
+                }
+            });
         }
 
+        if(JedisUtils.getJedisPool() != null) {
+            //测试redis
+            JedisUtils.set("test key", "test value");
+            JedisUtils.get("test key");
+            //测试redis分布式锁
+            JedisUtils.setLockKey("test lock key", "test lock value", 3);
+            JedisUtils.get("test lock key");
+        }
     }
+
+    //监控redis可用服务
+    ScheduledExecutorService scheduled = Executors.newSingleThreadScheduledExecutor();
+
+    public void watchSvrx(){
+        scheduled.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                getHealthService(redisService);
+            }
+        }, 0, 10, TimeUnit.SECONDS);
+    }
+
 
     public void watchSvr(){
         try {
-            ServiceHealthCache serviceHealthCache = ServiceHealthCache.newCache(healthClient, redisService);
+            ServiceHealthCache serviceHealthCache = ServiceHealthCache
+                    .newCache(healthClient, redisService);
             serviceHealthCache.addListener(map -> {
                 logger.info("ServiceHealthCache change event");
-                getHealthService(redisService);
+                List<ServiceHealth> list = new ArrayList<ServiceHealth>();
+                for (ServiceHealth serviceHealth : map.values()) {
+                    list.add(serviceHealth);
+                }
+                ConsulMgr.this.dealHealthSvr(list);
             });
             serviceHealthCache.start();
         } catch (Exception e) {
