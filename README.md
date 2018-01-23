@@ -26,4 +26,5 @@ springboot maven项目
 
     测试：/export
 
-13. 服务启动注册到consul；并测试获取redis服务，初始化redis资源
+13. 服务启动注册到consul；并测试获取redis服务，初始化redis资源；consul 监控redis服务 ；reids分布式锁；注意consul客户端和consul程序版本问题
+
