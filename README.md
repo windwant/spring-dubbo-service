@@ -32,3 +32,5 @@ springboot maven项目
 
     运行时配置：META-INF/services/org.windwant.spring.core.spi.Calc
 
+15. static资源， “/” 映射
+
