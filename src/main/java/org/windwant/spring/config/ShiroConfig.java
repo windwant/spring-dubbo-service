@@ -119,9 +119,9 @@ public class ShiroConfig implements EnvironmentAware {
         shiroFilterFactoryBean.getFilters().put("comauth", new ComAuthFilter());
 
         shiroFilterFactoryBean.setSecurityManager(securityManager());
-        shiroFilterFactoryBean.setLoginUrl("/login/notlogin");
+        shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setSuccessUrl("/index");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/public/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/notlogin");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         filterChainDefinitionMap.put("/", "user");
         filterChainDefinitionMap.put("/css/**", "anon");

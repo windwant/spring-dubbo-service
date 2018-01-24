@@ -17,6 +17,7 @@
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>startup.sh</include>
+                <include>startup.bat</include>
             </includes>
         </fileSet>
 
@@ -35,6 +36,14 @@
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.build.directory}/classes</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>static/**</include>
             </includes>
         </fileSet>
     </fileSets>
