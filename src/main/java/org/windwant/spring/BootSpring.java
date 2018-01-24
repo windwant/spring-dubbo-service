@@ -38,8 +38,8 @@ public class BootSpring
         ApplicationContext ctx = sa.run(args);
 
         //consule init
-        ConsulMgr mgr = (ConsulMgr) ctx.getBean("consulMgr");
-        mgr.init();
+//        ConsulMgr mgr = (ConsulMgr) ctx.getBean("consulMgr");
+//        mgr.init();
 
 //        启用console metric 输出
 //        ConsoleReporter reporter = ctx.getBean(ConsoleReporter.class);

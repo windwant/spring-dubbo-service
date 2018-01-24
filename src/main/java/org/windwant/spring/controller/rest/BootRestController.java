@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.windwant.spring.Constants;
+import org.windwant.spring.core.spi.SpiService;
 import org.windwant.spring.model.Guest;
 import org.windwant.spring.model.Response;
 import org.windwant.spring.model.User;
@@ -54,5 +55,13 @@ public class BootRestController extends BaseController {
     @RequestMapping("/login")
     Map<String, Object> login(@Valid User user){
         return bootService.login(user);
+    }
+
+    @Autowired
+    private SpiService spiService;
+
+    @RequestMapping("/spiCalc")
+    Map<String, Object> spiCalc(Integer value){
+        return Response.response(0, Response.MSG_SUCCESS, spiService.execCalc(value).toString());
     }
 }

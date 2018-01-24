@@ -1,0 +1,3 @@
+#org.windwant.spring.core.spi.service.SinCalc
+org.windwant.spring.core.spi.service.SqrtCalc
+#org.windwant.spring.core.spi.service.LogCalc
