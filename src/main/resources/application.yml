@@ -8,7 +8,8 @@ datasource:
         url: $[datasource.local.url]
         username: $[datasource.local.user]
         password: $[datasource.local.password]
-        driverClassName: com.mysql.cj.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
+        type: org.apache.commons.dbcp.BasicDataSource
         max-active: 30
         max-idle: 10
         max-wait: 10
@@ -17,7 +18,8 @@ datasource:
         url: $[datasource.remote.url]
         username: $[datasource.remote.user]
         password: $[datasource.remote.password]
-        driverClassName: com.mysql.cj.jdbc.Driver
+        driverClassName: com.mysql.jdbc.Driver
+        type: org.apache.commons.dbcp.BasicDataSource
         max-active: 30
         max-idle: 10
         max-wait: 10

@@ -1,6 +1,7 @@
 package org.windwant.spring.config;
 
 import org.hibernate.validator.HibernateValidator;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.windwant.spring.core.interceptor.BootInterceptor;
+import org.windwant.spring.core.mybatis.MapperScannerConfigurerProxy;
 
 /**
  * Created by Administrator on 2018/1/16.
@@ -43,6 +45,13 @@ public class ApplicationConfig {
             registry.setOrder( Ordered.HIGHEST_PRECEDENCE );
             super.addViewControllers(registry);
         }
+    }
+
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer() {
+        MapperScannerConfigurerProxy mapperScannerConfigurerProxy = new MapperScannerConfigurerProxy();
+        mapperScannerConfigurerProxy.setBasePackage("org.windwant.spring.mapper");
+        return mapperScannerConfigurerProxy;
     }
 
     /**

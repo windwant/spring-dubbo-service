@@ -110,8 +110,7 @@ public class ShiroConfig implements EnvironmentAware {
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
         return authorizationAttributeSourceAdvisor;
     }
-	
-	//
+
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -134,6 +133,8 @@ public class ShiroConfig implements EnvironmentAware {
         filterChainDefinitionMap.put("/login/notlogin", "anon");
         filterChainDefinitionMap.put("/export", "anon");
         filterChainDefinitionMap.put("/spiCalc", "anon");
+        filterChainDefinitionMap.put("/hello/**", "anon"); //配置不控制权限请求 anon
+        filterChainDefinitionMap.put("/hellox", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/**", "comauth");
 

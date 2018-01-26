@@ -40,7 +40,9 @@ public class BootServiceImpl implements BootService {
         logger.info(message);
         logger.info("mapper from @: {}", mySelMapper.getStringResult(1));
         logger.info("mapper from xml: ", mySelMapper.getResult(1));
-        return message;
+        String source = mySelMapper.getResult(1);
+        logger.info("data from {}", source);
+        return message + " from " + source;
     }
 
     public String hellox(Guest guest){
@@ -49,7 +51,9 @@ public class BootServiceImpl implements BootService {
         logger.info("guest: {}", guest.toString());
         logger.info("mapper from @: {}", mySelRMapper.getStringResult(1));
         logger.info("mapper from xml: {}", mySelRMapper.getResult(1));
-        return message;
+        String source = mySelRMapper.getResult(1);
+        logger.info("data from {}", source);
+        return message + " from " + source;
     }
 
     /**

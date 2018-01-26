@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebListener;
  * BootListener
  */
 @WebListener
-public class BootListener implements ServletContextListener {
+public class BootListener implements ServletContextListener{
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
