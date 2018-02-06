@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * BootServiceImpl
  */
-@Service
+@Service("bootsvr")
 public class BootServiceImpl implements BootService {
     private static final Logger logger = LoggerFactory.getLogger(BootServiceImpl.class);
 

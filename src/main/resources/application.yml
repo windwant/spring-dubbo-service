@@ -51,3 +51,18 @@ ftp:
     username: ftp
     password: ftp
     connectTimeOut: 10000
+dubbo:
+    application:
+        name: dubbo-server
+    registry:
+        address: multicast://224.5.6.7:1234
+    protocal:
+        port: 8082
+        serialization: kyro
+    service:
+        version: 1.0
+    provider:
+        timeout: 2000
+        threads: 100
+        retries: 2
+        proxy: javassist

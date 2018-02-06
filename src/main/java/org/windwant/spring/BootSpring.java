@@ -32,11 +32,7 @@ public class BootSpring
 {
     public static void main( String[] args )
     {
-        LocalTime localTime = new LocalTime();
-        System.out.println( "Hello World!" + localTime.toString());
-        localTime = localTime.plusHours(1);
-        System.out.println("Hello agin World!" + localTime.toString());
-        SpringApplication sa = new SpringApplication(BootSpring.class);
+        SpringApplication sa = new SpringApplication(BootSpring.class, "META-INF/spring/dubbo-service.xml");
 //        sa.addListeners(new DevAppListener());//注册Listener
         ApplicationContext ctx = sa.run(args);
 
