@@ -13,7 +13,7 @@ import org.windwant.spring.core.mybatis.DataSource.Type;
 @DataSource(Type.LOCAL)
 public interface MySelMapper {
 
-    @Select("select USER()")
+    @Select("select SYSDATE()")
     String getStringResult(@Param("id") Integer id);
 
     String getResult(@Param("id") Integer id);

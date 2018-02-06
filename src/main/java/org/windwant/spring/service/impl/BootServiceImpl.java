@@ -38,9 +38,10 @@ public class BootServiceImpl implements BootService {
     public String hello(String name){
         String message = "Hello " + name + ", welcome to my world!";
         logger.info(message);
-        logger.info("mapper from @: {}", mySelMapper.getStringResult(1));
-        logger.info("mapper from xml: ", mySelMapper.getResult(1));
         String source = mySelMapper.getResult(1);
+        logger.info("mapper from @: {}", mySelMapper.getStringResult(1));
+        logger.info("mapper from xml: {}", source);
+
         logger.info("data from {}", source);
         return message + " from " + source;
     }
@@ -49,9 +50,9 @@ public class BootServiceImpl implements BootService {
         String message = "Hellox " + guest.getName() + ", welcome to my world!";
         logger.info(message);
         logger.info("guest: {}", guest.toString());
-        logger.info("mapper from @: {}", mySelRMapper.getStringResult(1));
-        logger.info("mapper from xml: {}", mySelRMapper.getResult(1));
         String source = mySelRMapper.getResult(1);
+        logger.info("mapper from @: {}", mySelRMapper.getStringResult(1));
+        logger.info("mapper from xml: {}", source);
         logger.info("data from {}", source);
         return message + " from " + source;
     }

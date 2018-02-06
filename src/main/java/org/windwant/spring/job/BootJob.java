@@ -22,7 +22,7 @@ public class BootJob {
     private static final String dsUrlOne = "http://localhost:8081/hellox?name=kitty";
     private static final String dsUrlTwo = "http://localhost:8081/hello/";
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 5000)
     public void helloJob(){
         logger.info("current time is: {}", dateFormat.format(new Date()));
         String url = dsUrlTwo + ThreadLocalRandom.current().nextInt(5);
@@ -30,7 +30,7 @@ public class BootJob {
         HttpUtils.urlParamGet(url, 2);
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 3000)
     public void helloxJob(){
         logger.info("current time is: {}", dateFormat.format(new Date()));
         String url = dsUrlOne + ThreadLocalRandom.current().nextInt(5);
