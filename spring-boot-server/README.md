@@ -2,8 +2,6 @@
 
 springboot maven项目
 
-一、spring-boot-server
-
 1. servlet、listener、interceptor、filter配置
 2. mybatis配置集成，多数据源
 3. jmx监控MBean
@@ -37,14 +35,4 @@ springboot maven项目
 15. static资源， “/” 映射
 
 16. 使用druid数据源连接池；配置druid数据源监控：http://localhost:8081/druid/index.html
-
-
-二、spring-boot-client
-
-测试dubbo rpc服务
-
-
-三、spring-boot-common-api
-
-api 接口
 

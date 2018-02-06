@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- dubbox 消费者 -->
+    <context:property-placeholder location="config.properties"/>
+
+    <dubbo:application name="test-client" owner="spring-boot-test" organization="bootclient"/>
+
+    <dubbo:registry address="${dubbo.registry.address}"/>
+
+    <dubbo:protocol port="${dubbo.protocal.port}"/>
+
+    <!--async="true"-->
+    <dubbo:consumer  timeout="32000" filter="dubboCatFilter"/>
+
+    <!--cache="lru"-->
+    <dubbo:reference id="dubbosvr"
+                     interface="org.windwant.common.api.DubboService"/>
+</beans>
