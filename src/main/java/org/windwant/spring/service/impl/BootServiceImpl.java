@@ -98,6 +98,7 @@ public class BootServiceImpl implements BootService {
         if(currentUser.isAuthenticated()){
             User admin = User.build(user.getUserName(), user.getPasswd(), user.getStatus());
             SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_KEY_USER, user);
+            SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_DRUID_USER, user.getUserName());
             logger.info("login user {} login success", user.getUserName());
             return Response.response(0, Constants.SUCCESS, user);
         }else{

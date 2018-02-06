@@ -14,6 +14,13 @@ datasource:
         max-idle: 10
         max-wait: 10
         test-while-idle: true
+        aop-patterns: org.windwant.spring.mapper.*
+        filter:
+            stat:
+                db-type: mysql
+                log-slow-sql: true
+                slow-sql-millis: 2000
+        filters: wall,stat
     remote:
         url: $[datasource.remote.url]
         username: $[datasource.remote.user]
@@ -24,6 +31,13 @@ datasource:
         max-idle: 10
         max-wait: 10
         test-while-idle: true
+        aop-patterns: org.windwant.spring.mapper.*
+        filter:
+            stat:
+                db-type: mysql
+                log-slow-sql: true
+                slow-sql-millis: 2000
+        filters: wall,stat
 log:
     path: $[logPath]
     level: $[logLevel]

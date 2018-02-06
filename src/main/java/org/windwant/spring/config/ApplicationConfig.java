@@ -23,6 +23,10 @@ public class ApplicationConfig {
     @Configuration
     public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
+        /**
+         * 自定义拦截器
+         * @param registry
+         */
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(new BootInterceptor()).addPathPatterns("/**");
             super.addInterceptors(registry);
@@ -39,6 +43,10 @@ public class ApplicationConfig {
                     .allowedMethods("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH");
         }
 
+        /**
+         * 初始页面
+         * @param registry
+         */
         @Override
         public void addViewControllers(ViewControllerRegistry registry ) {
             registry.addViewController("/").setViewName( "forward:/index.html" );
@@ -47,6 +55,10 @@ public class ApplicationConfig {
         }
     }
 
+    /**
+     * mybatis mapper 扫描
+     * @return
+     */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurerProxy mapperScannerConfigurerProxy = new MapperScannerConfigurerProxy();
@@ -55,7 +67,7 @@ public class ApplicationConfig {
     }
 
     /**
-     * 验证
+     * 验证信息 message
      * @return
      */
     @Bean

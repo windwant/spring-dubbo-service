@@ -337,6 +337,12 @@
       <artifactId>jedis</artifactId>
       <version>2.9.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+      <version>1.1.6</version>
+    </dependency>
   </dependencies>
 
   <!--<repositories>-->

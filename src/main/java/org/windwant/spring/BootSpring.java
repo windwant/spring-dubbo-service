@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.windwant.spring.core.consul.ConsulMgr;
 
 import java.util.concurrent.TimeUnit;
@@ -19,12 +21,13 @@ import java.util.concurrent.TimeUnit;
  * @SpringBootApplication = @Configration +  @EnableAutoConfiguration + @ComponentScan
  * @ServletComponentScan scan servlet filter interceptor listener
  */
+@EnableTransactionManagement
 @SpringBootApplication
 @ServletComponentScan
 @EnableAutoConfiguration
 @PropertySource({"classpath:config.properties"})
 @PropertySource({"classpath:application.yml"})
-//@EnableScheduling //定时任务
+@EnableScheduling //定时任务
 public class BootSpring
 {
     public static void main( String[] args )

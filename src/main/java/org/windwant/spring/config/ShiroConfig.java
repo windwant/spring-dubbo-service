@@ -123,9 +123,18 @@ public class ShiroConfig implements EnvironmentAware {
         shiroFilterFactoryBean.setUnauthorizedUrl("/notlogin");
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         filterChainDefinitionMap.put("/", "user");
+
+        //本地静态文件放权
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
+
+        //druid监控web页面使用
+        filterChainDefinitionMap.put("/druid/css/**", "anon");
+        filterChainDefinitionMap.put("/druid/js/**", "anon");
+        filterChainDefinitionMap.put("/druid/img/**", "anon");
+
+
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/**.html", "anon");
         filterChainDefinitionMap.put("/login", "anon");
@@ -135,6 +144,7 @@ public class ShiroConfig implements EnvironmentAware {
         filterChainDefinitionMap.put("/spiCalc", "anon");
         filterChainDefinitionMap.put("/hello/**", "anon"); //配置不控制权限请求 anon
         filterChainDefinitionMap.put("/hellox", "anon");
+        filterChainDefinitionMap.put("/druid/*", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/**", "comauth");
 

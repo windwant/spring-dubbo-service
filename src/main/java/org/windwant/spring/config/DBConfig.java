@@ -1,5 +1,7 @@
 package org.windwant.spring.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -30,7 +32,7 @@ import java.util.Map;
  * implements EnvironmentAware, ApplicationContextAware
  */
 @Configuration
-public class MybatisConfig {
+public class DBConfig {
 
 //    private Environment environment;
 //
@@ -44,20 +46,20 @@ public class MybatisConfig {
     @Order(value = 1)
     @ConfigurationProperties(prefix = "datasource.local")
     public DataSource localDataSource(){
-        return DataSourceBuilder.create().build();
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Order(value = 2)
     @Bean(name = "remoteDataSource")
     @ConfigurationProperties(prefix = "datasource.remote")
     public DataSource remoteDataSource() {
-        return DataSourceBuilder.create().build();
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Bean(name = "routingDataSource")
     @Order(value = 3)
     public DataSource routingDataSource(@Qualifier("localDataSource") DataSource localDataSource,
-                                        @Qualifier("remoteDataSource") BasicDataSource remoteDataSource){
+                                        @Qualifier("remoteDataSource") DataSource remoteDataSource){
         RoutingDataSource routingDataSource = new RoutingDataSource();
         Map<Object, Object> dataSources = new HashMap<>();
         dataSources.put(Type.LOCAL.name(), localDataSource);

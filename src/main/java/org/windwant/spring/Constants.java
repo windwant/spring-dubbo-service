@@ -10,4 +10,5 @@ public class Constants {
 
     public static final String SESSION_KEY_IMAGE = "image";
     public static final String SESSION_KEY_USER = "user";
+    public static final String SESSION_DRUID_USER = "druid.user";
 }
