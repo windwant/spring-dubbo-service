@@ -38,6 +38,8 @@ springboot maven项目
 
 16. 使用druid数据源连接池；配置druid数据源监控：http://localhost:8081/druid/index.html
 
+17. dubbo server
+
 
 二、spring-boot-client
 
