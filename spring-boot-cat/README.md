@@ -4,6 +4,8 @@
 
 2. cat.war 放到tomcat路径下
 
+    car.war生成步骤参考 https://github.com/dianping/cat
+
 3. data 内为配置文件
 
     linux下 放到对应路径下 /data/appdatas/cat
