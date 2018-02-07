@@ -46,7 +46,7 @@ springboot maven项目
 测试dubbo rpc服务
 
 
-三、spring-boot-common-api
+三、spring-boot-common
 
 api 接口
 
