@@ -19,8 +19,8 @@
 
     <dubbo:protocol port="${dubbo.protocal.port}"/>
 
-    <!--async="true"-->
-    <dubbo:consumer  timeout="32000" filter="dubboCatFilter"/>
+    <!--async="true"  filter="dubboCatFilter"-->
+    <dubbo:consumer  timeout="32000" />
 
     <!--cache="lru"-->
     <dubbo:reference id="dubbosvr"

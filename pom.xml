@@ -10,6 +10,8 @@
     <module>spring-boot-client</module>
     <module>spring-boot-common</module>
     <module>spring-boot-cat</module>
+    <module>spring-boot-proxy</module>
+    <module>boot-spring-protobuf</module>
   </modules>
   <packaging>pom</packaging>
 

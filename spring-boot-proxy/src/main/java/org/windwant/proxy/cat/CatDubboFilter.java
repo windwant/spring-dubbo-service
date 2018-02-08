@@ -1,5 +1,5 @@
 
-package org.windwant.client.cat;
+package org.windwant.proxy.cat;
 
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
