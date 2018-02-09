@@ -12,6 +12,7 @@
     <module>spring-boot-cat</module>
     <module>spring-boot-proxy</module>
     <module>boot-spring-protobuf</module>
+    <module>spring-boot-dubbo</module>
   </modules>
   <packaging>pom</packaging>
 
