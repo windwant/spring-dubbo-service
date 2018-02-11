@@ -45,6 +45,8 @@ springboot maven项目
 
 测试dubbo rpc服务
 
+测试websocket protobuf
+
 三、spring-boot-common
 
 api 接口
@@ -52,4 +54,8 @@ api 接口
 四、spring-boot-proxy
 
 netty rpc 服务代理，处理业务消息解析 分发
+
+五、spring-boot-wsproxy
+
+netty rpc websocket 服务代理
 
