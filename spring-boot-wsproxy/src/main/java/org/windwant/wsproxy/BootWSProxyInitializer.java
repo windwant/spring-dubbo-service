@@ -40,9 +40,9 @@ public class BootWSProxyInitializer extends ChannelInitializer<SocketChannel> {
 //        pipeline.addLast("http-chunked", new ChunkedWriteHandler());
 //        pipeline.addLast(new WebSocketServerHandler());
 //
-        pipeline.addLast(new HttpServerCodec());
+        pipeline.addLast(new HttpServerCodec());//http协议进行编解码
         pipeline.addLast(new HttpObjectAggregator(65536));//它负责把多个HttpMessage组装成一个完整的Http请求或者响应。到底是组装成请求还是响应，则取决于它所处理的内容是请求的内容，还是响应的内容
-        pipeline.addLast(new ChunkedWriteHandler());
+        pipeline.addLast(new ChunkedWriteHandler());//分块写处理
         pipeline.addLast(new ProtobufVarint32FrameDecoder()); //长度解码
         pipeline.addLast(new ProtobufDecoder(BootRequestResponse.BootRequest.getDefaultInstance(), registry)); //protobuf 解码
         pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());//添加长度
