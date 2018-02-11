@@ -51,12 +51,12 @@ public class BootProtoClient {
             ch.pipeline().addLast(new ProtobufDecoder(BootRequestResponse.BootResponse.getDefaultInstance()));
             ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
             ch.pipeline().addLast(new ProtobufEncoder());
-            ch.pipeline().addLast(new BootClientProtoHandler());
+            ch.pipeline().addLast(new BootProtoHandler());
         }
     }
 }
 
-class BootClientProtoHandler extends ChannelInboundHandlerAdapter{
+class BootProtoHandler extends ChannelInboundHandlerAdapter{
     private static final Logger logger = LoggerFactory.getLogger(BootProtoClient.class);
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

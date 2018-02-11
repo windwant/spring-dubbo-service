@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script type="text/javascript" src="js/protobuf.js"></script>
+<script type="text/javascript">
+    if(!window.WebSocket){
+        window.WebSocket = window.MozWebsocket;
+    }
+
+    if(window.WebSocket){
+        socket = new WebSocket("ws://localhost:8087/websocket");
+        var Request;
+        var Response;
+        protobuf.load("./protobuf/BootRequestResponse.proto", function (err, root) {
+            if (err) throw err;
+            Request = root.lookup("org.windwant.protobuf.BootRequest");
+            Response = root.lookup("org.windwant.protobuf.BootResponse");
+        });
+
+        socket.onmessage = function(event){
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(event.data);
+            reader.onload = function(e){
+                var buf = new Uint8Array(reader.result);
+                var message = Response.decode(buf);
+                document.getElementById("rtext").value = message.result;
+            }
+
+        }
+
+        socket.onopen = function(event){
+            document.getElementById("rtext").value = "socket open";
+        }
+
+        socket.onclose = function(event){
+            document.getElementById("rtext").value = "socket close";
+        }
+    }else{
+        alert("browser not supported");
+    }
+
+    function sendMessage(){
+        if(!window.WebSocket){
+            return;
+        }
+
+        if(socket.readyState == WebSocket.OPEN){
+            request = Request.create({'requestCode': Math.random(), 'name':  document.getElementById('message').value, 'sex': 1, 'accessTime': new Date().getTime()});
+            buffer = Request.encode(request).finish();
+            socket.send(buffer);
+        }else{
+            alert('waiting connecting');
+        }
+    }
+
+</script>
+<body>
+<input type="text" id="message" name="message" value="best prictice">
+
+<input type="button" onclick="sendMessage()" value="SEND"/>
+
+</br>
+</br>
+</br>
+<textarea id="rtext" style="width: 30%; height: 200px;"/>
+</body>
+</html>
