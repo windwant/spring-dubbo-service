@@ -9,6 +9,9 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.util.ConfigUtil;
@@ -47,6 +50,8 @@ public class BootProtoClient {
         private static final String label = "$";
         @Override
         protected void initChannel(SocketChannel ch) throws Exception {
+            ch.pipeline().addLast(new IdleStateHandler(10, 10, 10));
+            ch.pipeline().addLast(new HeartBeatProxyHandler());
             ch.pipeline().addLast(new ProtobufVarint32FrameDecoder());
             ch.pipeline().addLast(new ProtobufDecoder(BootRequestResponse.BootResponse.getDefaultInstance()));
             ch.pipeline().addLast(new ProtobufVarint32LengthFieldPrepender());
@@ -87,5 +92,24 @@ class BootProtoHandler extends ChannelInboundHandlerAdapter{
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();
+    }
+}
+
+class HeartBeatProxyHandler extends ChannelInboundHandlerAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(HeartBeatProxyHandler.class);
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleState state = ((IdleStateEvent) evt).state();
+            if (state == IdleState.READER_IDLE) {
+                logger.info("idle event: {}", IdleState.READER_IDLE);
+            }else if(state == IdleState.WRITER_IDLE){
+                logger.info("idle event: {}", IdleState.WRITER_IDLE);
+            }else if(state == IdleState.ALL_IDLE){
+                logger.info("idle event: {}", IdleState.ALL_IDLE);
+            }
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
     }
 }
