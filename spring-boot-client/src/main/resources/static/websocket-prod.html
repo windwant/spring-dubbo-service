@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+websocket.html<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     }
 
     if(window.WebSocket){
-        socket = new WebSocket("ws://localhost:9097/websocket");
+        socket = new WebSocket("ws://localhost:9098/websocket");
         var Request;
         var Response;
         protobuf.load("./protobuf/BootRequestResponse.proto", function (err, root) {

@@ -153,6 +153,13 @@
       <artifactId>kryo-serializers</artifactId>
       <version>0.26</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.101tec/zkclient -->
+    <dependency>
+      <groupId>com.101tec</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>0.10</version>
+    </dependency>
   </dependencies>
 
   <!--<repositories>-->

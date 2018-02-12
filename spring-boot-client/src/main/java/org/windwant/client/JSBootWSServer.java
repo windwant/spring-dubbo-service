@@ -5,6 +5,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
+import org.windwant.common.util.ConfigUtil;
 
 /**
  * Created by Administrator on 2018/2/12.
@@ -21,7 +22,7 @@ public class JSBootWSServer {
 
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setWelcomeFiles(new String[]{"websocket.html"});//welcome file list
+        resourceHandler.setWelcomeFiles(new String[]{"websocket-" + ConfigUtil.get("evn") + ".html"});//welcome file list
         Resource resource = Resource.newClassPathResource("static"); //static resource root
         resourceHandler.setBaseResource(resource);
 
