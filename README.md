@@ -41,21 +41,33 @@ springboot maven项目
 17. dubbo server
 
 
-二、spring-boot-client
+二、spring-boot-test
 
 测试dubbo rpc服务
 
 测试websocket protobuf
 
-三、spring-boot-common
+三、spring-dubbo-common
 
 api 接口
 
-四、spring-boot-proxy
+四、spring-dubbo-proxy
 
 netty rpc 服务代理，处理业务消息解析 分发
 
-五、spring-boot-wsproxy
+五、spring-dubbo-wsproxy
 
 netty rpc websocket 服务代理
+
+六、spring-dubbo-protobuf
+
+protobuf 资源
+
+七、spring-dubbo-client
+
+proxy websocketproxy 测试工程
+
+八、spring-dubbo-elasticjob
+
+测试spring-boot-server druid监控定时任务
 

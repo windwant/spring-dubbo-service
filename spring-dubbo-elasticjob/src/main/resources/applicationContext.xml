@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:reg="http://www.dangdang.com/schema/ddframe/reg"
+       xmlns:job="http://www.dangdang.com/schema/ddframe/job"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.dangdang.com/schema/ddframe/reg
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd
+                        http://www.dangdang.com/schema/ddframe/job
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd
+                        ">
+    <context:property-placeholder location="classpath:config.properties,job/*.properties" />
+
+    <bean id="elasticJobLog" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.jdbc.url}"/>
+        <property name="username" value="${jdbc.jdbc.user}"/>
+        <property name="password" value="${jdbc.jdbc.password}"/>
+    </bean>
+
+    <reg:zookeeper id="regCenter" server-lists="${serverLists}" namespace="${namespace}" base-sleep-time-milliseconds="${baseSleepTimeMilliseconds}" max-sleep-time-milliseconds="${maxSleepTimeMilliseconds}" max-retries="${maxRetries}" />
+
+    <job:simple id="helloJob" class="${simple.1.class}"
+                registry-center-ref="regCenter"
+                sharding-total-count="${simple.1.shardingTotalCount}"
+                cron="${simple.1.cron}"
+                sharding-item-parameters="${simple.1.shardingItemParameters}"
+                monitor-execution="${simple.1.monitorExecution}"
+                failover="${simple.1.failover}"
+                description="${simple.1.description}"
+                disabled="${simple.1.disabled}"
+                overwrite="${simple.1.overwrite}"
+                event-trace-rdb-data-source="elasticJobLog" />
+
+    <job:simple id="helloxJob" class="${simple.2.class}"
+                registry-center-ref="regCenter"
+                sharding-total-count="${simple.2.shardingTotalCount}"
+                cron="${simple.2.cron}"
+                sharding-item-parameters="${simple.2.shardingItemParameters}"
+                monitor-execution="${simple.2.monitorExecution}"
+                failover="${simple.2.failover}"
+                description="${simple.2.description}"
+                disabled="${simple.2.disabled}"
+                overwrite="${simple.2.overwrite}"
+                event-trace-rdb-data-source="elasticJobLog" />
+
+    <!--<job:dataflow id="springDataflowJob" class="${dataflow.class}" registry-center-ref="regCenter" sharding-total-count="${dataflow.shardingTotalCount}" cron="${dataflow.cron}" sharding-item-parameters="${dataflow.shardingItemParameters}" monitor-execution="${dataflow.monitorExecution}" failover="${dataflow.failover}" max-time-diff-seconds="${dataflow.maxTimeDiffSeconds}" streaming-process="${dataflow.streamingProcess}" description="${dataflow.description}" disabled="${dataflow.disabled}" overwrite="${dataflow.overwrite}" />-->
+
+    <!-- use absolute path to run script job -->
+    <!--<job:script id="${script.id}" registry-center-ref="regCenter" script-command-line="${script.scriptCommandLine}" sharding-total-count="${script.shardingTotalCount}" cron="${script.cron}" sharding-item-parameters="${script.shardingItemParameters}" description="${script.description}" overwrite="${script.overwrite}" />-->
+</beans>

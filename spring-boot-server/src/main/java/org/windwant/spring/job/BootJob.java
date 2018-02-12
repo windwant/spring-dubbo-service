@@ -12,8 +12,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * BootJob 测试druid 数据源监控 定时任务
+ * http://localhost:8081/druid/index.html
  */
-@Component
+//@Component
 public class BootJob {
     private static final Logger logger = LoggerFactory.getLogger(BootJob.class);
 
