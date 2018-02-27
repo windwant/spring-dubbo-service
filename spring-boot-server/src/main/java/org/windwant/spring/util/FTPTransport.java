@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.windwant.spring.config.SpringConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,20 +28,20 @@ public class FTPTransport {
 
     private static final long DEFAULT_SO_TIMEOUT_MS = TimeUnit.MINUTES.toMillis(1);
 
-    @Value("${ftp.host}")
-    private String host;
-
-    @Value("${ftp.port}")
-    private int port;
-
-    @Value("${ftp.username}")
-    private String username;
-
-    @Value("${ftp.password}")
-    private String password;
-
-    @Value("${ftp.connectTimeOut}")
-    private Integer connectTimeOut;
+//    @Value("${ftp.host}")
+//    private String host;
+//
+//    @Value("${ftp.port}")
+//    private int port;
+//
+//    @Value("${ftp.username}")
+//    private String username;
+//
+//    @Value("${ftp.password}")
+//    private String password;
+//
+//    @Value("${ftp.connectTimeOut}")
+//    private Integer connectTimeOut;
 
     /**
      * Description: 向FTP服务器上传文件
@@ -61,8 +62,8 @@ public class FTPTransport {
         boolean result = false;
         FTPClient ftp = new FTPClient();
         try {
-            if (null != connectTimeOut && connectTimeOut > 0) {
-                ftp.setConnectTimeout(connectTimeOut);
+            if (null != SpringConfig.getConnectTimeOut() && SpringConfig.getConnectTimeOut() > 0) {
+                ftp.setConnectTimeout(SpringConfig.getConnectTimeOut());
             }
             int reply;
             if (port == 0) {
@@ -168,7 +169,7 @@ public class FTPTransport {
         int retryTimes = 0;
         boolean success = false;
         while (retryTimes < DEFAULT_RETRY_TIMES) {
-            success = uploadFile(host, port, username, password, basePath, filePath, filename, input);
+            success = uploadFile(SpringConfig.getHost(), SpringConfig.getPort(), SpringConfig.getUsername(), SpringConfig.getPassword(), basePath, filePath, filename, input);
             if (success) {
                 break;
             }

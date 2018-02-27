@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.windwant.spring.config.SpringConfig;
 import org.windwant.spring.util.JedisUtils;
 
 import java.util.ArrayList;
@@ -28,16 +29,16 @@ public class ConsulMgr {
 
     private static final Logger logger = LoggerFactory.getLogger(ConsulMgr.class);
 
-    @org.springframework.beans.factory.annotation.Value("${consul.host}")
-    private String consulHost;
+//    @org.springframework.beans.factory.annotation.Value("${consul.host}")
+//    private String consulHost;
     @org.springframework.beans.factory.annotation.Value("${server.port}")
     private Integer port;
-
-    @org.springframework.beans.factory.annotation.Value("${redis.host}")
-    private String redisHost;
-
-    @org.springframework.beans.factory.annotation.Value("${redis.port}")
-    private Integer redisPort;
+//
+//    @org.springframework.beans.factory.annotation.Value("${redis.host}")
+//    private String redisHost;
+//
+//    @org.springframework.beans.factory.annotation.Value("${redis.port}")
+//    private Integer redisPort;
 
     private KeyValueClient keyValueClient;
     private HealthClient healthClient;
@@ -52,16 +53,16 @@ public class ConsulMgr {
                 .withPing(true)
                 .withReadTimeoutMillis(2000)
                 .withWriteTimeoutMillis(2000)
-                .withHostAndPort(HostAndPort.fromParts(consulHost, 8500)).build();
+                .withHostAndPort(HostAndPort.fromParts(SpringConfig.getConsulHost(), 8500)).build();
         keyValueClient = consul.keyValueClient();
         healthClient = consul.healthClient();
         agentClient = consul.agentClient();
 
         //注册本服务到consul
-        registerService(bootService, bootService, bootService, consulHost, port, 5);
+        registerService(bootService, bootService, bootService, SpringConfig.getConsulHost(), port, 5);
 
         //注册测试redis服务
-        registerService(redisService, redisService, redisService, redisHost, redisPort, 5);
+        registerService(redisService, redisService, redisService, SpringConfig.getRedisHost(), SpringConfig.getRedisPort(), 5);
 
         //获取可用redis服务
         getHealthService(redisService);

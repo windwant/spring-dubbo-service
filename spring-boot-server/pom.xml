@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-boot-test</artifactId>
+        <artifactId>spring-dubbo-service</artifactId>
         <groupId>org.windwant.spring</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -159,7 +159,7 @@
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
-            <version>3.4</version>
+            <version>3.6</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -215,7 +215,13 @@
         <dependency>
             <groupId>com.orbitz.consul</groupId>
             <artifactId>consul-client</artifactId>
-            <version>0.17.1</version>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.ecwid.consul/consul-api -->
@@ -243,6 +249,12 @@
             <groupId>org.windwant.cat</groupId>
             <artifactId>spring-boot-cat</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- cat dependency jars -->
         <dependency>
@@ -256,5 +268,24 @@
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.baidu.disconf</groupId>
+            <artifactId>disconf-client</artifactId>
+            <version>2.6.36</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 </project>
