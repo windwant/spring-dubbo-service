@@ -5,9 +5,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.windwant.spring.core.consul.ConsulMgr;
 
 /**
  * Hello world!
@@ -20,13 +23,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan
 @EnableAutoConfiguration
 @PropertySource({"classpath:config.properties"})
-@PropertySource({"classpath:application.yml"})
+@PropertySource({"classpath:application.yml"})//取本地配置文件
 @EnableScheduling //定时任务
+@ImportResource({"META-INF/spring/dubbo-service.xml", "classpath:disconf/disconf.xml"}) //disconf 统一配置 }) //
 public class BootSpring
 {
     public static void main( String[] args )
     {
-        SpringApplication sa = new SpringApplication(BootSpring.class, "META-INF/spring/dubbo-service.xml");
+        SpringApplication sa = new SpringApplication(BootSpring.class);
 //        sa.addListeners(new DevAppListener());//注册Listener
         ApplicationContext ctx = sa.run(args);
 

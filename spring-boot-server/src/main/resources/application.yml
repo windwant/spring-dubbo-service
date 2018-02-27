@@ -43,14 +43,14 @@ log:
     level: $[logLevel]
 server:
     port: $[server.port]
-consul:
-    host: $[consul.host]
-ftp:
-    host: $[ftp.host]
-    port: $[ftp.port]
-    username: ftp
-    password: ftp
-    connectTimeOut: 10000
+#consul:
+#    host: $[consul.host]
+#ftp:
+#    host: $[ftp.host]
+#    port: $[ftp.port]
+#    username: ftp
+#    password: ftp
+#    connectTimeOut: 10000
 dubbo:
     application:
         name: dubbo-server
