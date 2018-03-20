@@ -2,6 +2,7 @@ package org.windwant.spring.config;
 
 import org.hibernate.validator.HibernateValidator;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.windwant.spring.core.interceptor.BootInterceptor;
 import org.windwant.spring.core.mybatis.MapperScannerConfigurerProxy;
+
+import javax.servlet.MultipartConfigElement;
 
 /**
  * Created by Administrator on 2018/1/16.
@@ -80,5 +83,30 @@ public class ApplicationConfig {
         rrbms.setDefaultEncoding("UTF-8");
         localValidatorFactoryBean.setValidationMessageSource(rrbms);
         return localValidatorFactoryBean;
+    }
+
+    /**
+     * springboot上传文件临时目录报错
+     * 解决方法：
+     * 1、重启服务，重新生成目录；
+     * 2、手动创建该目录；
+     * 3、在启动服务的main方法中，添加以下代码，指定上传文件的目录：
+     * @Bean
+     * MultipartConfigElement multipartConfigElement() {
+     *     MultipartConfigFactory factory =new MultipartConfigFactory(); 
+     *     factory.setLocation("/data/apps/temp"); 
+     *     return factory.createMultipartConfig();
+     * }
+     * 4、在应用的配置文件中添加以下配置，原理同3：
+     * server:
+     *     tomcat:
+     *         basedir: /data/apps/temp
+     **/
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation("/data/apps/temp");
+        return factory.createMultipartConfig();
+
     }
 }
