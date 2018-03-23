@@ -1,6 +1,6 @@
-# spring-boot-test  微服务
+# spring-dubbo-service  微服务
 
-springboot maven项目
+spring-dubbo maven项目
 
 一、spring-boot-server
 
