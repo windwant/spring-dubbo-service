@@ -8,10 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.windwant.dubbo</groupId>
-    <artifactId>spring-boot-dubbo</artifactId>
+    <artifactId>spring-dubbo-client</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-boot-dubbo</name>
+    <name>spring-dubbo-client</name>
     <url>http://maven.apache.org</url>
 
     <properties>

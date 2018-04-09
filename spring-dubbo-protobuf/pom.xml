@@ -8,10 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.windwant.protobuf</groupId>
-    <artifactId>boot-spring-protobuf</artifactId>
+    <artifactId>spring-dubbo-protobuf</artifactId>
     <packaging>jar</packaging>
 
-    <name>boot-spring-protobuf</name>
+    <name>spring-dubbo-protobuf</name>
     <url>http://maven.apache.org</url>
 
     <properties>

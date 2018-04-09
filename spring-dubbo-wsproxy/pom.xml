@@ -8,10 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.windwant.wsproxy</groupId>
-    <artifactId>spring-boot-wsproxy</artifactId>
+    <artifactId>spring-dubbo-wsproxy</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-boot-wsproxy</name>
+    <name>spring-dubbo-wsproxy</name>
     <url>http://maven.apache.org</url>
 
     <properties>

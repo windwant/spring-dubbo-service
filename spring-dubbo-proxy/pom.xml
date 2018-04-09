@@ -8,10 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.windwant.proxy</groupId>
-    <artifactId>spring-boot-proxy</artifactId>
+    <artifactId>spring-dubbo-proxy</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-boot-proxy</name>
+    <name>spring-dubbo-proxy</name>
     <url>http://maven.apache.org</url>
 
     <properties>
