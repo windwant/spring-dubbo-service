@@ -15,6 +15,7 @@
     <module>spring-dubbo-wsproxy</module>
     <module>spring-dubbo-client</module>
     <module>spring-dubbo-elasticjob</module>
+    <module>spring-dubbo-registry</module>
   </modules>
   <packaging>pom</packaging>
 
