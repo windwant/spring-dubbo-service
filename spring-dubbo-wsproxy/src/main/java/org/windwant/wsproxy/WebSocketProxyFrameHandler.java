@@ -12,6 +12,7 @@ import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.dubbo.DubboSvr;
+import org.windwant.wsproxy.util.ConsulUtil;
 import org.windwant.wsproxy.util.WSUtil;
 import org.windwant.protobuf.BootRequestResponse.BootRequest;
 
@@ -74,10 +75,9 @@ public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Obje
 
             //本地路由为空时，其他方法执行时维护用户路由信息
             if (WebSocketProxyChannelManager.getUserChannel(requestCode) == null) {
-                    WebSocketProxyChannelManager.registerUserChannel(requestCode, context.channel());
-
+                WebSocketProxyChannelManager.registerUserChannel(requestCode, context.channel());
+                ConsulUtil.putRequestChannel(requestCode);
             }
-
             WebSocketBusiHandler.dealBusi(context, bootRequest, DubboSvr.dubboService);
         } else if(webSocketFrame instanceof FullHttpRequest) {
             FullHttpRequest req = (FullHttpRequest) webSocketFrame;
@@ -127,11 +127,13 @@ public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Obje
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
-        logger.info("requestCode: {} channel is inactive!", requestCode);
-        String key = time + "_" + ctx.channel().id().asLongText();
-        //清理本地map中该用户的channel
-        WSUtil.removeChannel(requestCode, ctx.channel());
+        if(requestCode != null) {
+            logger.info("requestCode: {} channel is inactive!", requestCode);
+            String key = time + "_" + ctx.channel().id().asLongText();
+            //清理本地map中该用户的channel
+            WSUtil.removeChannel(requestCode, ctx.channel());
 
+        }
         //关闭与用户通道
         if (ctx.channel() != null) {
         	ctx.channel().close();

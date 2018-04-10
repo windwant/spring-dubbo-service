@@ -13,11 +13,13 @@ import java.util.Map;
 public class WebSocketProxyChannelManager {
 
     public static final Map<String, Channel> userChannels;
+    public static final Map<String, Channel> pushChannels;
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketProxyChannelManager.class);
 
     static {
         userChannels = new HashMap<>();
+        pushChannels = new HashMap<>();
     }
 
     public static Channel getUserChannel(String userId) {
@@ -30,6 +32,18 @@ public class WebSocketProxyChannelManager {
 
     public static void removeUserChannel(String userId) {
         userChannels.remove(userId);
+    }
+
+    public static Channel getPushChannel(String ip) {
+        return pushChannels.get(ip);
+    }
+
+    public static void registerPushChannel(String ip, Channel channel) {
+        pushChannels.put(ip, channel);
+    }
+
+    public static void removePushChannel(String ip) {
+        pushChannels.remove(ip);
     }
 
 }
