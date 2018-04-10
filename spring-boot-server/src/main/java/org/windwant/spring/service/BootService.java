@@ -1,8 +1,10 @@
 package org.windwant.spring.service;
 
 import org.windwant.spring.model.Guest;
+import org.windwant.spring.model.Person;
 import org.windwant.spring.model.User;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,4 +17,6 @@ public interface BootService {
     String hellox(Guest guest);
 
     Map<String, Object> login(User user);
+
+    void testMongo();
 }

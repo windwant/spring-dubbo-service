@@ -9,15 +9,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.windwant.spring.Constants;
+import org.windwant.spring.mongo.MongoPersonRepository;
 import org.windwant.spring.mapper.MySelMapper;
 import org.windwant.spring.mapper.MySelRMapper;
 import org.windwant.spring.model.Guest;
+import org.windwant.spring.model.Person;
 import org.windwant.spring.model.Response;
 import org.windwant.spring.model.User;
 import org.windwant.spring.service.BootService;
 import org.windwant.spring.util.LangUtil;
+import sun.dc.path.PathError;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * BootServiceImpl
@@ -106,5 +111,16 @@ public class BootServiceImpl implements BootService {
             token.clear();
             return Response.response(-1, msg);//重新登录
         }
+    }
+
+    @Autowired
+    private MongoPersonRepository personRepository;
+
+    public void testMongo(){
+        Person person = new Person();
+        person.setFirstName(String.valueOf("F" + ThreadLocalRandom.current().nextInt(100)));
+        person.setLastName(String.valueOf("L" + ThreadLocalRandom.current().nextInt(100)));
+        personRepository.insert(person);
+        personRepository.findAll().forEach(item->logger.info("mongo item: {}", item.toString()));
     }
 }

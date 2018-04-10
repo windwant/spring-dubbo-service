@@ -9,6 +9,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.util.ConfigUtil;
+import org.windwant.registry.RegistryFactory;
+import org.windwant.registry.RegistryService;
 
 /**
  * WSProxy server
@@ -20,6 +22,8 @@ public class WebSocketProxyServer {
 
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
+
+    private String serviceId = null;
 
     public static void main(String[] args) throws Exception {
         WebSocketProxyServer wss = new WebSocketProxyServer();
@@ -54,7 +58,13 @@ public class WebSocketProxyServer {
                      .option(ChannelOption.SO_BACKLOG, 8192)
                      .childHandler(new WebSocketProxyInitializer());
              channelFuture = bootstrap.bind(ConfigUtil.getInteger("websocket.connect.port"));
-
+             //向consul注册服务
+             serviceId = RegistryFactory.INSTANCE.
+                     getRegistry(RegistryFactory.CONSUL).
+                     doRegister(RegistryService.build("websocket",
+                             "localhost",
+                             ConfigUtil.getInteger("websocket.connect.port"),
+                             "1.0"));
          } catch (Exception e) {
              logger.error("Acceptor Server Start ERROR", e);
              throw new RuntimeException(e);
@@ -65,6 +75,7 @@ public class WebSocketProxyServer {
 
              bossGroup.shutdownGracefully();
              workerGroup.shutdownGracefully();
+
          }
     }
 
@@ -77,6 +88,10 @@ public class WebSocketProxyServer {
     		logger.info("the work group is shutdown gracefully!");
     		workerGroup.shutdownGracefully();
     	}
+        if(serviceId != null) {
+            RegistryFactory.INSTANCE.
+                    getRegistry(RegistryFactory.CONSUL).doUnRegister(serviceId);
+        }
      }
 
 

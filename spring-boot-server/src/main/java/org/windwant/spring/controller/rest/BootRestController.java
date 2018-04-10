@@ -3,6 +3,7 @@ package org.windwant.spring.controller.rest;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,5 +64,11 @@ public class BootRestController extends BaseController {
     @RequestMapping("/spiCalc")
     Map<String, Object> spiCalc(Integer value){
         return Response.response(0, Response.MSG_SUCCESS, spiService.execCalc(value).toString());
+    }
+
+    @GetMapping("/mongo")
+    Map<String, Object> testMongo(){
+        bootService.testMongo();
+        return Response.response(0, Response.MSG_SUCCESS);
     }
 }
