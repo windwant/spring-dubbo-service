@@ -111,17 +111,17 @@
     <dependencies>
         <dependency>
             <groupId>org.windwant.protobuf</groupId>
-            <artifactId>boot-spring-protobuf</artifactId>
+            <artifactId>spring-dubbo-protobuf</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.spring</groupId>
-            <artifactId>spring-boot-common</artifactId>
+            <artifactId>spring-dubbo-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.cat</groupId>
-            <artifactId>spring-boot-cat</artifactId>
+            <artifactId>spring-dubbo-cat</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
@@ -139,15 +139,16 @@
             <artifactId>spring-core</artifactId>
             <version>4.3.1.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.windwant.dubbo</groupId>
-            <artifactId>spring-boot-dubbo</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
             <groupId>org.windwant.registry</groupId>
             <artifactId>spring-dubbo-registry</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.windwant.dubbo</groupId>
+            <artifactId>spring-dubbo-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

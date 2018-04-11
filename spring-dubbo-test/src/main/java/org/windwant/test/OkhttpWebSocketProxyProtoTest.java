@@ -1,11 +1,11 @@
-package org.windwant.client;
+package org.windwant.test;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import okhttp3.*;
 import okio.ByteString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.client.util.ProxyUtil;
+import org.windwant.test.util.ProxyUtil;
 import org.windwant.protobuf.BootRequestResponse;
 
 import java.util.concurrent.ThreadLocalRandom;

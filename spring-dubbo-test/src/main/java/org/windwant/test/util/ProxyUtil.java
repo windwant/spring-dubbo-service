@@ -1,8 +1,7 @@
-package org.windwant.client.util;
+package org.windwant.test.util;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import org.windwant.common.util.DateUtil;
 import org.windwant.protobuf.BootRequestResponse;
 

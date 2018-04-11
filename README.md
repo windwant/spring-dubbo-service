@@ -1,7 +1,5 @@
 # spring-dubbo-service  微服务
 
-spring-dubbo maven项目
-
 一、spring-boot-server
 
 1. servlet、listener、interceptor、filter配置

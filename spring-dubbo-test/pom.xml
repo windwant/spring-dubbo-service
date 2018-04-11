@@ -8,10 +8,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.windwant.spring</groupId>
-    <artifactId>spring-dubbo-client</artifactId>
+    <artifactId>spring-dubbo-test</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-dubbo-client</name>
+    <name>spring-dubbo-test</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -126,29 +126,23 @@
         <!-- cat dependency jars -->
         <dependency>
             <groupId>org.windwant.cat</groupId>
-            <artifactId>spring-boot-cat</artifactId>
+            <artifactId>spring-dubbo-cat</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.spring</groupId>
-            <artifactId>spring-boot-common</artifactId>
+            <artifactId>spring-dubbo-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.protobuf</groupId>
-            <artifactId>boot-spring-protobuf</artifactId>
+            <artifactId>spring-dubbo-protobuf</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>3.9.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.windwant.protobuf</groupId>
-            <artifactId>boot-spring-protobuf</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->

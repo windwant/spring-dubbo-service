@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>org.windwant.spring</groupId>
-            <artifactId>spring-boot-common</artifactId>
+            <artifactId>spring-dubbo-common</artifactId>
             <version>1.0</version>
         </dependency>
 

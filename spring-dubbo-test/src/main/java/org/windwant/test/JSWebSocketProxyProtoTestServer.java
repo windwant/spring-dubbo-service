@@ -1,4 +1,4 @@
-package org.windwant.client;
+package org.windwant.test;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;

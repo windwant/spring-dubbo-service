@@ -1,4 +1,4 @@
-package org.windwant.client;
+package org.windwant.test;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
