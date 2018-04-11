@@ -69,3 +69,13 @@ proxy websocketproxy 测试工程
 
 测试spring-boot-server druid监控定时任务
 
+九、spring-dubbo-registry
+
+consul服务注册：示例
+
+RegistryFactory.INSTANCE.
+                     getRegistry(RegistryFactory.CONSUL).
+                     doRegister(RegistryService.build(ConfigUtil.get("service.name"),
+                             Inet4Address.getLocalHost().getHostAddress(),
+                             ConfigUtil.getInteger("websocket.connect.port"),
+                             ConfigUtil.get("service.version")));
