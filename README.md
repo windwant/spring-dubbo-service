@@ -85,3 +85,9 @@
 
 启动redis
 
+3. zookeeper
+
+部署zookeeper服务
+
+启动zookeeper
+
