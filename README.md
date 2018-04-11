@@ -50,21 +50,18 @@
 
   测试spring-boot-server druid监控定时任务
 
-九、spring-dubbo-registry
-
-  注册服务工具
-
-十、spring-dubbo-push
-
-  消息监听推送
 
 九、spring-dubbo-registry
 
-consul服务注册：示例
+  consul服务注册：示例
 
-RegistryFactory.INSTANCE.
+  RegistryFactory.INSTANCE.
                      getRegistry(RegistryFactory.CONSUL).
                      doRegister(RegistryService.build(ConfigUtil.get("service.name"),
                              Inet4Address.getLocalHost().getHostAddress(),
                              ConfigUtil.getInteger("websocket.connect.port"),
                              ConfigUtil.get("service.version")));
+
+十、spring-dubbo-push
+
+  消息监听推送
