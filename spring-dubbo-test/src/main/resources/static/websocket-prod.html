@@ -48,7 +48,7 @@ websocket.html<!DOCTYPE html>
         }
 
         if(socket.readyState == WebSocket.OPEN){
-            request = Request.create({'requestCode': Math.random(), 'name':  document.getElementById('message').value, 'sex': 1, 'accessTime': new Date().getTime()});
+            request = Request.create({'requestCode': document.getElementById('request_code').value, 'name':  document.getElementById('message').value, 'sex': 1, 'accessTime': new Date()});
             buffer = Request.encode(request).finish();
             socket.send(buffer);
         }else{
@@ -58,8 +58,12 @@ websocket.html<!DOCTYPE html>
 
 </script>
 <body>
+<label>请求标识：</label>
+<input type="text" id="request_code" name="requestCode" value="">
+<br/>
+<label>请求消息：</label>
 <input type="text" id="message" name="message" value="best prictice">
-
+<br/>
 <input type="button" onclick="sendMessage()" value="SEND"/>
 
 </br>

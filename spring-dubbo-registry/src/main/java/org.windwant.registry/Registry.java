@@ -8,4 +8,6 @@ public interface Registry {
     String doRegister(RegistryService service);
 
     void doUnRegister(String id);
+
+    void doUnRegisterByName(String... names);
 }

@@ -1,5 +1,6 @@
 package org.windwant.push;
 
+import com.alibaba.fastjson.JSONObject;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -21,23 +22,37 @@ public class MqMonitor {
     private static final String PUSH_KEY = "msg_push";
 
     public void start(){
-        logger.info("mq monitor start...");
-        while (!Thread.currentThread().isInterrupted()){
-            Jedis jedis = JedisUtils.getJedis();
-            List<String> msg = jedis.brpop(2000, PUSH_KEY);
-            if(msg.isEmpty() || msg.size() == 0) continue;
+        try {
+            logger.info("mq monitor start...");
+            while (!Thread.currentThread().isInterrupted()) {
+                Jedis jedis = JedisUtils.getJedis();
+                List<String> msg = jedis.brpop(2000, PUSH_KEY);
+                if (msg.isEmpty() || msg.size() == 0) continue;
 
-            handleMsg(msg.get(1));
+                handleMsg(msg.get(1));
+            }
+        }catch (Exception e){
+            logger.error("mq monitor error: {}", e.getMessage());
         }
     }
 
+    /**
+     * 处理json格式msg
+     * {
+     *     requestCode: 0,
+     *     msg: "test"
+     * }
+     * @param msg
+     */
     private void handleMsg(String msg){
         logger.info("begin hanle msg : {}", msg);
         if(PushServerChannelMgr.websocketChannel != null){
+            JSONObject push = JSONObject.parseObject(msg);
+
             BootRequestResponse.BootResponse response = BootRequestResponse.BootResponse.newBuilder()
-                    .setRequestCode(Integer.parseInt(msg))
-                    .setRespCode(Integer.parseInt(msg))
-                    .setResult("push msg  test")
+                    .setRequestCode(push.getInteger("requestCode"))
+                    .setRespCode(push.getInteger("requestCode"))
+                    .setResult(push.getString("msg"))
                     .build();
             PushServerChannelMgr.websocketChannel.writeAndFlush(Unpooled.wrappedBuffer(response.toByteArray()))
             .addListener(new ChannelFutureListener() {

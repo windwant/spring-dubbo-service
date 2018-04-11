@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.util.ConfigUtil;
+import org.windwant.common.util.NetUtil;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PushServer
                         ConfigUtil.getInteger("consul.port")))
                 .build()
                 .healthClient();
-        List<ServiceHealth> nodes = healthClient.getHealthyServiceInstances(ConfigUtil.get("websocket.push.server")).getResponse();
+        List<ServiceHealth> nodes = healthClient.getHealthyServiceInstances(NetUtil.getHost() + "/" + ConfigUtil.get("websocket.push.server")).getResponse();
         if(nodes != null && nodes.size() > 0) {
             ServiceHealth serviceHealth = nodes.get(0);
             bootstrap.group(EventLoopGroup)
@@ -47,6 +48,8 @@ public class PushServer
             } catch (InterruptedException e) {
                 EventLoopGroup.shutdownGracefully();
             }
+        }else {
+            logger.warn("websocket push service not available");
         }
     }
     public static void main( String[] args )
