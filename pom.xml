@@ -16,6 +16,7 @@
     <module>spring-dubbo-client</module>
     <module>spring-dubbo-elasticjob</module>
     <module>spring-dubbo-registry</module>
+    <module>spring-dubbo-push</module>
   </modules>
   <packaging>pom</packaging>
 

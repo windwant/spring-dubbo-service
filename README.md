@@ -1,6 +1,4 @@
-# spring-boot-test  微服务
-
-springboot maven项目
+# spring-dubbo-service  微服务
 
 一、spring-boot-server
 
@@ -41,7 +39,7 @@ springboot maven项目
 17. dubbo server
 
 
-二、spring-boot-test
+二、spring-dubbo-test
 
 测试dubbo rpc服务
 

@@ -130,22 +130,22 @@
         </dependency>
         <dependency>
             <groupId>org.windwant.protobuf</groupId>
-            <artifactId>boot-spring-protobuf</artifactId>
+            <artifactId>spring-dubbo-protobuf</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.spring</groupId>
-            <artifactId>spring-boot-common</artifactId>
+            <artifactId>spring-dubbo-common</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.cat</groupId>
-            <artifactId>spring-boot-cat</artifactId>
+            <artifactId>spring-dubbo-cat</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.dubbo</groupId>
-            <artifactId>spring-boot-dubbo</artifactId>
+            <artifactId>spring-dubbo-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

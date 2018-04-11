@@ -10,7 +10,7 @@ echo "建立临时拷贝目录"
 rm -rf ~/MyDeploy
 mkdir -p ~/MyDeploy
 
-scp /root/.jenkins/workspace/sboot/target/spring-boot-test-1.0-SNAPSHOT-test.zip ~/MyDeploy
+scp /root/.jenkins/workspace/sboot/target/spring-boot-server-1.0-SNAPSHOT-test.zip ~/MyDeploy
 echo "拷贝业务服务文件成功"
 
 echo "尝试优雅退出服务"
@@ -25,8 +25,8 @@ cp -r ~/MyDeploy /work
 
 echo "解压服务文件"
 cd /work/MyDeploy
-unzip spring-boot-test-1.0-SNAPSHOT-test.zip -d sboot
-rm -f spring-boot-test-1.0-SNAPSHOT-test.zip
+unzip spring-boot-server-1.0-SNAPSHOT-test.zip -d sboot
+rm -f spring-boot-server-1.0-SNAPSHOT-test.zip
 
 echo "启动服务"
 cd /work/MyDeploy/sboot

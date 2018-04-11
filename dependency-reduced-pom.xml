@@ -8,8 +8,8 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.windwant.spring</groupId>
-  <artifactId>spring-boot-test</artifactId>
-  <name>spring-boot-test</name>
+  <artifactId>spring-boot-server</artifactId>
+  <name>spring-boot-server</name>
   <version>1.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <build>

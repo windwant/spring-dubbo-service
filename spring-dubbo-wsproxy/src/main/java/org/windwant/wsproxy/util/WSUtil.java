@@ -19,7 +19,7 @@ public class WSUtil {
     public static void removeChannel(String requestCode, Channel channel) {
         if (!StringUtils.isEmpty(requestCode)) {
             //requestCode->Channel 关系移除
-            WebSocketProxyChannelManager.removeUserChannel(requestCode);
+            WebSocketProxyChannelManager.removeUserChannel("channel-" + requestCode);
         }
 
         if (null != channel && channel.isActive()) {

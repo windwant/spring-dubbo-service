@@ -74,8 +74,8 @@ public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Obje
             logger.info("request requestCode:{}", requestCode);
 
             //本地路由为空时，其他方法执行时维护用户路由信息
-            if (WebSocketProxyChannelManager.getUserChannel(requestCode) == null) {
-                WebSocketProxyChannelManager.registerUserChannel(requestCode, context.channel());
+            if (WebSocketProxyChannelManager.getUserChannel("channel-" + requestCode) == null) {
+                WebSocketProxyChannelManager.registerUserChannel("channel-" + requestCode, context.channel());
                 ConsulUtil.putRequestChannel(requestCode);
             }
             WebSocketBusiHandler.dealBusi(context, bootRequest, DubboSvr.dubboService);
