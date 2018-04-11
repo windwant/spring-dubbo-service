@@ -10,9 +10,9 @@
 
 =》浏览器访问 http://localhost:8989/
 
-=》点击发送
+=》填写连接标识、发送内容，点击发送
 
-=》连接redis服务器，执行lpush msg_push 0
+=》运行PushMsgRedisTest向Redis msg_push添加消息
 
 =》观察页面消息结果
 

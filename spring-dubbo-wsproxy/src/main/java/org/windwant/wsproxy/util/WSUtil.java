@@ -9,6 +9,9 @@ import org.springframework.util.StringUtils;
 import org.windwant.protobuf.BootRequestResponse;
 import org.windwant.wsproxy.WebSocketProxyChannelManager;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+
 /**
  */
 public class WSUtil {
@@ -20,6 +23,7 @@ public class WSUtil {
         if (!StringUtils.isEmpty(requestCode)) {
             //requestCode->Channel 关系移除
             WebSocketProxyChannelManager.removeUserChannel("channel-" + requestCode);
+            ConsulUtil.removeRequestChannel("channel-" + requestCode);
         }
 
         if (null != channel && channel.isActive()) {
@@ -57,4 +61,5 @@ public class WSUtil {
     public static BinaryWebSocketFrame getBinaryWebSocketFrameResponse(int requestCode, int respCode, String message){
         return new BinaryWebSocketFrame(getByteBufResponse(requestCode, respCode, message));
     }
+
 }

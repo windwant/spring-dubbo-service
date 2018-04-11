@@ -11,6 +11,7 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.windwant.common.util.NetUtil;
 import org.windwant.dubbo.DubboSvr;
 import org.windwant.wsproxy.util.ConsulUtil;
 import org.windwant.wsproxy.util.WSUtil;
@@ -23,14 +24,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * WebSocket的binaryFrame的处理，解析protobuf基类，获取路由信息，并异步调用业务路由服务或位置上传服务；对每条通道进行维持与管理
- *
+ * 处理WebSocket binaryFrame；
+ * 解析protobuf消息；
+ * 通道管理与维护
  */
 public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Object> {
 
     private static final Logger logger = LoggerFactory.getLogger(WebSocketProxyFrameHandler.class);
 
-    private String requestCode; //连接长连接服务器的用户ID
+    private String requestCode; //连接长连接服务器的标识
 
     private Long time;//客户端连接上长连接服务器的时间戳
 
@@ -65,28 +67,30 @@ public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Obje
             try {
             	bootRequest = BootRequest.parseFrom(inBytes);
             }catch (Exception e) {
-            	// 当出现异常记录异常,中断连接，在移动网络中，protobuf数据很有可能发生损坏，但protobuf并不对数据内容做校验，只做格式校验，一旦出错，就会抛异常
-            	logger.warn("the request protobuf data is corrupted!");
+            	logger.warn("the request protobuf data parse failed!");
                 return;
             }
             requestCode = String.valueOf(bootRequest.getRequestCode());
             //对baseRequest解析，
-            logger.info("request requestCode:{}", requestCode);
+            logger.info("websocket request requestCode:{}", requestCode);
 
-            //本地路由为空时，其他方法执行时维护用户路由信息
+            //channel维护管理
             if (WebSocketProxyChannelManager.getUserChannel("channel-" + requestCode) == null) {
                 WebSocketProxyChannelManager.registerUserChannel("channel-" + requestCode, context.channel());
-                ConsulUtil.putRequestChannel(requestCode);
+                ConsulUtil.putRequestChannel(NetUtil.getHost(), requestCode);
             }
+            //处理业务逻辑
             WebSocketBusiHandler.dealBusi(context, bootRequest, DubboSvr.dubboService);
-        } else if(webSocketFrame instanceof FullHttpRequest) {
+        } else if(webSocketFrame instanceof FullHttpRequest) {//初始连接
             FullHttpRequest req = (FullHttpRequest) webSocketFrame;
+            //非websocket连接
             if(!req.decoderResult().isSuccess()
                     || !"websocket".equals(req.headers().get("upgrade"))){
                 sendHttpResponse(context, req, new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
                 return;
             }
 
+            //握手连接
             WebSocketServerHandshakerFactory wf = new WebSocketServerHandshakerFactory("ws://localhost:8087/websocket", null, false);
             webSocketServerHandshaker = wf.newHandshaker(req);
             if(webSocketServerHandshaker == null){
@@ -123,14 +127,12 @@ public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Obje
         String key = time + "_" + ctx.channel().id().asLongText();
     }
 
-    //关闭成功后收到通知的事件
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
         if(requestCode != null) {
             logger.info("requestCode: {} channel is inactive!", requestCode);
             String key = time + "_" + ctx.channel().id().asLongText();
-            //清理本地map中该用户的channel
             WSUtil.removeChannel(requestCode, ctx.channel());
 
         }
@@ -147,7 +149,6 @@ public class WebSocketProxyFrameHandler extends SimpleChannelInboundHandler<Obje
         
         logger.error("websocket exceptionCaught: {}", cause);
         WSUtil.removeChannel(requestCode, null);
-        //发送错误消息，关闭通道
         WSUtil.response(ctx.channel(), Integer.parseInt(requestCode), -1, "not supported");
     }
 }

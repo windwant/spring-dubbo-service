@@ -2,6 +2,11 @@ package org.windwant.registry;
 
 import com.ecwid.consul.v1.ConsulClient;
 import com.ecwid.consul.v1.agent.model.NewService;
+import com.ecwid.consul.v1.agent.model.Service;
+
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by Administrator on 18-4-9.
@@ -39,5 +44,16 @@ public class ConsulRegistry implements Registry {
     public void doUnRegister(String id) {
         ConsulClient consul = new ConsulClient(host, port);
         consul.agentServiceDeregister(id);
+    }
+
+    @Override
+    public void doUnRegisterByName(String... names) {
+        ConsulClient consul = new ConsulClient(host, port);
+        Map<String, Service> services = consul.getAgentServices().getValue().values().stream().collect(Collectors.toMap(Service::getService, Function.identity(), (key1, key2) -> key2));
+        for (String temp: names) {
+            if(services.get(temp) != null){
+                consul.agentServiceDeregister(services.get(temp).getId());
+            }
+        }
     }
 }

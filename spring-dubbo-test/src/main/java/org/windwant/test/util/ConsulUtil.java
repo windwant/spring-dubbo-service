@@ -1,15 +1,20 @@
-package org.windwant.wsproxy.util;
+package org.windwant.test.util;
 
 import com.google.common.net.HostAndPort;
-import com.orbitz.consul.AgentClient;
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.KeyValueClient;
+import com.orbitz.consul.model.kv.Value;
 import com.orbitz.consul.option.DeleteOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.util.ConfigUtil;
 import org.windwant.common.util.NetUtil;
-import org.windwant.registry.RegistryFactory;
+
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class ConsulUtil {
@@ -44,10 +49,9 @@ public class ConsulUtil {
     /**
      * 服务启动 清除本及注册的服务及旧的通道信息
      */
-    public static void initClear(){
-        getClient().deleteKey(NetUtil.getHost(), DeleteOptions.RECURSE);
-        RegistryFactory.INSTANCE.
-                getRegistry(RegistryFactory.CONSUL).
-                doUnRegisterByName(NetUtil.getHost() + "/" + ConfigUtil.get("service.name"), NetUtil.getHost() + "/" + ConfigUtil.get("service.push.name"));
+    public static List getServiceChannel(){
+        List<Value> channels = getClient().getValues(NetUtil.getHost());
+
+        return channels.stream().map(Value::getValueAsString).map(Optional::get).collect(Collectors.toList());
     }
 }

@@ -15,7 +15,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import org.windwant.protobuf.BootRequestResponse;
 
 /**
- * Netty的channel pipeline对websocket、protobuf的相关拦截处理，被WebSocketServer调用
+ * Netty的channel ChannelInboundHandlerAdapter 初始handler
  */
 public class WebSocketProxyInitializer extends ChannelInitializer<SocketChannel> {
 
