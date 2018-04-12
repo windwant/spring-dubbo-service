@@ -26,7 +26,7 @@ public class HelloJob implements DataflowJob{
 
     @Override
     public void processData(ShardingContext shardingContext, List data) {
-        logger.info("job {}, param: {}", shardingContext.getJobName(), shardingContext.getShardingParameter());
+//        logger.info("job {}, param: {}", shardingContext.getJobName(), shardingContext.getShardingParameter());
         String url = dsUrlTwo + shardingContext.getShardingParameter() + data.get(0);
         logger.info("test hello request url {}", url);
         HttpUtils.urlParamGet(url, 2);
