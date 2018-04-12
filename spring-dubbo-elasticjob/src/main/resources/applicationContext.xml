@@ -34,7 +34,9 @@
                 description="${simple.1.description}"
                 disabled="${simple.1.disabled}"
                 overwrite="${simple.1.overwrite}"
-                event-trace-rdb-data-source="elasticJobLog" />
+                event-trace-rdb-data-source="elasticJobLog" >
+        <job:listener class="org.windwant.elasticjob.listener.HelloJobListener"/>
+    </job:simple>
 
     <job:dataflow id="helloDataFlowJob"
                   class="${dataflow.1.class}"
@@ -48,7 +50,9 @@
                   streaming-process="${dataflow.1.streamingProcess}"
                   description="${dataflow.1.description}"
                   disabled="${dataflow.1.disabled}"
-                  overwrite="${dataflow.1.overwrite}" />
+                  overwrite="${dataflow.1.overwrite}" >
+        <job:listener class="org.windwant.elasticjob.listener.HelloJobListener"/>
+    </job:dataflow>
 
     <!-- use absolute path to run script job -->
     <!--<job:script id="${script.id}" registry-center-ref="regCenter" script-command-line="${script.scriptCommandLine}" sharding-total-count="${script.shardingTotalCount}" cron="${script.cron}" sharding-item-parameters="${script.shardingItemParameters}" description="${script.description}" overwrite="${script.overwrite}" />-->

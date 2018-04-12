@@ -14,7 +14,7 @@ public class HelloxJob implements SimpleJob{
     private static final String dsUrlOne = "http://localhost:8081/hellox?name=";
     @Override
     public void execute(ShardingContext shardingContext) {
-        logger.info("job {}, param: {}", shardingContext.getJobName(), shardingContext.getShardingParameter());
+//        logger.info("job {}, param: {}, total sharding: {}, current sharding: {}", shardingContext.getJobName(), shardingContext.getShardingParameter(), shardingContext.getShardingTotalCount(), shardingContext.getShardingItem());
         String url = dsUrlOne + shardingContext.getShardingParameter();
         logger.info("test hellox request url {}", url);
         HttpUtils.urlParamGet(url, 2);
