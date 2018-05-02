@@ -5,8 +5,8 @@
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <RollingFile name="rollingFile" fileName="${log.path}/job.log"
-                     filePattern="${log.path}/${date:yyyy-MM}/job-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="rollingFile" fileName="logs/job.log"
+                     filePattern="logs/${date:yyyy-MM}/job-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
             <Policies>

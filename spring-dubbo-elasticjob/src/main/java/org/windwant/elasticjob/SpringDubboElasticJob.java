@@ -10,6 +10,8 @@ public class SpringDubboElasticJob
 {
     public static void main( String[] args )
     {
-        new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        ctx.registerShutdownHook();
+        ctx.start();
     }
 }
