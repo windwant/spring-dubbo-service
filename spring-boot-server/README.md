@@ -40,3 +40,27 @@ springboot maven项目
 
 18. dianping Cat 监控
 
+19. mybatis 级联查询 一对一 一对多 注解配置及xml配置方式
+
+    测试表：
+
+    stu：
+
+    CREATE TABLE `stu` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `name` varchar(100) DEFAULT '',
+          PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+    score：
+
+    CREATE TABLE `score` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `stu_id` int(11) NOT NULL,
+      `item` varchar(255) DEFAULT NULL,
+      `score` double(15,0) DEFAULT NULL,
+      UNIQUE KEY `id` (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+    测试：/stu/1  /score/1
+

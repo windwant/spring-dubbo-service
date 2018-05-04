@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration shutdownHook="disable">
+    <Properties>
+        <Property name="log-path">${log.path}</Property>
+        <Property name="log-level">${log.level}</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <RollingFile name="RollingFile" fileName="${log.path}logs/boot.log"
+                     filePattern="${log.path}${date:yyyy-MM}/boot-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout charset="UTF-8"
+                           pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+ 
+    <Loggers>
+        <root level="info">
+            <appender-ref ref="console"/>
+            <appender-ref ref="RollingFile"/>
+        </root>
+        <Logger name="org.windwant.spring" level="${log.level}"/>
+    </Loggers>
+</Configuration>
