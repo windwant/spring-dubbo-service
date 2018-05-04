@@ -145,6 +145,8 @@ public class ShiroConfig implements EnvironmentAware {
         filterChainDefinitionMap.put("/hellox", "anon");
         filterChainDefinitionMap.put("/mongo", "anon");
         filterChainDefinitionMap.put("/druid/*", "anon");
+        filterChainDefinitionMap.put("/score/*", "anon");
+        filterChainDefinitionMap.put("/stu/*", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/**", "comauth");
 

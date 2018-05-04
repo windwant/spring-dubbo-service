@@ -1,5 +1,6 @@
 package org.windwant.spring.controller.rest;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -9,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.windwant.spring.Constants;
 import org.windwant.spring.core.spi.SpiService;
-import org.windwant.spring.model.Guest;
-import org.windwant.spring.model.Response;
-import org.windwant.spring.model.User;
+import org.windwant.spring.model.*;
 import org.windwant.spring.service.BootService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,5 +69,27 @@ public class BootRestController extends BaseController {
     Map<String, Object> testMongo(){
         bootService.testMongo();
         return Response.response(0, Response.MSG_SUCCESS);
+    }
+
+    /**
+     * 一对一级联查询
+     * @return
+     */
+    @GetMapping("/score/{id}")
+    Map<String, Object> testAssociationScoreStu (@PathVariable int id){
+        Score score = bootService.getScoreById(id);
+        logger.info("annotation mapper score: {}", ToStringBuilder.reflectionToString(score));
+        return Response.response(0, Response.MSG_SUCCESS, score);
+    }
+
+    /**
+     * 一对多级联查询
+     * @return
+     */
+    @GetMapping("/stu/{id}")
+    Map<String, Object> testAssociationStuScore (@PathVariable int id){
+        Stu stu = bootService.getStuById(id);
+        logger.info("annotation mapper stu: {}", ToStringBuilder.reflectionToString(stu));
+        return Response.response(0, Response.MSG_SUCCESS, stu);
     }
 }

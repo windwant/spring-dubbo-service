@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.windwant.spring.mapper.StuScoreMapper">
+	<resultMap id="stuResult" type="org.windwant.spring.model.Stu">
+		<id column="id" property="id"/>
+		<result property="name" column="name"/>
+		<collection property="scores" column="id" ofType="org.windwant.spring.model.Score" select="selectScoreByIdXML"/>
+	</resultMap>
+	<select id="selectStuByIdXML" parameterType="int" resultMap="stuResult">
+		select * from stu where id = #{id}
+	</select>
+
+	<select id="selectScoreByIdXML" parameterType="int" resultType="org.windwant.spring.model.Score">
+		select * from score where stu_id = #{id}
+	</select>
+</mapper>

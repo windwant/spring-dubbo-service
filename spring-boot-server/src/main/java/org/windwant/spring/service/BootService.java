@@ -1,8 +1,6 @@
 package org.windwant.spring.service;
 
-import org.windwant.spring.model.Guest;
-import org.windwant.spring.model.Person;
-import org.windwant.spring.model.User;
+import org.windwant.spring.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +17,8 @@ public interface BootService {
     Map<String, Object> login(User user);
 
     void testMongo();
+
+    Score getScoreById(int id);
+
+    Stu getStuById(int id);
 }
