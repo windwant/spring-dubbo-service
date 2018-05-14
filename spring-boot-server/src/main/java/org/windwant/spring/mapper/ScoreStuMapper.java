@@ -1,9 +1,11 @@
 package org.windwant.spring.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Repository;
 import org.windwant.spring.core.mybatis.DataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
+import org.windwant.spring.core.mybatis.handler.MyStringTypeHandler;
 import org.windwant.spring.model.Score;
 import org.windwant.spring.model.Stu;
 
@@ -24,7 +26,7 @@ public interface ScoreStuMapper {
     @Select("select id, stu_id, item, score from score where id = #{id}")
     @Results({
             @Result(id = true,property = "id" ,column = "id"),
-            @Result(property ="item",column = "item"),
+            @Result(property ="item",column = "item",  typeHandler = MyStringTypeHandler.class),
             @Result(property ="score",column="score"),
             @Result(property ="stu",column="stu_id"
                     ,one =@One(select ="org.windwant.spring.mapper.ScoreStuMapper.selectStuById"))}
