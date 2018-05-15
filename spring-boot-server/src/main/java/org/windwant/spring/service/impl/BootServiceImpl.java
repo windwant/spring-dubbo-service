@@ -131,14 +131,18 @@ public class BootServiceImpl implements BootService {
     @Override
     public Score getScoreById(int id) {
         Score score = scoreStuMapper.selectScoreByIdXML(id);
+        Score scorex = scoreStuMapper.selectScoreByIdXMLX(id);
         logger.info("xml mapper score: {}", ToStringBuilder.reflectionToString(score));
+        logger.info("xml mapper join search score: {}", ToStringBuilder.reflectionToString(scorex));
         return scoreStuMapper.selectScoreById(id);
     }
 
     @Override
     public Stu getStuById(int id) {
         Stu stuXml = stuScoreMapper.selectStuByIdXML(id);
+        Stu stuXmlX = stuScoreMapper.selectStuByIdXMLX(id);
         logger.info("xml mapper stu: {}", ToStringBuilder.reflectionToString(stuXml));
+        logger.info("xml mapper join search stu: {}", ToStringBuilder.reflectionToString(stuXmlX));
         return stuScoreMapper.selectStuById(id);
     }
 }

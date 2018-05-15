@@ -7,6 +7,18 @@
 		<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
 		<collection property="scores" column="id" ofType="org.windwant.spring.model.Score" select="selectScoreByIdXML"/>
 	</resultMap>
+
+	<resultMap id="stuResultX" type="org.windwant.spring.model.Stu">
+		<id column="id" property="id"/>
+		<result property="name" column="name"/>
+		<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
+		<collection property="scores" column="id" ofType="org.windwant.spring.model.Score">
+			<id column="sid" property="id"/>
+			<result property="item" column="item"/>
+			<result property="score" column="score"/>
+		</collection>
+	</resultMap>
+
 	<select id="selectStuByIdXML" parameterType="int" resultMap="stuResult">
 		select * from stu where id = #{id}
 	</select>
@@ -14,4 +26,8 @@
 	<select id="selectScoreByIdXML" parameterType="int" resultType="org.windwant.spring.model.Score">
 		select * from score where stu_id = #{id}
 	</select>
+
+	<select id="selectStuByIdXMLX" parameterType="int" resultMap="stuResultX">
+        select stu.id, stu.name, stu.sex, s.id sid, s.item, s.score from score s, stu where s.stu_id = stu.id and stu.id = #{id}
+    </select>
 </mapper>
