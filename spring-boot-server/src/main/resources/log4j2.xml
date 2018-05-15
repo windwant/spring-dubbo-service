@@ -28,6 +28,6 @@
             <appender-ref ref="console"/>
             <appender-ref ref="RollingFile"/>
         </root>
-        <Logger name="org.windwant.spring" level="${log.level}"/>
+        <Logger name="org.windwant.spring" level="${log-level}"/>
     </Loggers>
 </Configuration>
