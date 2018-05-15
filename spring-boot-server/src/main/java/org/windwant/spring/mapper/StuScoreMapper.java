@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import org.windwant.spring.core.mybatis.DataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
+import org.windwant.spring.core.mybatis.handler.SexEnumHandler;
 import org.windwant.spring.model.Score;
 import org.windwant.spring.model.Stu;
 
@@ -17,10 +18,11 @@ import java.util.List;
 @DataSource(Type.LOCAL)
 public interface StuScoreMapper {
 
-    @Select("select id, name from stu where id = #{id}")
+    @Select("select id, name, sex from stu where id = #{id}")
     @Results({
             @Result(id = true,property = "id" ,column = "id"),
             @Result(property ="item",column = "item"),
+            @Result(property = "sex", column = "sex", typeHandler = SexEnumHandler.class),//处理枚举型
             @Result(property ="score",column="score"),
             @Result(property ="scores",column="id"
                     ,many = @Many(select ="org.windwant.spring.mapper.StuScoreMapper.selectScoreById"))}

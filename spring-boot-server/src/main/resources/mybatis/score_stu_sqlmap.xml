@@ -7,7 +7,14 @@
 		<result property="score" column="score"/>
 		<association property="stu" column="stu_id" select="selectStuByIdXML"/>
 	</resultMap>
-	<select id="selectStuByIdXML" parameterType="int" resultType="org.windwant.spring.model.Stu">
+
+	<resultMap id="stuResult" type="org.windwant.spring.model.Stu">
+		<id column="id" property="id"/>
+		<result property="name" column="name"/>
+		<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
+	</resultMap>
+
+	<select id="selectStuByIdXML" parameterType="int" resultMap="stuResult">
 		select * from stu where id = #{id}
 	</select>
 

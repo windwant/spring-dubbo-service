@@ -1,5 +1,7 @@
 package org.windwant.spring.model;
 
+import org.windwant.spring.core.enums.Sex;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,17 @@ public class Stu {
 
     private String name;
 
+    private Sex sex;
+
     private List<Score> scores;
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
 
     public List<Score> getScores() {
         return scores;

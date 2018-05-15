@@ -4,6 +4,7 @@
 	<resultMap id="stuResult" type="org.windwant.spring.model.Stu">
 		<id column="id" property="id"/>
 		<result property="name" column="name"/>
+		<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
 		<collection property="scores" column="id" ofType="org.windwant.spring.model.Score" select="selectScoreByIdXML"/>
 	</resultMap>
 	<select id="selectStuByIdXML" parameterType="int" resultMap="stuResult">
