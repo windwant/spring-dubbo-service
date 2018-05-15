@@ -12,8 +12,9 @@ datasource:
         type: org.apache.commons.dbcp.BasicDataSource
         max-active: 30
         max-idle: 10
-        max-wait: 10
+        max-wait: 1000
         test-while-idle: true
+        test-on-borrow: true
         aop-patterns: org.windwant.spring.mapper.*
         filter:
             stat:
@@ -29,8 +30,9 @@ datasource:
         type: org.apache.commons.dbcp.BasicDataSource
         max-active: 30
         max-idle: 10
-        max-wait: 10
+        max-wait: 1000
         test-while-idle: true
+        test-on-borrow: true
         aop-patterns: org.windwant.spring.mapper.*
         filter:
             stat:

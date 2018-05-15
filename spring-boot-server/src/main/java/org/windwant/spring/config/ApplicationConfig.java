@@ -1,5 +1,7 @@
 package org.windwant.spring.config;
 
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.hibernate.validator.HibernateValidator;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.windwant.spring.core.interceptor.BootInterceptor;
 import org.windwant.spring.core.mybatis.MapperScannerConfigurerProxy;
+import org.windwant.spring.core.mybatis.handler.MyStringTypeHandler;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -56,17 +59,6 @@ public class ApplicationConfig {
             registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
             super.addViewControllers(registry);
         }
-    }
-
-    /**
-     * mybatis mapper 扫描
-     * @return
-     */
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer() {
-        MapperScannerConfigurerProxy mapperScannerConfigurerProxy = new MapperScannerConfigurerProxy();
-        mapperScannerConfigurerProxy.setBasePackage("org.windwant.spring.mapper");
-        return mapperScannerConfigurerProxy;
     }
 
     /**

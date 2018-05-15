@@ -1,9 +1,13 @@
 package org.windwant.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by Administrator on 18-5-4.
  */
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler"})
 public class Score {
+
     private Integer id;
 
     private Integer stuId;

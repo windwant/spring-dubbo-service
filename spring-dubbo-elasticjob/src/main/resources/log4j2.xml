@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Configuration monitorInterval="30">
+    <Properties>
+        <Property name="log-path">${log.path}</Property>
+        <Property name="log-level">${log.level}</Property>
+    </Properties>
+
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <RollingFile name="rollingFile" fileName="logs/job.log"
-                     filePattern="logs/${date:yyyy-MM}/job-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="rollingFile" fileName="${log-path}/logs/job.log"
+                     filePattern="${log-path}/logs/${date:yyyy-MM}/job-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout
                     pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
             <Policies>
