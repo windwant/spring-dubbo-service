@@ -38,7 +38,7 @@ public interface ScoreStuMapper {
             @Result(property ="item",column = "item",  typeHandler = MyStringTypeHandler.class),
             @Result(property ="score",column="score"),
             @Result(property ="stu",column="stu_id"
-                    ,one =@One(select ="org.windwant.spring.mapper.ScoreStuMapper.selectStuById"))}
+                    ,one =@One(select ="org.windwant.spring.mapper.ScoreStuMapper.selectStuById", fetchType = FetchType.LAZY))}
     )
     Score selectScoreById(@Param("id") Integer id);
 

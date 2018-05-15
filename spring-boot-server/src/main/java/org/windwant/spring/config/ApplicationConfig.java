@@ -62,24 +62,6 @@ public class ApplicationConfig {
     }
 
     /**
-     * mybatis mapper 扫描
-     * @return
-     */
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer() {
-        MapperScannerConfigurerProxy mapperScannerConfigurerProxy = new MapperScannerConfigurerProxy();
-        mapperScannerConfigurerProxy.setBasePackage("org.windwant.spring.mapper");
-        return mapperScannerConfigurerProxy;
-    }
-
-    @Bean
-    public TypeHandlerRegistry typeHandlerRegistry(){
-        TypeHandlerRegistry registry = new TypeHandlerRegistry();
-        registry.register("org.windwant.spring.core.mybatis.handler");
-        return registry;
-    }
-
-    /**
      * 验证信息 message
      * @return
      */

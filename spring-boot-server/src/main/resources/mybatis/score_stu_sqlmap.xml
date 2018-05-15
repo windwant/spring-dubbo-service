@@ -5,7 +5,7 @@
 		<id column="id" property="id"/>
 		<result property="item" column="item"/>
 		<result property="score" column="score"/>
-		<association property="stu" column="stu_id" select="selectStuByIdXML"/>
+		<association property="stu" column="stu_id" select="selectStuByIdXML" fetchType="lazy"/>
 	</resultMap>
 
 	<resultMap id="stuResult" type="org.windwant.spring.model.Stu">
