@@ -11,8 +11,8 @@
                     pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <RollingFile name="RollingFile" fileName="${log.path}logs/wsproxy.log"
-                     filePattern="${log.path}${date:yyyy-MM}/wsproxy-%d{MM-dd-yyyy}-%i.log.gz">
+        <RollingFile name="RollingFile" fileName="${log-path}/logs/wsproxy.log"
+                     filePattern="${log-path}/${date:yyyy-MM}/wsproxy-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout charset="UTF-8"
                            pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
             <Policies>
@@ -28,6 +28,6 @@
             <appender-ref ref="console"/>
             <appender-ref ref="RollingFile"/>
         </root>
-        <Logger name="org.windwant.wsproxy" level="${log.level}"/>
+        <Logger name="org.windwant.wsproxy" level="${log-level}"/>
     </Loggers>
 </Configuration>
