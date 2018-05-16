@@ -51,7 +51,7 @@ public class BaseController {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseEntity<?> errorJson(HttpServletRequest req, Exception e) throws Exception {
-        logger.error("exception occurs in rest controller: {}, {}, {}" , new Object[]{getClass().getSimpleName(), req.getServletPath(), e.getMessage()});
+        logger.error("exception occurs in rest controller: {}, {}, {}" , new Object[]{getClass().getSimpleName(), req.getServletPath(), e});
         Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
 
         switch (e.getClass().getSimpleName()){

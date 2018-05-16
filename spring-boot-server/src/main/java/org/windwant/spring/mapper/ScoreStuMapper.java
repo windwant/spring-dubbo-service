@@ -1,11 +1,10 @@
 package org.windwant.spring.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.cache.decorators.LruCache;
 import org.apache.ibatis.mapping.FetchType;
-import org.apache.ibatis.type.EnumOrdinalTypeHandler;
-import org.apache.ibatis.type.JdbcType;
+import org.mybatis.caches.ehcache.EhcacheCache;
 import org.springframework.stereotype.Repository;
-import org.windwant.spring.core.enums.Sex;
 import org.windwant.spring.core.mybatis.DataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
 import org.windwant.spring.core.mybatis.handler.MyStringTypeHandler;
@@ -13,14 +12,13 @@ import org.windwant.spring.core.mybatis.handler.SexEnumHandler;
 import org.windwant.spring.model.Score;
 import org.windwant.spring.model.Stu;
 
-import java.util.List;
-
 /**
  * Created by windwant on 2016/12/30.
  * 一对一级联查询
  */
 @Repository
 @DataSource(Type.LOCAL)
+@CacheNamespace(implementation = EhcacheCache.class, eviction = LruCache.class, flushInterval = 10000, size = 1024)//二级缓存配置
 public interface ScoreStuMapper {
 
     /**
@@ -52,17 +50,4 @@ public interface ScoreStuMapper {
     )
     Score selectScoreById(@Param("id") Integer id);
 
-    /**
-     * xml mapper 配置查询分数
-     * @param id
-     * @return
-     */
-    Score selectScoreByIdXML(@Param("id") Integer id);
-
-    /**
-     * 另一种级联
-     * @param id
-     * @return
-     */
-    Score selectScoreByIdXMLX(@Param("id") Integer id);
 }

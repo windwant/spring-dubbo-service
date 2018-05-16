@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.windwant.spring.mapper.ScoreStuMapper">
+<mapper namespace="org.windwant.spring.mapper.xmlmapper.ScoreStuXmlMapper">
+
+	<!--ehcache 二级缓存-->
+	<cache flushInterval="10000" readOnly="true" size="1024" eviction="LRU" type="org.mybatis.caches.ehcache.EhcacheCache" />
+
 	<resultMap id="scoreResult" type="org.windwant.spring.model.Score">
 		<id column="id" property="id"/>
 		<result property="item" column="item"/>

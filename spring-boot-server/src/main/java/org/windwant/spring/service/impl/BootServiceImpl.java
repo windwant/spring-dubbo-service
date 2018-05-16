@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.windwant.spring.Constants;
 import org.windwant.spring.mapper.ScoreStuMapper;
 import org.windwant.spring.mapper.StuScoreMapper;
+import org.windwant.spring.mapper.xmlmapper.ScoreStuXmlMapper;
+import org.windwant.spring.mapper.xmlmapper.StuScoreXmlMapper;
 import org.windwant.spring.model.*;
 import org.windwant.spring.mongo.MongoPersonRepository;
 import org.windwant.spring.mapper.MySelMapper;
@@ -128,21 +130,41 @@ public class BootServiceImpl implements BootService {
     @Autowired
     StuScoreMapper stuScoreMapper;
 
+    @Autowired
+    ScoreStuXmlMapper scoreStuXmlMapper;
+
+    @Autowired
+    StuScoreXmlMapper stuScoreXmlMapper;
+
     @Override
-    public Score getScoreById(int id) {
-        Score score = scoreStuMapper.selectScoreByIdXML(id);
-        Score scorex = scoreStuMapper.selectScoreByIdXMLX(id);
-        logger.info("xml mapper score: {}", ToStringBuilder.reflectionToString(score));
-        logger.info("xml mapper join search score: {}", ToStringBuilder.reflectionToString(scorex));
-        return scoreStuMapper.selectScoreById(id);
+    public Score getScoreById(int id, int type) {
+        Score score;
+        //注解mapper
+        if(type == 0){
+            score = scoreStuMapper.selectScoreById(id);
+            logger.info("mapper score: {}", ToStringBuilder.reflectionToString(score));
+        }else {
+            score = scoreStuXmlMapper.selectScoreByIdXML(id);
+            logger.info("xml mapper score: {}", ToStringBuilder.reflectionToString(score));
+            score = scoreStuXmlMapper.selectScoreByIdXMLX(id);
+            logger.info("xml mapper join search score: {}", ToStringBuilder.reflectionToString(score));
+        }
+        return score;
     }
 
     @Override
-    public Stu getStuById(int id) {
-        Stu stuXml = stuScoreMapper.selectStuByIdXML(id);
-        Stu stuXmlX = stuScoreMapper.selectStuByIdXMLX(id);
-        logger.info("xml mapper stu: {}", ToStringBuilder.reflectionToString(stuXml));
-        logger.info("xml mapper join search stu: {}", ToStringBuilder.reflectionToString(stuXmlX));
-        return stuScoreMapper.selectStuById(id);
+    public Stu getStuById(int id, int type) {
+        Stu stu;
+        //注解mapper
+        if(type == 0){
+            stu = stuScoreMapper.selectStuById(id);
+            logger.info("mapper stu: {}", ToStringBuilder.reflectionToString(stu));
+        }else {
+            stu = stuScoreXmlMapper.selectStuByIdXML(id);
+            logger.info("xml mapper stu: {}", ToStringBuilder.reflectionToString(stu));
+            stu = stuScoreXmlMapper.selectStuByIdXMLX(id);
+            logger.info("xml mapper join search stu: {}", ToStringBuilder.reflectionToString(stu));
+        }
+        return stu;
     }
 }
