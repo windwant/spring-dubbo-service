@@ -47,10 +47,11 @@ springboot maven项目
     stu：
 
     CREATE TABLE `stu` (
-          `id` int(11) NOT NULL AUTO_INCREMENT,
-          `name` varchar(100) DEFAULT '',
-          PRIMARY KEY (`id`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(100) DEFAULT '',
+      `sex` enum('0','1') DEFAULT NULL,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
     score：
 
