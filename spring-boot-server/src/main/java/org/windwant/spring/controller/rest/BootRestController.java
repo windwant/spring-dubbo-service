@@ -4,10 +4,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.windwant.spring.Constants;
 import org.windwant.spring.core.spi.SpiService;
 import org.windwant.spring.model.*;
@@ -76,8 +73,9 @@ public class BootRestController extends BaseController {
      * @return
      */
     @GetMapping("/score/{id}")
-    Map<String, Object> testAssociationScoreStu (@PathVariable int id){
-        Score score = bootService.getScoreById(id);
+    Map<String, Object> testAssociationScoreStu (@PathVariable int id,
+                                                 @RequestParam(value = "s", required = false, defaultValue = "0") int source){
+        Score score = bootService.getScoreById(id, source);
         logger.info("annotation mapper score: {}", ToStringBuilder.reflectionToString(score));
         return Response.response(0, Response.MSG_SUCCESS, score);
     }
@@ -87,8 +85,9 @@ public class BootRestController extends BaseController {
      * @return
      */
     @GetMapping("/stu/{id}")
-    Map<String, Object> testAssociationStuScore (@PathVariable int id){
-        Stu stu = bootService.getStuById(id);
+    Map<String, Object> testAssociationStuScore (@PathVariable int id,
+                                                 @RequestParam(value = "s", required = false, defaultValue = "0") int source){
+        Stu stu = bootService.getStuById(id, source);
         logger.info("annotation mapper stu: {}", ToStringBuilder.reflectionToString(stu));
         return Response.response(0, Response.MSG_SUCCESS, stu);
     }

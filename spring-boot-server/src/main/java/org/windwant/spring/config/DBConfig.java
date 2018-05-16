@@ -112,7 +112,7 @@ public class DBConfig {
         //设置超时时间，它决定驱动等待数据库响应的秒数。
         config.setDefaultStatementTimeout(5);
         //Sets the driver a hint as to control fetching size for return results. This parameter value can be override by a query setting.
-        config.setDefaultFetchSize(1024*10);
+        config.setDefaultFetchSize(1024 * 10);
         //未知列映射行为
         config.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.NONE);
         return config;
