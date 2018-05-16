@@ -5,7 +5,10 @@
 	<!--memcached 二级缓存-->
 	<!--<cache flushInterval="10000" readOnly="true" size="1024" eviction="LRU" type="org.mybatis.caches.memcached.MemcachedCache" />-->
 
-	<!--ehcache 二级缓存-->
+	<!--redis 二级缓存-->
+	<!--<cache type="org.mybatis.caches.redis.RedisCache" />-->
+
+	<!--&lt;!&ndash;ehcache 二级缓存&ndash;&gt;-->
 	<cache flushInterval="10000" readOnly="true" size="1024" eviction="LRU" type="org.mybatis.caches.ehcache.EhcacheCache" />
 
 	<resultMap id="stuResult" type="org.windwant.spring.model.Stu">
