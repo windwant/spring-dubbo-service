@@ -65,3 +65,8 @@ springboot maven项目
 
     测试：/stu/1  /score/1
 
+20: ehcache 二级缓存配置 xml 注解
+
+21: 分页处理：传递Page参数 或者继承Page的对象参数
+
+    测试：http://localhost:8082/stu/0?page=3&limit=2

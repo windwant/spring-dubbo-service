@@ -17,6 +17,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.windwant.spring.core.datasource.RoutingDataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
 import org.windwant.spring.core.mybatis.MapperScannerConfigurerProxy;
+import org.windwant.spring.core.mybatis.interceptor.PageIntercept;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -115,6 +116,7 @@ public class DBConfig {
         config.setDefaultFetchSize(1024 * 10);
         //未知列映射行为
         config.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.NONE);
+        config.addInterceptor(new PageIntercept());
         return config;
     }
 

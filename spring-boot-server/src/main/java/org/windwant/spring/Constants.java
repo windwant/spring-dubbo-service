@@ -11,4 +11,8 @@ public class Constants {
     public static final String SESSION_KEY_IMAGE = "image";
     public static final String SESSION_KEY_USER = "user";
     public static final String SESSION_DRUID_USER = "druid.user";
+
+    public static final Integer DEAFULT_PAGE = 0;
+
+    public static final Integer DEAFULT_PAGE_LIMIT = 15;
 }

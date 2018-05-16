@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.windwant.spring.Constants;
+import org.windwant.spring.core.mybatis.interceptor.Page;
 import org.windwant.spring.mapper.ScoreStuMapper;
 import org.windwant.spring.mapper.StuScoreMapper;
 import org.windwant.spring.mapper.xmlmapper.ScoreStuXmlMapper;
@@ -21,6 +22,7 @@ import org.windwant.spring.mapper.MySelRMapper;
 import org.windwant.spring.service.BootService;
 import org.windwant.spring.util.LangUtil;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -142,7 +144,7 @@ public class BootServiceImpl implements BootService {
         //注解mapper
         if(type == 0){
             score = scoreStuMapper.selectScoreById(id);
-            logger.info("mapper score: {}", ToStringBuilder.reflectionToString(score));
+            logger.info("annotation mapper score: {}", ToStringBuilder.reflectionToString(score));
         }else {
             score = scoreStuXmlMapper.selectScoreByIdXML(id);
             logger.info("xml mapper score: {}", ToStringBuilder.reflectionToString(score));
@@ -158,7 +160,7 @@ public class BootServiceImpl implements BootService {
         //注解mapper
         if(type == 0){
             stu = stuScoreMapper.selectStuById(id);
-            logger.info("mapper stu: {}", ToStringBuilder.reflectionToString(stu));
+            logger.info("annotation mapper stu: {}", ToStringBuilder.reflectionToString(stu));
         }else {
             stu = stuScoreXmlMapper.selectStuByIdXML(id);
             logger.info("xml mapper stu: {}", ToStringBuilder.reflectionToString(stu));
@@ -166,5 +168,10 @@ public class BootServiceImpl implements BootService {
             logger.info("xml mapper join search stu: {}", ToStringBuilder.reflectionToString(stu));
         }
         return stu;
+    }
+
+    @Override
+    public List<Stu> getStu(Page page) {
+        return stuScoreMapper.selectStu(page);
     }
 }
