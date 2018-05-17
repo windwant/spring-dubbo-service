@@ -63,6 +63,14 @@ springboot maven项目
       UNIQUE KEY `id` (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+    CREATE TABLE `work` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(255) DEFAULT NULL,
+      `content` blob,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
     测试：/stu/1  /score/1
 
 20: ehcache 二级缓存配置 xml 注解
