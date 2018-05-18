@@ -1,4 +1,4 @@
-package org.windwant.common.util;
+﻿package org.windwant.common.util;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -49,7 +49,7 @@ public class RMIUtils {
         }
         if(registry != null){
             try {
-                registry.rebind(NetUtil.formatRMIServiceName("localhost", 1099, impl.getClass().getInterfaces()[0].getName()), impl);
+                registry.rebind(NetUtil.formatRMIServiceName(host, port, impl.getClass().getInterfaces()[0].getName()), impl);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
