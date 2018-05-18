@@ -38,7 +38,7 @@ public class RMIUtils {
      * @param impl
      * @throws RemoteException
      */
-    public static void registerRMIService(String host, int port, Remote impl) throws RemoteException {
+    public static String registerRMIService(String host, int port, Remote impl) throws RemoteException {
         Registry registry = null;
         registry = LocateRegistry.getRegistry(host, port);
         if(!testRegister(registry)){
@@ -49,12 +49,14 @@ public class RMIUtils {
         }
         if(registry != null){
             try {
-                registry.rebind(NetUtil.formatRMIServiceName(host, port, impl.getClass().getInterfaces()[0].getName()), impl);
+                url = impl.getClass().getInterfaces()[0].getName();
+                registry.rebind(url, impl);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+            url = NetUtil.formatRMIServiceName(host, port, url);
         }
-
+        return url;
     }
 
     private static boolean testRegister(Registry registry){
