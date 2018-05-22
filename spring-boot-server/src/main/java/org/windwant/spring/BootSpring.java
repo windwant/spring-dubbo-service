@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AdviceMode;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,7 +18,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @SpringBootApplication = @Configration +  @EnableAutoConfiguration + @ComponentScan
  * @ServletComponentScan scan servlet filter interceptor listener
  */
-@EnableTransactionManagement
+@EnableTransactionManagement//基于注解的事务管理 <tx:annotation-driven/>
+@EnableAspectJAutoProxy(exposeProxy = true)//基于Aspect注解的事务管理 <aop:aspectj-autoproxy>； exposeProxy = true目标对象内部的自我调用的事务增强支持
 @SpringBootApplication
 @ServletComponentScan
 @EnableAutoConfiguration

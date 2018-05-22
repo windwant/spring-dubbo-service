@@ -3,7 +3,6 @@ package org.windwant.spring.config;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.apache.ibatis.session.*;
 import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.windwant.spring.core.datasource.RoutingDataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
 import org.windwant.spring.core.mybatis.MapperScannerConfigurerProxy;
@@ -141,6 +141,12 @@ public class DBConfig {
         factoryBean.setConfiguration(configuration);
         factoryBean.afterPropertiesSet();
         return factoryBean.getObject();
+    }
+
+    @Bean(name = "txMgr")
+    public DataSourceTransactionManager transactionManager(@Qualifier("routingDataSource") DataSource routingDataSource){
+        DataSourceTransactionManager mgr = new DataSourceTransactionManager(routingDataSource);
+        return mgr;
     }
 
 //    private ApplicationContext ctx;
