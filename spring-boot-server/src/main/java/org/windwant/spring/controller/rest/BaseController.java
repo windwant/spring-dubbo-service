@@ -48,7 +48,7 @@ public class BaseController {
         }
     }
 
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler
     @ResponseBody
     public ResponseEntity<?> errorJson(HttpServletRequest req, Exception e) throws Exception {
         logger.error("exception occurs in rest controller: {}, {}, {}" , new Object[]{getClass().getSimpleName(), req.getServletPath(), e});

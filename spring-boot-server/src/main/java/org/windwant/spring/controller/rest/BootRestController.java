@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.windwant.spring.Constants;
+import org.windwant.spring.core.mybatis.interceptor.Page;
 import org.windwant.spring.core.spi.SpiService;
 import org.windwant.spring.model.*;
 import org.windwant.spring.service.BootService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,9 +88,16 @@ public class BootRestController extends BaseController {
      */
     @GetMapping("/stu/{id}")
     Map<String, Object> testAssociationStuScore (@PathVariable int id,
-                                                 @RequestParam(value = "s", required = false, defaultValue = "0") int source){
+                                                 @RequestParam(value = "s", required = false, defaultValue = "0") int source,
+                                                 Page page){
+        if(id == 0){
+            List<Stu> stus = bootService.getStu(page);
+            logger.info("query stu list size: {}", stus.size());
+            stus.stream().forEach(item -> logger.info("stu: {}", ToStringBuilder.reflectionToString(item)));
+            return Response.response(0, Response.MSG_SUCCESS, stus);
+        }
         Stu stu = bootService.getStuById(id, source);
-        logger.info("annotation mapper stu: {}", ToStringBuilder.reflectionToString(stu));
+        logger.info("query stu: {}", ToStringBuilder.reflectionToString(stu));
         return Response.response(0, Response.MSG_SUCCESS, stu);
     }
 }

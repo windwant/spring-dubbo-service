@@ -3,7 +3,6 @@ package org.windwant.spring.config;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.apache.ibatis.session.*;
 import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,9 +13,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.windwant.spring.core.datasource.RoutingDataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
 import org.windwant.spring.core.mybatis.MapperScannerConfigurerProxy;
+import org.windwant.spring.core.mybatis.interceptor.PageIntercept;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -79,12 +80,12 @@ public class DBConfig {
      * mybatis 自定义 typeHandler
      * @return
      */
-    @Bean
-    public TypeHandlerRegistry typeHandlerRegistry(){
-        TypeHandlerRegistry registry = new TypeHandlerRegistry();
-        registry.register("org.windwant.spring.core.mybatis.handler");
-        return registry;
-    }
+//    @Bean
+//    public TypeHandlerRegistry typeHandlerRegistry(){
+//        TypeHandlerRegistry registry = new TypeHandlerRegistry();
+//        registry.register("org.windwant.spring.core.mybatis.handler");
+//        return registry;
+//    }
 
     /**
      * mybatis 配置
@@ -115,6 +116,12 @@ public class DBConfig {
         config.setDefaultFetchSize(1024 * 10);
         //未知列映射行为
         config.setAutoMappingUnknownColumnBehavior(AutoMappingUnknownColumnBehavior.NONE);
+        //拦截器配置
+        config.addInterceptor(new PageIntercept());
+        //type alias package 类型映射
+        config.getTypeAliasRegistry().registerAliases("org.windwant.spring.model");
+        //mybatis 自定义 typeHandler
+        config.getTypeHandlerRegistry().register("org.windwant.spring.core.mybatis.handler");
         return config;
     }
 
@@ -134,6 +141,12 @@ public class DBConfig {
         factoryBean.setConfiguration(configuration);
         factoryBean.afterPropertiesSet();
         return factoryBean.getObject();
+    }
+
+    @Bean(name = "txMgr")
+    public DataSourceTransactionManager transactionManager(@Qualifier("routingDataSource") DataSource routingDataSource){
+        DataSourceTransactionManager mgr = new DataSourceTransactionManager(routingDataSource);
+        return mgr;
     }
 
 //    private ApplicationContext ctx;

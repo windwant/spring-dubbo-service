@@ -5,20 +5,23 @@
 	<!--ehcache 二级缓存-->
 	<cache flushInterval="10000" readOnly="true" size="1024" eviction="LRU" type="org.mybatis.caches.ehcache.EhcacheCache" />
 
-	<resultMap id="scoreResult" type="org.windwant.spring.model.Score">
+	<!--使用StuScoreXmlMapper缓存 共享缓存-->
+	<!--<cache-ref namespace="org.windwant.spring.mapper.xmlmapper.StuScoreXmlMapper"/>-->
+
+	<resultMap id="scoreResult" type="score">
 		<id column="id" property="id"/>
 		<result property="item" column="item"/>
 		<result property="score" column="score"/>
 		<association property="stu" column="stu_id" select="selectStuByIdXML" fetchType="lazy"/>
 	</resultMap>
 
-	<resultMap id="stuResult" type="org.windwant.spring.model.Stu">
+	<resultMap id="stuResult" type="stu">
 		<id column="id" property="id"/>
 		<result property="name" column="name"/>
 		<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
 	</resultMap>
 
-	<resultMap id="scoreResultX" type="org.windwant.spring.model.Score">
+	<resultMap id="scoreResultX" type="score">
 		<id column="id" property="id"/>
 		<result property="item" column="item"/>
 		<result property="score" column="score"/>

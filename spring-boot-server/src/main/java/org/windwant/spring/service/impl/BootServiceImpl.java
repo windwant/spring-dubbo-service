@@ -7,9 +7,14 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.windwant.spring.Constants;
+import org.windwant.spring.core.mybatis.interceptor.Page;
 import org.windwant.spring.mapper.ScoreStuMapper;
 import org.windwant.spring.mapper.StuScoreMapper;
 import org.windwant.spring.mapper.xmlmapper.ScoreStuXmlMapper;
@@ -21,6 +26,7 @@ import org.windwant.spring.mapper.MySelRMapper;
 import org.windwant.spring.service.BootService;
 import org.windwant.spring.util.LangUtil;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -142,7 +148,7 @@ public class BootServiceImpl implements BootService {
         //注解mapper
         if(type == 0){
             score = scoreStuMapper.selectScoreById(id);
-            logger.info("mapper score: {}", ToStringBuilder.reflectionToString(score));
+            logger.info("annotation mapper score: {}", ToStringBuilder.reflectionToString(score));
         }else {
             score = scoreStuXmlMapper.selectScoreByIdXML(id);
             logger.info("xml mapper score: {}", ToStringBuilder.reflectionToString(score));
@@ -152,13 +158,20 @@ public class BootServiceImpl implements BootService {
         return score;
     }
 
+    /**
+     * 事务应用 需要新事务传播级别 可重复读隔离级别
+     * @param id
+     * @param type
+     * @return
+     */
+    @Transactional(transactionManager = "txMgr", propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
     @Override
     public Stu getStuById(int id, int type) {
         Stu stu;
         //注解mapper
         if(type == 0){
             stu = stuScoreMapper.selectStuById(id);
-            logger.info("mapper stu: {}", ToStringBuilder.reflectionToString(stu));
+            logger.info("annotation mapper stu: {}", ToStringBuilder.reflectionToString(stu));
         }else {
             stu = stuScoreXmlMapper.selectStuByIdXML(id);
             logger.info("xml mapper stu: {}", ToStringBuilder.reflectionToString(stu));
@@ -166,5 +179,13 @@ public class BootServiceImpl implements BootService {
             logger.info("xml mapper join search stu: {}", ToStringBuilder.reflectionToString(stu));
         }
         return stu;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<Stu> getStu(Page page) {
+        List<Stu> stus = stuScoreMapper.selectStu(page);
+        ((BootService)AopContext.currentProxy()).getStuById(1, 0); //exposeProxy = true目标对象内部的自我调用的事务增强支持 同时改为此种调用方式
+        return stus;
     }
 }

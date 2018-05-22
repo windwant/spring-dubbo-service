@@ -1,7 +1,9 @@
 package org.windwant.spring.service;
 
+import org.windwant.spring.core.mybatis.interceptor.Page;
 import org.windwant.spring.model.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +22,6 @@ public interface BootService {
     Score getScoreById(int id, int type);
 
     Stu getStuById(int id, int type);
+
+    List<Stu> getStu(Page page);
 }

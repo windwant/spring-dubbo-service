@@ -47,10 +47,11 @@ springboot maven项目
     stu：
 
     CREATE TABLE `stu` (
-          `id` int(11) NOT NULL AUTO_INCREMENT,
-          `name` varchar(100) DEFAULT '',
-          PRIMARY KEY (`id`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(100) DEFAULT '',
+      `sex` enum('0','1') DEFAULT NULL,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
     score：
 
@@ -62,5 +63,18 @@ springboot maven项目
       UNIQUE KEY `id` (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
+    CREATE TABLE `work` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `name` varchar(255) DEFAULT NULL,
+      `content` blob,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
     测试：/stu/1  /score/1
 
+20: ehcache 二级缓存配置 xml 注解
+
+21: 分页处理：传递Page参数 或者继承Page的对象参数
+
+    测试：http://localhost:8082/stu/0?page=3&limit=2

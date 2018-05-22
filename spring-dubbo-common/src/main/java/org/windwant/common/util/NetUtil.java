@@ -15,4 +15,8 @@ public class NetUtil {
         }
         return "localhost";
     }
+
+    public static String formatRMIServiceName(String host, int port, String className){
+        return String.format("rmi://%s:%d/%s", host, port, className);
+    }
 }
