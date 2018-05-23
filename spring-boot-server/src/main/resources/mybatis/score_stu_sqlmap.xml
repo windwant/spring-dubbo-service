@@ -8,35 +8,64 @@
 	<!--使用StuScoreXmlMapper缓存 共享缓存-->
 	<!--<cache-ref namespace="org.windwant.spring.mapper.xmlmapper.StuScoreXmlMapper"/>-->
 
+	<!--分数查询结果映射-->
 	<resultMap id="scoreResult" type="score">
 		<id column="id" property="id"/>
-		<result property="item" column="item"/>
 		<result property="score" column="score"/>
-		<association property="stu" column="stu_id" select="selectStuByIdXML" fetchType="lazy"/>
+		<association property="subject" column="sub_id" select="selectSubjectByIdXML" fetchType="lazy"/>
+		<association property="student" column="stu_id" select="selectStuByIdXML" fetchType="lazy"/>
 	</resultMap>
 
-	<resultMap id="stuResult" type="stu">
+	<!--学生查询结果映射-->
+	<resultMap id="stuResult" type="student">
 		<id column="id" property="id"/>
 		<result property="name" column="name"/>
 		<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
 	</resultMap>
 
-	<resultMap id="scoreResultX" type="score">
+	<!--科目查询结果映射-->
+	<resultMap id="subjectResult" type="subject">
 		<id column="id" property="id"/>
-		<result property="item" column="item"/>
-		<result property="score" column="score"/>
-		<association property="stu" column="stu_id" resultMap="stuResult"/>
+		<result property="name" column="name"/>
 	</resultMap>
 
+	<!--联合sql查询结果映射-->
+	<resultMap id="scoreResultX" type="score">
+		<id column="id" property="id"/>
+		<result property="score" column="score"/>
+		<result property="subId" column="subId"/>
+		<result property="stuId" column="stuId"/>
+		<!--注意 javaType 设置-->
+		<association property="subject" column="subId" javaType="subject">
+			<id column="subId" property="id"/>
+			<result property="name" column="subName"/>
+		</association>
+		<association property="student" column="stuId" javaType="student">
+			<id column="stuId" property="id"/>
+			<result property="name" column="stuName"/>
+			<result property="sex" column="sex" typeHandler="org.windwant.spring.core.mybatis.handler.SexEnumHandler"/>
+		</association>
+	</resultMap>
+
+	<!--学生查询-->
 	<select id="selectStuByIdXML" parameterType="int" resultMap="stuResult">
-		select * from stu where id = #{id}
+		select * from student where id = #{id}
 	</select>
 
+	<!--科目查询-->
+	<select id="selectSubjectByIdXML" parameterType="int">
+		select * from subject where id = #{id}
+	</select>
+
+	<!--分数查询-->
 	<select id="selectScoreByIdXML" parameterType="int" resultMap="scoreResult">
 		select * from score where id = #{id}
 	</select>
 
+	<!--联合sql查询	-->
 	<select id="selectScoreByIdXMLX" parameterType="int" resultMap="scoreResultX">
-		select s.id, s.item, s.score, stu.id stuId, stu.name, stu.sex from score s, stu where s.stu_id = stu.id and s.id = #{id}
+		select s.id, s.score, stu.id stuId, stu.name stuName, stu.sex, sub.id subId, sub.name subName
+		from score s, student stu, subject sub
+		where s.stu_id = stu.id and s.sub_id = sub.id and s.id = #{id}
 	</select>
 </mapper>

@@ -10,7 +10,8 @@ import org.windwant.spring.core.mybatis.DataSource.Type;
 import org.windwant.spring.core.mybatis.handler.MyStringTypeHandler;
 import org.windwant.spring.core.mybatis.handler.SexEnumHandler;
 import org.windwant.spring.model.Score;
-import org.windwant.spring.model.Stu;
+import org.windwant.spring.model.Student;
+import org.windwant.spring.model.Subject;
 
 /**
  * Created by windwant on 2016/12/30.
@@ -26,26 +27,40 @@ public interface ScoreStuMapper {
      * @param id
      * @return
      */
-    @Select("select id, name, sex from stu where id = #{id}")
+    @Select("select id, name, sex from student where id = #{id}")
     @Results({
             @Result(id = true, property = "id", column = "id"),
-            @Result(property = "name", column = "name"),
+            @Result(property = "name", column = "name", typeHandler = MyStringTypeHandler.class),
             @Result(property = "sex", column = "sex", typeHandler = SexEnumHandler.class)//处理枚举型
     })
-    Stu selectStuById(@Param("id") Integer id);
+    Student selectStuById(@Param("id") Integer id);
+
+    /**
+     * 科目 级联查询
+     * @param id
+     * @return
+     */
+    @Select("select id, name from subject where id = #{id}")
+    @Results({
+            @Result(id = true, property = "id", column = "id"),
+            @Result(property = "name", column = "name", typeHandler = MyStringTypeHandler.class)
+    })
+    Subject selectSubjectById(@Param("id") Integer id);
 
     /**
      * 查询 分数信息
      * @param id
      * @return
      */
-//    @Select("select s.id, s.item, s.score, stu.id stuId, stu.`name` from score s, stu where s.stu_id = stu.id and s.id = 1")
-    @Select("select id, stu_id, item, score from score where id = #{id}")
+    @Select("select id, stu_id, sub_id, score from score where id = #{id}")
     @Results({
             @Result(id = true,property = "id" ,column = "id"),
-            @Result(property ="item",column = "item",  typeHandler = MyStringTypeHandler.class),
             @Result(property ="score",column="score"),
-            @Result(property ="stu",column="stu_id" //column 传入级联查询的参数
+            @Result(property ="stuId",column="stu_id"),
+            @Result(property ="subId",column="sub_id"),
+            @Result(property ="subject",column="sub_id" //column 传入级联查询的参数
+                    ,one =@One(select ="org.windwant.spring.mapper.ScoreStuMapper.selectSubjectById", fetchType = FetchType.LAZY)),
+            @Result(property ="student",column="stu_id" //column 传入级联查询的参数
                     ,one =@One(select ="org.windwant.spring.mapper.ScoreStuMapper.selectStuById", fetchType = FetchType.LAZY))}
     )
     Score selectScoreById(@Param("id") Integer id);

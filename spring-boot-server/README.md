@@ -44,34 +44,49 @@ springboot maven项目
 
     测试表：
 
-    stu：
+    student:
 
-    CREATE TABLE `stu` (
+    CREATE TABLE `student` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `name` varchar(100) DEFAULT '',
       `sex` enum('0','1') DEFAULT NULL,
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
-    score：
+    score:
 
     CREATE TABLE `score` (
       `id` int(11) NOT NULL AUTO_INCREMENT,
       `stu_id` int(11) NOT NULL,
-      `item` varchar(255) DEFAULT NULL,
+      `sub_id` int(11) NOT NULL,
       `score` double(15,0) DEFAULT NULL,
       UNIQUE KEY `id` (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
-    CREATE TABLE `work` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `name` varchar(255) DEFAULT NULL,
-      `content` blob,
+    subject:
+
+    CREATE TABLE `subject` (
+      `id` int(11) NOT NULL,
+      `name` varchar(100) DEFAULT NULL,
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+    work:
+
+    CREATE TABLE `work` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `sub_id` int(11) NOT NULL,
+      `name` varchar(255) DEFAULT NULL,
+      `content` text,
+      PRIMARY KEY (`id`),
+      FULLTEXT KEY `content_full` (`content`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
 
     测试：/stu/1  /score/1
+
+        /stu/1?s=1 /score/1?s=1
 
 20: ehcache 二级缓存配置 xml 注解
 

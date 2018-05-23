@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Administrator on 18-5-4.
  */
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler"})
-public class Stu implements Serializable {
+public class Student implements Serializable {
 
     private Integer id;
 

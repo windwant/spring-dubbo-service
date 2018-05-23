@@ -11,7 +11,7 @@ import org.windwant.spring.core.mybatis.DataSource.Type;
 import org.windwant.spring.core.mybatis.handler.SexEnumHandler;
 import org.windwant.spring.core.mybatis.interceptor.Page;
 import org.windwant.spring.model.Score;
-import org.windwant.spring.model.Stu;
+import org.windwant.spring.model.Student;
 
 import java.util.List;
 
@@ -30,17 +30,17 @@ public interface StuScoreMapper {
      * @param id
      * @return
      */
-    @Select("select id, name, sex from stu where id = #{id}")
+    @Select("select id, name, sex from student where id = #{id}")
     @Results({
             @Result(id = true, property = "id", column = "id"),
-            @Result(property = "item", column = "item"),
+            @Result(property = "name", column = "name"),
             @Result(property = "sex", column = "sex", typeHandler = SexEnumHandler.class),//处理枚举型
             @Result(property = "score", column = "score"),
             @Result(property = "scores", column = "id"  //column 传入级联查询的参数
                     , many = @Many(select = "org.windwant.spring.mapper.StuScoreMapper.selectScoreById", fetchType = FetchType.LAZY))}
     )
     @Options(useCache = true, flushCache = Options.FlushCachePolicy.DEFAULT, timeout = 10000, fetchSize = 1024, resultSetType = ResultSetType.SCROLL_SENSITIVE)
-    Stu selectStuById(@Param("id") Integer id);
+    Student selectStuById(@Param("id") Integer id);
 
     /**
      * 级联 查询分数信息
@@ -49,14 +49,14 @@ public interface StuScoreMapper {
      * @return
      */
     @Options(useCache = true, flushCache = Options.FlushCachePolicy.DEFAULT, timeout = 10000)
-    @Select("select id, stu_id, item, score from score where stu_id = #{id}")
+    @Select("select id, stu_id, sub_id, score from score where stu_id = #{id}")
     Score selectScoreById(@Param("id") Integer id);
 
 
     @Select("<script>" +
-            "select id, name from stu " +
+            "select id, name from student " +
             "limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER} " +
             "</script>")
     @Options(flushCache = Options.FlushCachePolicy.TRUE)//处理分页查询缓存问题
-    List<Stu> selectStu(Page page);
+    List<Student> selectStu(Page page);
 }

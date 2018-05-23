@@ -91,12 +91,12 @@ public class BootRestController extends BaseController {
                                                  @RequestParam(value = "s", required = false, defaultValue = "0") int source,
                                                  Page page){
         if(id == 0){
-            List<Stu> stus = bootService.getStu(page);
+            List<Student> stus = bootService.getStu(page);
             logger.info("query stu list size: {}", stus.size());
             stus.stream().forEach(item -> logger.info("stu: {}", ToStringBuilder.reflectionToString(item)));
             return Response.response(0, Response.MSG_SUCCESS, stus);
         }
-        Stu stu = bootService.getStuById(id, source);
+        Student stu = bootService.getStuById(id, source);
         logger.info("query stu: {}", ToStringBuilder.reflectionToString(stu));
         return Response.response(0, Response.MSG_SUCCESS, stu);
     }
