@@ -1,6 +1,6 @@
 spring:
     messages:
-        basename: lang/messages
+        basename: messages
     profiles:
         active: $[build.profile]
 datasource:
