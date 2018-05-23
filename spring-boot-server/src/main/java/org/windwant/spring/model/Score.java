@@ -14,18 +14,36 @@ public class Score  implements Serializable {
 
     private Integer stuId;
 
-    private String item;
+    private Integer subId;
 
     private Double score;
 
-    private Stu stu;
+    private Student student;
 
-    public Stu getStu() {
-        return stu;
+    private Subject subject;
+
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setStu(Stu stu) {
-        this.stu = stu;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Integer getSubId() {
+        return subId;
+    }
+
+    public void setSubId(Integer subId) {
+        this.subId = subId;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Integer getId() {
@@ -42,14 +60,6 @@ public class Score  implements Serializable {
 
     public void setStuId(Integer stuId) {
         this.stuId = stuId;
-    }
-
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
     }
 
     public Double getScore() {

@@ -21,7 +21,7 @@ public interface BootService {
 
     Score getScoreById(int id, int type);
 
-    Stu getStuById(int id, int type);
+    Student getStuById(int id, int type);
 
-    List<Stu> getStu(Page page);
+    List<Student> getStu(Page page);
 }

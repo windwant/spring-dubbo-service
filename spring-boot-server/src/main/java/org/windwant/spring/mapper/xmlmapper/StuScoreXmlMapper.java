@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import org.windwant.spring.core.mybatis.DataSource;
 import org.windwant.spring.core.mybatis.DataSource.Type;
-import org.windwant.spring.model.Stu;
+import org.windwant.spring.model.Student;
 
 /**
  * Created by windwant on 2016/12/30.
@@ -19,12 +19,12 @@ public interface StuScoreXmlMapper {
      * @param id
      * @return
      */
-    Stu selectStuByIdXML(@Param("id") Integer id);
+    Student selectStuByIdXML(@Param("id") Integer id);
 
     /**
      * 另一种级联
      * @param id
      * @return
      */
-    Stu selectStuByIdXMLX(@Param("id") Integer id);
+    Student selectStuByIdXMLX(@Param("id") Integer id);
 }

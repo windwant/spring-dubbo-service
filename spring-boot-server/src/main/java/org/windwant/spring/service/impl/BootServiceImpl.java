@@ -166,8 +166,8 @@ public class BootServiceImpl implements BootService {
      */
     @Transactional(transactionManager = "txMgr", propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
     @Override
-    public Stu getStuById(int id, int type) {
-        Stu stu;
+    public Student getStuById(int id, int type) {
+        Student stu;
         //注解mapper
         if(type == 0){
             stu = stuScoreMapper.selectStuById(id);
@@ -183,8 +183,8 @@ public class BootServiceImpl implements BootService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public List<Stu> getStu(Page page) {
-        List<Stu> stus = stuScoreMapper.selectStu(page);
+    public List<Student> getStu(Page page) {
+        List<Student> stus = stuScoreMapper.selectStu(page);
         ((BootService)AopContext.currentProxy()).getStuById(1, 0); //exposeProxy = true目标对象内部的自我调用的事务增强支持 同时改为此种调用方式
         return stus;
     }

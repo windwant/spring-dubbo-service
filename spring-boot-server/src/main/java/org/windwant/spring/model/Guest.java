@@ -1,6 +1,7 @@
 package org.windwant.spring.model;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.windwant.spring.core.validator.EnumIntValid;
 import org.windwant.spring.util.DateUtil;
 
 /**
@@ -10,6 +11,8 @@ public class Guest {
     @NotBlank(message = "{guest.name}")
     private String name;
 
+    //自定义注解验证
+    @EnumIntValid(value = {0, 1})
     private Integer sex;
 
     private String accessTime;
