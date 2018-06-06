@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 public class SynZookeeperLock {
     private static final int SESSION_TIMEOUT = 30000;
 
-    public static ZooKeeper getInstance(String domain, Watcher w){
+    public static ZooKeeper getInstance(String domain){
         try {
             CountDownLatch c = new CountDownLatch(1);
             ZooKeeper zk = new ZooKeeper(domain, SESSION_TIMEOUT, new Watcher() {
@@ -43,7 +43,7 @@ public class SynZookeeperLock {
      */
     public static void tryLock(String domain, String path, byte[] data, CountDownLatch c){
         //每次获取锁使用新的会话连接
-        ZooKeeper zk = getInstance(domain, null);
+        ZooKeeper zk = getInstance(domain);
         zk.create(path, data, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, (rc, path1, ctx, name) -> {
             //节点创建成功，获取锁
             if (rc == 0) {
@@ -66,7 +66,7 @@ public class SynZookeeperLock {
             } else if(rc == -110) {//节点已存在，则说明锁已被其它进程获取，则创建watch，并阻塞等待
                 System.out.println(Thread.currentThread().getName() + "：result " + rc + " lock " + path + " already created, waiting!");
                 try {
-                    zk.getChildren(path, event -> {
+                    zk.exists(path, event -> {
                         //watch 到锁删除事件，则触发重新获取锁
                         if (event.getType().equals(Watcher.Event.EventType.NodeDeleted)) {
                             System.out.println(Thread.currentThread().getName() + "：get node deleted event! try lock!");
