@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 /**
@@ -37,8 +38,6 @@ public class BootServiceTest {
     public Page page3 = new Page(3);
 
     public User user = User.build("lilei", "123", 1);
-
-    public Person p = new Person();
 
     @Before
     public void setup(){
@@ -60,17 +59,19 @@ public class BootServiceTest {
 
         when(bootService.login(user)).thenReturn(new HashMap(){{put("success", user);}});
 
-        when(mongoService.findByLastName("lilei")).thenReturn(new ArrayList<Person>() {{
+        when(mongoService.findByLastName("lei")).thenReturn(new ArrayList<Person>() {{
             for (int i = 0; i < 10; i++) {
                 Person p = new Person();
                 p.setFirstName("first_name" + i);
-                p.setLastName("last_name" + i);
+                p.setLastName("lei");
                 add(p);
             }
         }});
+
+        Person p = new Person();
         p.setFirstName("roger");
         p.setLastName("root");
-        when(mongoService.insert(p)).thenReturn(p);
+        when(mongoService.insert(any(Person.class))).thenReturn(p);
     }
 
     private List<Student> getPageStudent(Page page){
@@ -113,7 +114,7 @@ public class BootServiceTest {
 
     @Test
     public void testMongo(){
-        mongoService.findByLastName("lilei").forEach(item -> System.out.println(ToStringBuilder.reflectionToString(item)));
-        System.out.println(ToStringBuilder.reflectionToString(mongoService.insert(p)));
+        mongoService.findByLastName("lei").forEach(item -> System.out.println(ToStringBuilder.reflectionToString(item)));
+        System.out.println(ToStringBuilder.reflectionToString(mongoService.insert(new Person())));
     }
 }
