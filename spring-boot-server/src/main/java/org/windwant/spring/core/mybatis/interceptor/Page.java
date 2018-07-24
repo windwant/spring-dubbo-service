@@ -27,6 +27,10 @@ public class Page {
 
     public Page(){}
 
+    public Page(int page){
+        this.page = page;
+    }
+
     public Page(int offset, int limit){
         this. offset = offset;
         this.limit = limit;
