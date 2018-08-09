@@ -93,3 +93,35 @@ springboot maven项目
 21: 分页处理：传递Page参数 或者继承Page的对象参数
 
     测试：http://localhost:8082/stu/0?page=3&limit=2
+
+22: acturtor 项目监控信息获取
+
+    原生端点：
+
+    应用配置：应用配置、环境变量、自动化配置报告等配置类信息，
+
+    /env 可用环境属性 key password secret ****展示
+
+    /autoconfig 自动化配置报告，所有自动化配置候选项及是否满足自动化配置的各个先决条件；positiveMatches成功匹配的，negativeMatches匹配不成功
+
+    /beans 创建的所有bean
+
+    /configprops 配置的属性信息报告
+
+    /mappings 控制器映射关系
+
+    /info 应用自定义信息，需要在应用属性文件中配置
+
+    度量指标：运行监控度量指标，内存，线程，请求等
+
+    /metrics 度量指标，可以细化请求 : /metrics/mem.free
+
+    /health 健康指标信息
+
+    /dump 线程信息
+
+    /trace http跟踪信息
+
+    操控类：/shutdown post请求关闭应用
+
+    属性配置endpoints.shutdown.enabled=true
