@@ -110,7 +110,7 @@ public class ShiroConfig implements EnvironmentAware {
         return authorizationAttributeSourceAdvisor;
     }
 
-    @Bean(name = "shiroFilter")
+//    @Bean(name = "shiroFilter")  //注释权限
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 

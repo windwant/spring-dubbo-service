@@ -68,3 +68,6 @@ dubbo:
         threads: $[dubbo.provider.threads]
         retries: $[dubbo.provider.retries]
         proxy: $[dubbo.provider.proxy]
+endpoints:
+    shutdown:
+        enabled: true

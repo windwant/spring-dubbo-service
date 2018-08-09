@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan
 @EnableAutoConfiguration
 @PropertySource({"classpath:config.properties"})
-@PropertySource({"classpath:application.yml"})//取本地配置文件
 @EnableScheduling //定时任务
 @ImportResource({"META-INF/spring/dubbo-service.xml", "classpath:disconf/disconf.xml"}) //disconf 统一配置 }) //
 public class BootSpring
