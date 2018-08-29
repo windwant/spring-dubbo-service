@@ -34,7 +34,7 @@ public class ProxyServer
 
 
     private void start() throws InterruptedException {
-        logger.info("bootProxy server start... ");
+        logger.info("proxy server start... ");
         bossGroup = new NioEventLoopGroup(1);
         workerGroup = new NioEventLoopGroup();
 
@@ -51,7 +51,7 @@ public class ProxyServer
             //绑定端口
             channelFuture = bootstrap.bind(ConfigUtil.getInteger("server.port"));
         } catch (Exception e) {
-            logger.error("bootProxy Server Start ERROR", e);
+            logger.error("proxy Server Start failed", e);
             throw new RuntimeException(e);
         } finally {
             if (null != channelFuture) {
@@ -64,11 +64,11 @@ public class ProxyServer
 
     public void shutdownGraceFully() {
         if (bossGroup != null) {
-            logger.info("the boss group is shutdown gracefully!");
+            logger.info("boss group shutdown gracefully!");
             bossGroup.shutdownGracefully();
         }
         if (workerGroup != null) {
-            logger.info("the work group is shutdown gracefully!");
+            logger.info("work group shutdown gracefully!");
             workerGroup.shutdownGracefully();
         }
     }

@@ -9,14 +9,14 @@
     <module>spring-boot-server</module>
     <module>spring-dubbo-test</module>
     <module>spring-dubbo-common</module>
-    <module>spring-dubbo-cat</module>
+    <module>spring-dubbo-monitor</module>
     <module>spring-dubbo-proxy</module>
-    <module>spring-dubbo-protobuf</module>
+    <module>spring-dubbo-protocal</module>
     <module>spring-dubbo-wsproxy</module>
     <module>spring-dubbo-client</module>
     <module>spring-dubbo-elasticjob</module>
     <module>spring-dubbo-registry</module>
-    <module>spring-dubbo-push</module>
+    <module>spring-dubbo-bus</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -67,6 +67,12 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>

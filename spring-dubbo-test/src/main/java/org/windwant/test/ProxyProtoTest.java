@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.util.ConfigUtil;
 import org.windwant.common.util.DateUtil;
-import org.windwant.protobuf.BootRequestResponse;
+import org.windwant.protocal.BootRequestResponse;
 
 /**
  * ProxyProtoTest

@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--<parent>-->
+        <!--<artifactId>spring-boot-test</artifactId>-->
+        <!--<groupId>org.windwant.spring</groupId>-->
+        <!--<version>1.0-SNAPSHOT</version>-->
+    <!--</parent>-->
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.windwant.monitor</groupId>
+    <artifactId>spring-dubbo-monitor</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <name>spring-dubbo-monitor</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    </properties>
+
+    <dependencies>
+        <!-- cat dependency jars -->
+        <dependency>
+            <groupId>com.dianping.cat</groupId>
+            <artifactId>cat-client</artifactId>
+            <version>1.3.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.unidal.framework</groupId>
+            <artifactId>foundation-service</artifactId>
+            <version>2.3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.unidal.framework</groupId>
+            <artifactId>test-framework</artifactId>
+            <scope>test</scope>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-classworlds</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-container-default</artifactId>
+            <version>1.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.collections</groupId>
+                    <artifactId>google-collections</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>3.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-reflect</artifactId>
+            <version>3.7</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>cat.repo</id>
+            <url>https://github.com/dianping/cat/tree/mvn-repo</url>
+        </repository>
+    </repositories>
+</project>

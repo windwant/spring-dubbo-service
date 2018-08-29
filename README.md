@@ -40,7 +40,7 @@
 
   netty rpc websocket 服务代理
 
-6、spring-dubbo-protobuf
+6、spring-dubbo-protocal
 
   protobuf 资源
 

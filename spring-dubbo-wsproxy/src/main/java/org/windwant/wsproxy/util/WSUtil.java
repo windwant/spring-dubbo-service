@@ -6,11 +6,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import org.springframework.util.StringUtils;
-import org.windwant.protobuf.BootRequestResponse;
-import org.windwant.wsproxy.WebSocketProxyChannelManager;
-
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import org.windwant.protocal.BootRequestResponse;
+import org.windwant.wsproxy.WSProxyChannelManager;
 
 /**
  */
@@ -22,7 +19,7 @@ public class WSUtil {
     public static void removeChannel(String requestCode, Channel channel) {
         if (!StringUtils.isEmpty(requestCode)) {
             //requestCode->Channel 关系移除
-            WebSocketProxyChannelManager.removeUserChannel("channel-" + requestCode);
+            WSProxyChannelManager.removeUserChannel("channel-" + requestCode);
             ConsulUtil.removeRequestChannel("channel-" + requestCode);
         }
 

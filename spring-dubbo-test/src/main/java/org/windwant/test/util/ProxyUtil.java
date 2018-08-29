@@ -3,7 +3,7 @@ package org.windwant.test.util;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.windwant.common.util.DateUtil;
-import org.windwant.protobuf.BootRequestResponse;
+import org.windwant.protocal.BootRequestResponse;
 
 /**
  * Created by Administrator on 2018/2/9.
