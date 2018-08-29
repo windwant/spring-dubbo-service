@@ -4,14 +4,11 @@ import com.google.common.net.HostAndPort;
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.KeyValueClient;
 import com.orbitz.consul.model.kv.Value;
-import com.orbitz.consul.option.DeleteOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.util.ConfigUtil;
 import org.windwant.common.util.NetUtil;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

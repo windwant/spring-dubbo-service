@@ -129,8 +129,8 @@
             <version>4.3.1.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.windwant.protobuf</groupId>
-            <artifactId>spring-dubbo-protobuf</artifactId>
+            <groupId>org.windwant.protocal</groupId>
+            <artifactId>spring-dubbo-protocal</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -139,8 +139,8 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.windwant.cat</groupId>
-            <artifactId>spring-dubbo-cat</artifactId>
+            <groupId>org.windwant.monitor</groupId>
+            <artifactId>spring-dubbo-monitor</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

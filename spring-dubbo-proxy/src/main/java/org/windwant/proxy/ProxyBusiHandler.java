@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.api.DubboService;
 import org.windwant.common.api.model.Guest;
-import org.windwant.protobuf.BootRequestResponse.BootRequest;
-import org.windwant.protobuf.BootRequestResponse.BootResponse;
+import org.windwant.protocal.BootRequestResponse.BootRequest;
+import org.windwant.protocal.BootRequestResponse.BootResponse;
 
 /**
  * Created by Administrator on 2018/2/7.

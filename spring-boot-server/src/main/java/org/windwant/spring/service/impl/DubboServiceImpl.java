@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * 通过dubbo rpc访问
  * Created by Administrator on 2018/2/6.
  */
 @Service("dubbosvr")

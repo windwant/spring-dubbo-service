@@ -21,6 +21,11 @@
   15). static资源， “/” 映射
   16). 使用druid数据源连接池；配置druid数据源监控：http://localhost:8081/druid/index.html
   17). dubbo server
+  18). dianping Cat 监控
+  19). mybatis 级联查询 一对一 一对多 注解配置及xml配置方式
+  20). ehcache 二级缓存配置 xml 注解
+  21). 分页处理：传递Page参数 或者继承Page的对象参数
+  22). acturtor 项目监控信息获取
 
 2、spring-dubbo-test
 
@@ -40,7 +45,7 @@
 
   netty rpc websocket 服务代理
 
-6、spring-dubbo-protobuf
+6、spring-dubbo-protocal
 
   protobuf 资源
 
@@ -64,7 +69,7 @@
                              ConfigUtil.getInteger("websocket.connect.port"),
                              ConfigUtil.get("service.version")));
 
-十、spring-dubbo-push
+十、spring-dubbo-bus
 
   消息监听推送
 

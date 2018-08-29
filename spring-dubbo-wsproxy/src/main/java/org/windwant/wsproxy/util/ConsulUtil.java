@@ -48,6 +48,6 @@ public class ConsulUtil {
         getClient().deleteKey(NetUtil.getHost(), DeleteOptions.RECURSE);
         RegistryFactory.INSTANCE.
                 getRegistry(RegistryFactory.CONSUL).
-                doUnRegisterByName(NetUtil.getHost() + "/" + ConfigUtil.get("service.name"), NetUtil.getHost() + "/" + ConfigUtil.get("service.push.name"));
+                doUnRegisterByName(NetUtil.getHost() + "/" + ConfigUtil.get("service.name"), NetUtil.getHost() + "/" + ConfigUtil.get("service.bus.name"));
     }
 }

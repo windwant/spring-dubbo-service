@@ -270,8 +270,8 @@
 
         <!-- cat dependency jars -->
         <dependency>
-            <groupId>org.windwant.cat</groupId>
-            <artifactId>spring-dubbo-cat</artifactId>
+            <groupId>org.windwant.monitor</groupId>
+            <artifactId>spring-dubbo-monitor</artifactId>
             <version>1.0</version>
             <exclusions>
                 <exclusion>
