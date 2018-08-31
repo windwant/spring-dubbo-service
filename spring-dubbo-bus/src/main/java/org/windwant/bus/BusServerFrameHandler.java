@@ -5,8 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.protocal.BootRequestResponse;
-import org.windwant.protocal.BootRequestResponse.BootRequest;
+import org.windwant.protocal.DubboServicePro;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -42,16 +41,16 @@ public class BusServerFrameHandler extends SimpleChannelInboundHandler<Object> {
             while (inMessageBytes.isReadable()) {
                 inMessageBytes.readBytes(inBytes);
             }
-            BootRequest bootRequest = null;
+            DubboServicePro.DubboRequest request = null;
             try {
-                bootRequest = BootRequestResponse.BootRequest.parseFrom(inBytes);
+                request = DubboServicePro.DubboRequest.parseFrom(inBytes);
             }catch (Exception e) {
                 logger.warn("data error!");
                 return;
             }
-            String requestCode = String.valueOf(bootRequest.getRequestCode());
+            String requestCode = String.valueOf(request.getRequestCode());
             
-            logger.info("requestCode {}, request {}", requestCode, bootRequest.toString());
+            logger.info("requestCode {}, request {}", requestCode, request.toString());
         }  catch (Exception e) {
         	logger.error(e.toString());
         }

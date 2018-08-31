@@ -6,8 +6,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.protocal.BootRequestResponse;
 import org.windwant.bus.util.JedisUtils;
+import org.windwant.protocal.DubboServicePro;
 import redis.clients.jedis.Jedis;
 
 import java.util.List;
@@ -49,10 +49,10 @@ public class MqMonitor {
         if(BusServerChannelMgr.websocketChannel != null){
             JSONObject push = JSONObject.parseObject(msg);
 
-            BootRequestResponse.BootResponse response = BootRequestResponse.BootResponse.newBuilder()
-                    .setRequestCode(push.getInteger("requestCode"))
-                    .setRespCode(push.getInteger("requestCode"))
-                    .setResult(push.getString("msg"))
+            DubboServicePro.DubboResponse response = DubboServicePro.DubboResponse.newBuilder()
+                    .setResponseCode(DubboServicePro.DubboResponse.ResponseCode.values()[push.getInteger("requestCode") - 1])
+                    .setMsg(push.getString("msg"))
+                    .setStatus(0)
                     .build();
             BusServerChannelMgr.websocketChannel.writeAndFlush(Unpooled.wrappedBuffer(response.toByteArray()))
             .addListener(new ChannelFutureListener() {

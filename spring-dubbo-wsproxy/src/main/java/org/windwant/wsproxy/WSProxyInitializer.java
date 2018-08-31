@@ -12,7 +12,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.protocal.DubboServicePro;
 
 /**
  * Netty的channel ChannelInboundHandlerAdapter 初始handler
@@ -23,7 +23,7 @@ public class WSProxyInitializer extends ChannelInitializer<SocketChannel> {
 
     public WSProxyInitializer() {
         registry = ExtensionRegistry.newInstance();
-        BootRequestResponse.registerAllExtensions(registry);
+        DubboServicePro.registerAllExtensions(registry);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class WSProxyInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new HttpObjectAggregator(65536));//它负责把多个HttpMessage组装成一个完整的Http请求或者响应。到底是组装成请求还是响应，则取决于它所处理的内容是请求的内容，还是响应的内容
         pipeline.addLast(new ChunkedWriteHandler());//分块写处理
         pipeline.addLast(new ProtobufVarint32FrameDecoder()); //长度解码
-        pipeline.addLast(new ProtobufDecoder(BootRequestResponse.BootRequest.getDefaultInstance(), registry)); //protobuf 解码
+        pipeline.addLast(new ProtobufDecoder(DubboServicePro.DubboRequest.getDefaultInstance(), registry)); //protobuf 解码
         pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());//添加长度
         pipeline.addLast(new ProtobufEncoder()); //protobuf 编码
         pipeline.addLast(new WebSocketServerProtocolHandler("/websocket"));

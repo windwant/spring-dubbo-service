@@ -1,0 +1,14 @@
+version
+load_file
+database
+schema
+user
+USER
+SYSDATE
+system_user
+session_user
+benchmark
+current_user
+sleep
+xmltype
+receive_message

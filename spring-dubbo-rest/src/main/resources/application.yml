@@ -1,0 +1,23 @@
+spring:
+    messages:
+        basename: messages
+    profiles:
+        active: $[build.profile]
+log:
+    path: $[logPath]
+    level: $[logLevel]
+server:
+    port: $[server.port]
+#consul:
+#    host: $[consul.host]
+#ftp:
+#    host: $[ftp.host]
+#    port: $[ftp.port]
+#    username: ftp
+#    password: ftp
+#    connectTimeOut: 10000
+endpoints:
+    shutdown:
+        enabled: true
+
+debug: true

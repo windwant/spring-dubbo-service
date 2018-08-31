@@ -59,7 +59,7 @@ public class ConfigUtil {
             if (result == null || result.isEmpty()) {
                 return new ArrayList<>();
             }
-            String[] values = result.split("|");
+            String[] values = result.split("\\|");
             return Arrays.asList(values);
         }
         return new ArrayList<>();

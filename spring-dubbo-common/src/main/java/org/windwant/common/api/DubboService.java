@@ -1,10 +1,12 @@
 package org.windwant.common.api;
 
-import org.windwant.common.api.model.Guest;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/6.
  */
 public interface DubboService {
-    String getSysTime(Guest guest);
+    Map<String, Object> getSysTime(String accessTime);
+
+    Map<String, Object> login(String userName, String password, String code);
 }

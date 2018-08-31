@@ -6,7 +6,7 @@ import io.netty.channel.*;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.protocal.DubboServicePro;
 import org.windwant.wsproxy.WSProxyChannelManager;
 import org.windwant.wsproxy.util.WSUtil;
 
@@ -28,14 +28,14 @@ public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
             while (inMessageBytes.isReadable()) {
                 inMessageBytes.readBytes(inBytes);
             }
-            BootRequestResponse.BootResponse response = null;
+            DubboServicePro.DubboResponse response = null;
             try {
-                response = BootRequestResponse.BootResponse.parseFrom(inBytes);
+                response = DubboServicePro.DubboResponse.parseFrom(inBytes);
             }catch (Exception e) {
                 logger.warn("the request protobuf data is corrupted!");
                 return;
             }
-            String requestCode = String.valueOf(response.getRequestCode());
+            String requestCode = String.valueOf(response.getResponseCode().getNumber());
             logger.info("request requestCode:{}", requestCode);
 
             if (WSProxyChannelManager.getUserChannel(requestCode) == null) {
@@ -46,7 +46,7 @@ public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
 
             if(channel==null || !channel.isActive()){
                 logger.info("received push server send message ! {} channel is unavaliable!", requestCode);
-                WSUtil.response(context.channel(), response.getRequestCode(), response.getRequestCode(), "channel is unavaliable");
+                WSUtil.responseFailed(context.channel(), response.getResponseCode(), -1, "channel is unavaliable");
                 return;
             }
 
@@ -56,7 +56,7 @@ public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
             channel.writeAndFlush(new BinaryWebSocketFrame(outMessageBytes)).addListener(new ChannelFutureListener() {
                 public void operationComplete(ChannelFuture channelFuture) throws Exception {
                     if (!channelFuture.isSuccess()) {
-                        WSUtil.response(context.channel(), Integer.parseInt(requestCode),  Integer.parseInt(requestCode), "message push failed");
+                        WSUtil.responseFailed(context.channel(), DubboServicePro.DubboResponse.ResponseCode.BaseResponse, -1, "message push failed");
                         logger.info("requestCode: {}, send push message failed !", requestCode);
                     }else
                         context.channel().read();

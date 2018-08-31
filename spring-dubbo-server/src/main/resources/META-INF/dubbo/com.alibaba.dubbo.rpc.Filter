@@ -1,0 +1,2 @@
+dubboCatFilter=org.windwant.spring.core.filter.CatDubboFilter
+dubboLoginFilter=org.windwant.spring.core.filter.LoginFilter

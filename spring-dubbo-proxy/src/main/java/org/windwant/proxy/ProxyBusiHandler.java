@@ -1,32 +1,67 @@
 package org.windwant.proxy;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.protobuf.ByteString;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.common.api.DubboService;
-import org.windwant.common.api.model.Guest;
-import org.windwant.protocal.BootRequestResponse.BootRequest;
-import org.windwant.protocal.BootRequestResponse.BootResponse;
+import org.windwant.protocal.DubboServicePro;
+
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/2/7.
  */
 public class ProxyBusiHandler {
     private static final Logger logger = LoggerFactory.getLogger(ProxyBusiHandler.class);
-    public static void getBusiResponse(DubboService dubboService, BootRequest bootrequest, ChannelHandlerContext ctx) throws Exception {
-//        ByteString bytes = bootrequest.getUnknownFields().getField(BootRequest.REQUEST_FIELD_NUMBER).getLengthDelimitedList().get(0);
-//        BootRequest request = BootRequest.parseFrom(bytes);
-        Guest guest = new Guest();
-        guest.setName(bootrequest.getName());
-        guest.setSex(bootrequest.getSex());
-        guest.setAccessTime(bootrequest.getAccessTime());
-        logger.info("receive request: {}", guest.toString());
-        String response =  dubboService.getSysTime(guest);
-        logger.info("response message: {}", response);
-        BootResponse.Builder builder = BootResponse.newBuilder();
-        builder.setResult(response).setRequestCode(bootrequest.getRequestCode()).setRespCode(bootrequest.getRequestCode());
-        BootResponse res = builder.build();
-        ctx.writeAndFlush(res);
+    public static void getBusiResponse(DubboService dubboService, DubboServicePro.DubboRequest request, ChannelHandlerContext ctx) throws Exception {
+        //时间请求
+        if(request.getRequestCode() == DubboServicePro.DubboRequest.RequestCode.TimeRequest){
+            ByteString bytes = request.getUnknownFields().getField(DubboServicePro.TimeRequest.REQUEST_FIELD_NUMBER).getLengthDelimitedList().get(0);
+            DubboServicePro.TimeRequest timeRequest =  DubboServicePro.TimeRequest.parseFrom(bytes);
+            logger.info("receive request: {}", timeRequest.toString());
+            Map<String, Object> response =  dubboService.getSysTime(timeRequest.getAccessTime());
+            logger.info("response message: {}", response);
+            DubboServicePro.TimeResponse timeResponse = DubboServicePro.TimeResponse.newBuilder()
+                    .setResult((String) response.get("result"))
+                    .setRequestCode(request.getRequestCode().getNumber())
+                    .setResponseCode(request.getRequestCode().getNumber())
+                    .build();
+            DubboServicePro.DubboResponse res = DubboServicePro.DubboResponse.newBuilder()
+                    .setExtension(DubboServicePro.TimeResponse.response, timeResponse)
+                    .setStatus((Integer) response.get("status"))
+                    .setMsg((String) response.get("msg"))
+                    .setResponseCode(DubboServicePro.DubboResponse.ResponseCode.TimeResponse)
+                    .build();
+            ctx.writeAndFlush(res);
+        }else if(request.getRequestCode() == DubboServicePro.DubboRequest.RequestCode.LoginRequest){
+            ByteString bytes = request.getUnknownFields().getField(DubboServicePro.LoginRequest.REQUEST_FIELD_NUMBER).getLengthDelimitedList().get(0);
+            DubboServicePro.LoginRequest loginRequest =  DubboServicePro.LoginRequest.parseFrom(bytes);
+            logger.info("receive request: {}", loginRequest.toString());
+            Map<String, Object> response =  dubboService.login(loginRequest.getUserName(), loginRequest.getPasswd(), loginRequest.getCode());
+            logger.info("response message: {}", response);
+            DubboServicePro.LoginResponse loginResponse = DubboServicePro.LoginResponse.newBuilder()
+                    .setResult(JSONObject.toJSONString(response))
+                    .setRequestCode(request.getRequestCode().getNumber())
+                    .setResponseCode(request.getRequestCode().getNumber())
+                    .build();
+            DubboServicePro.DubboResponse res = DubboServicePro.DubboResponse.newBuilder()
+                    .setExtension(DubboServicePro.LoginResponse.response, loginResponse)
+                    .setStatus((Integer) response.get("status"))
+                    .setMsg((String) response.get("msg"))
+                    .setResponseCode(DubboServicePro.DubboResponse.ResponseCode.LoginResponse)
+                    .build();
+            ctx.writeAndFlush(res);
+        }else if (request.getRequestCode() == DubboServicePro.DubboRequest.RequestCode.BaseRequest){
+            DubboServicePro.DubboResponse res = DubboServicePro.DubboResponse.newBuilder()
+                    .setStatus(0)
+                    .setMsg("SUCCESS")
+                    .setResponseCode(DubboServicePro.DubboResponse.ResponseCode.BaseResponse)
+                    .build();
+            ctx.writeAndFlush(res);
+        }
+
 
 //        AsyncUtil.senResponse(channel, type);
     }

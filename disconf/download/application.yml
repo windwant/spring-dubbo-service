@@ -1,0 +1,68 @@
+spring:
+    messages:
+        basename: lang/messages
+    profiles:
+        active: test
+datasource:
+    local:
+        url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
+        driverClassName: com.mysql.jdbc.Driver
+        type: org.apache.commons.dbcp.BasicDataSource
+        max-active: 30
+        max-idle: 10
+        max-wait: 10
+        test-while-idle: true
+        aop-patterns: org.windwant.spring.mapper.*
+        filter:
+            stat:
+                db-type: mysql
+                log-slow-sql: true
+                slow-sql-millis: 2000
+        filters: wall,stat
+    remote:
+        url: jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
+        driverClassName: com.mysql.jdbc.Driver
+        type: org.apache.commons.dbcp.BasicDataSource
+        max-active: 30
+        max-idle: 10
+        max-wait: 10
+        test-while-idle: true
+        aop-patterns: org.windwant.spring.mapper.*
+        filter:
+            stat:
+                db-type: mysql
+                log-slow-sql: true
+                slow-sql-millis: 2000
+        filters: wall,stat
+log:
+    path: /
+    level: info
+server:
+    port: 8085
+consul:
+    host: 127.0.0.1
+ftp:
+    host: 127.0.0.1
+    port: 21
+    username: ftp
+    password: ftp
+    connectTimeOut: 10000
+dubbo:
+    application:
+        name: dubbo-server
+    registry:
+        address: zookeeper://127.0.0.1:2181
+    protocal:
+        port: 20882
+        serialization: kryo
+    service:
+        version: 1.0
+    provider:
+        timeout: 2000
+        threads: 10
+        retries: 2
+        proxy: javassist

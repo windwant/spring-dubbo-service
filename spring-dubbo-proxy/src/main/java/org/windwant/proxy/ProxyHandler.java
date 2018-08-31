@@ -6,7 +6,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.windwant.dubbo.DubboSvr;
-import org.windwant.protocal.BootRequestResponse.BootRequest;
+import org.windwant.protocal.DubboServicePro;
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -30,10 +30,12 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         } finally {
             inMessageBytes.release();
         }
-        BootRequest bootRequest =  BootRequest.parseFrom(inBytes);
+
         try {
-            //业务逻辑处理，可能会引起阻塞
-            ProxyBusiHandler.getBusiResponse(DubboSvr.dubboService, bootRequest, ctx);
-        }catch (Exception e){}
+            DubboServicePro.DubboRequest dubboRequest =  DubboServicePro.DubboRequest.parseFrom(inBytes);
+            ProxyBusiHandler.getBusiResponse(DubboSvr.dubboService, dubboRequest, ctx);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
