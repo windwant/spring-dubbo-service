@@ -8,7 +8,7 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.protocal.DubboServicePro;
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -18,7 +18,7 @@ public class ProxyInitializer extends ChannelInitializer<SocketChannel> {
 
     public ProxyInitializer() {
         registry = ExtensionRegistry.newInstance();
-        BootRequestResponse.registerAllExtensions(registry);
+        DubboServicePro.registerAllExtensions(registry);
     }
 
     @Override

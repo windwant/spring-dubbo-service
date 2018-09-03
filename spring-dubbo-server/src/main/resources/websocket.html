@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script type="text/javascript">
+    if(!window.WebSocket){
+        window.WebSocket = window.MozWebsocket;
+    }
+
+    if(window.WebSocket){
+        socket = new WebSocket("ws://localhost:8080/myws");
+        socket.onmessage = function(event){
+            document.getElementById("rtext").value = event.data;
+        }
+
+        socket.onopen = function(event){
+            document.getElementById("rtext").value = "socket open";
+        }
+
+        socket.onclose = function(event){
+            document.getElementById("rtext").value = "socket close";
+        }
+    }else{
+        alert("browser not supported");
+    }
+
+    function sendMessage(){
+        if(!window.WebSocket){
+            return;
+        }
+
+        if(socket.readyState == WebSocket.OPEN){
+            socket.send(document.getElementById('message').value);
+        }else{
+            alert('waiting connecting');
+        }
+    }
+
+</script>
+<body>
+<input type="text" id="message" name="message" value="best prictice">
+
+<input type="button" onclick="sendMessage()" value="SEND">
+
+</br>
+</br>
+</br>
+<textarea id="rtext" style="width: 30%; height: 200px;"/>
+</body>
+</html>

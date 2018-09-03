@@ -5,7 +5,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.protocal.DubboServicePro;
 
 /**
  */
@@ -15,7 +15,7 @@ public class BusWSServerInitializer extends ChannelInitializer<SocketChannel> {
 
     public BusWSServerInitializer() {
         registry = ExtensionRegistry.newInstance();
-        BootRequestResponse.registerAllExtensions(registry);
+        DubboServicePro.registerAllExtensions(registry);
     }
 
     @Override

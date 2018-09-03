@@ -6,12 +6,12 @@ import io.netty.channel.*;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.protocal.DubboServicePro;
 import org.windwant.wsproxy.WSProxyChannelManager;
 import org.windwant.wsproxy.util.WSUtil;
 
 /**
- * 推送
+ * 消息处理
  */
 public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
 
@@ -28,16 +28,17 @@ public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
             while (inMessageBytes.isReadable()) {
                 inMessageBytes.readBytes(inBytes);
             }
-            BootRequestResponse.BootResponse response = null;
+            DubboServicePro.DubboResponse response = null;
             try {
-                response = BootRequestResponse.BootResponse.parseFrom(inBytes);
+                response = DubboServicePro.DubboResponse.parseFrom(inBytes);
             }catch (Exception e) {
-                logger.warn("the request protobuf data is corrupted!");
+                logger.warn("request protobuf data parsed failed!");
                 return;
             }
-            String requestCode = String.valueOf(response.getRequestCode());
-            logger.info("request requestCode:{}", requestCode);
+            String requestCode = String.valueOf(response.getResponseCode().getNumber());
+            logger.info("request requestCode:{}", response.getResponseCode());
 
+            //注册用户通道
             if (WSProxyChannelManager.getUserChannel(requestCode) == null) {
                 WSProxyChannelManager.registerUserChannel(requestCode, context.channel());
 
@@ -45,19 +46,19 @@ public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
             Channel channel = WSProxyChannelManager.getUserChannel("channel-" + requestCode);
 
             if(channel==null || !channel.isActive()){
-                logger.info("received push server send message ! {} channel is unavaliable!", requestCode);
-                WSUtil.response(context.channel(), response.getRequestCode(), response.getRequestCode(), "channel is unavaliable");
+                logger.info("received bus server send message ! {} channel is unavaliable!", requestCode);
+                WSUtil.responseFailed(context.channel(), response.getResponseCode(), -1, "channel is unavaliable");
                 return;
             }
 
             ByteBuf outMessageBytes = Unpooled.buffer(inBytes.length);
             outMessageBytes.writeBytes(inBytes);
-            //response push
+            //response bus message
             channel.writeAndFlush(new BinaryWebSocketFrame(outMessageBytes)).addListener(new ChannelFutureListener() {
                 public void operationComplete(ChannelFuture channelFuture) throws Exception {
                     if (!channelFuture.isSuccess()) {
-                        WSUtil.response(context.channel(), Integer.parseInt(requestCode),  Integer.parseInt(requestCode), "message push failed");
-                        logger.info("requestCode: {}, send push message failed !", requestCode);
+                        WSUtil.responseFailed(context.channel(), DubboServicePro.DubboResponse.ResponseCode.BaseResponse, -1, "message push failed");
+                        logger.info("requestCode: {}, send bus message failed !", requestCode);
                     }else
                         context.channel().read();
                 }
@@ -73,23 +74,23 @@ public class BusWSFrameHandler extends SimpleChannelInboundHandler<Object> {
         super.channelActive(ctx);
         String ip = ctx.channel().remoteAddress().toString();
         //0是心跳连接
-        if (!"0".equals(ip) && WSProxyChannelManager.getPushChannel(ip)==null) {
-            WSProxyChannelManager.registerPushChannel(ip, ctx.channel());
+        if (!"0".equals(ip) && WSProxyChannelManager.getBusChannel(ip)==null) {
+            WSProxyChannelManager.registerBusChannel(ip, ctx.channel());
         }
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
-        WSProxyChannelManager.registerPushChannel(ctx.channel().remoteAddress().toString(), ctx.channel());
+        WSProxyChannelManager.removeBusChannel(ctx.channel().remoteAddress().toString());
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
         // 当出现异常就关闭连接
-        logger.error("push websocket handler exception ERROR", cause);
-        WSProxyChannelManager.registerPushChannel(ctx.channel().remoteAddress().toString(), ctx.channel());
+        logger.error("bus websocket handler exception failed", cause);
+        WSProxyChannelManager.removeBusChannel(ctx.channel().remoteAddress().toString());
         ctx.close();
     }
 

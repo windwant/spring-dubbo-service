@@ -1,14 +1,11 @@
 package org.windwant.test;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import okhttp3.*;
 import okio.ByteString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.test.util.ProxyUtil;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.test.util.RequestResponseUtil;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,7 +22,7 @@ public class OkhttpWebSocketProxyProtoTest {
             .connectTimeout(3000, TimeUnit.SECONDS)//设置连接超时时间
             .build();
 
-    private static final String url="ws://localhost:8087/websocket";
+    private static final String url="ws://localhost:9097/websocket";
 
     public static void main(String[] args) {
         Request request = new Request.Builder().url(url).build();
@@ -33,9 +30,10 @@ public class OkhttpWebSocketProxyProtoTest {
             @Override
             public void onOpen(WebSocket webSocket, Response response) {
                 logger.info("websocket open... ");
-                for (int i = 0; i < 100; i++) {
-                    webSocket.send(ByteString.of(ProxyUtil.getByteBufBootRequest(ThreadLocalRandom.current().nextInt()).array()));
-                }
+                //时间请求
+                webSocket.send(ByteString.of(RequestResponseUtil.getByteBufDubboRequest(1).array()));
+                //登录请求
+                webSocket.send(ByteString.of(RequestResponseUtil.getByteBufDubboRequest(2).array()));
             }
 
             @Override
@@ -47,12 +45,7 @@ public class OkhttpWebSocketProxyProtoTest {
             @Override
             public void onMessage(WebSocket webSocket, ByteString bytes) {
                 super.onMessage(webSocket, bytes);
-                try {
-                    BootRequestResponse.BootResponse response = BootRequestResponse.BootResponse.parseFrom(bytes.toByteArray());
-                    logger.info("websocket response:\r\n{}", response.toString());
-                } catch (InvalidProtocolBufferException e) {
-                    e.printStackTrace();
-                }
+                logger.info("websocket response:\r\n{}", RequestResponseUtil.dealResponse(bytes.toByteArray()).toString());
             }
 
             @Override

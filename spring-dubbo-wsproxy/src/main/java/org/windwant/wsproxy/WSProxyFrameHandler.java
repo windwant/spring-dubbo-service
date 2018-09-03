@@ -11,11 +11,10 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.NetUtil;
-import org.windwant.dubbo.DubboSvr;
+import org.windwant.util.NetUtil;
+import org.windwant.protocal.DubboServicePro;
 import org.windwant.wsproxy.util.ConsulUtil;
 import org.windwant.wsproxy.util.WSUtil;
-import org.windwant.protocal.BootRequestResponse.BootRequest;
 
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -49,7 +48,7 @@ public class WSProxyFrameHandler extends SimpleChannelInboundHandler<Object> {
                     try {
                         executor.getQueue().put(r);
                     } catch (InterruptedException e) {
-                        logger.error("newBlockingExecutors put error", e);
+                        logger.error("task reput queue put failed", e);
                     }
                 });
     }
@@ -63,16 +62,17 @@ public class WSProxyFrameHandler extends SimpleChannelInboundHandler<Object> {
             while (inMessageBytes.isReadable()) {
                 inMessageBytes.readBytes(inBytes);
             }
-            BootRequest bootRequest = null;
+            //protobuf 消息解析
+            DubboServicePro.DubboRequest dubboRequest = null;
             try {
-            	bootRequest = BootRequest.parseFrom(inBytes);
+                dubboRequest = DubboServicePro.DubboRequest.parseFrom(inBytes);
             }catch (Exception e) {
-            	logger.warn("the request protobuf data parse failed!");
+            	logger.warn("request protobuf data parsed failed!");
                 return;
             }
-            requestCode = String.valueOf(bootRequest.getRequestCode());
+            requestCode = String.valueOf(dubboRequest.getRequestCode().getNumber());
             //对baseRequest解析，
-            logger.info("websocket request requestCode:{}", requestCode);
+            logger.info("websocket request requestCode:{}", dubboRequest.getRequestCode());
 
             //channel维护管理
             if (WSProxyChannelManager.getUserChannel("channel-" + requestCode) == null) {
@@ -80,7 +80,7 @@ public class WSProxyFrameHandler extends SimpleChannelInboundHandler<Object> {
                 ConsulUtil.putRequestChannel(NetUtil.getHost(), requestCode);
             }
             //处理业务逻辑
-            WSBusiHandler.dealBusi(context, bootRequest, DubboSvr.dubboService);
+            WSBusiHandler.dealBusi(context, dubboRequest);
         } else if(webSocketFrame instanceof FullHttpRequest) {//初始连接
             FullHttpRequest req = (FullHttpRequest) webSocketFrame;
             //非websocket连接
@@ -100,7 +100,7 @@ public class WSProxyFrameHandler extends SimpleChannelInboundHandler<Object> {
             }
         }else {
         	logger.error(" websocket data valid failed, not BinaryWebSocketFrame!");
-            WSUtil.response(context.channel(), Integer.parseInt(requestCode), -1, "not supported");
+            WSUtil.responseFailed(context.channel(), DubboServicePro.DubboResponse.ResponseCode.BaseResponse, -1, "not supported");
         }
     }
 
@@ -149,6 +149,6 @@ public class WSProxyFrameHandler extends SimpleChannelInboundHandler<Object> {
         
         logger.error("websocket exceptionCaught: {}", cause);
         WSUtil.removeChannel(requestCode, null);
-        WSUtil.response(ctx.channel(), Integer.parseInt(requestCode), -1, "not supported");
+        WSUtil.responseFailed(ctx.channel(), DubboServicePro.DubboResponse.ResponseCode.BaseResponse, -1, "not supported");
     }
 }

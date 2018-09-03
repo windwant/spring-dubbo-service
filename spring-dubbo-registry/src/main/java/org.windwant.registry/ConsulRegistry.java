@@ -41,13 +41,13 @@ public class ConsulRegistry implements Registry {
     }
 
     @Override
-    public void doUnRegister(String id) {
+    public void doDeregister(String id) {
         ConsulClient consul = new ConsulClient(host, port);
         consul.agentServiceDeregister(id);
     }
 
     @Override
-    public void doUnRegisterByName(String... names) {
+    public void doDeregisterByName(String... names) {
         ConsulClient consul = new ConsulClient(host, port);
         Map<String, Service> services = consul.getAgentServices().getValue().values().stream().collect(Collectors.toMap(Service::getService, Function.identity(), (key1, key2) -> key2));
         for (String temp: names) {

@@ -1,0 +1,56 @@
+message DubboRequest{
+    enum RequestCode{
+        TimeRequest = 1; // time
+        LoginRequest = 2; // login
+        BaseRequest = 3;
+    }
+
+    required RequestCode requestCode=1;
+    extensions 10 to max;
+}
+message DubboResponse{
+    enum ResponseCode{
+        TimeResponse = 1; // time
+        LoginResponse = 2; // login
+        BaseResponse = 3; // login
+    }
+
+    required ResponseCode responseCode=1;
+    required int32 status=2;
+    required string msg=3;
+    extensions 10 to max;
+}
+
+message TimeRequest{
+    extend DubboRequest {
+        optional TimeRequest request = 11;
+    }
+    required string accessTime=1;
+}
+
+message LoginRequest{
+    extend DubboRequest {
+        optional LoginRequest request = 12;
+    }
+    required string userName=1;
+    required string passwd=2;
+    required string code=3;
+}
+
+message TimeResponse{
+    extend DubboResponse {
+        optional TimeResponse response = 11;
+    }
+    required int32 requestCode=1;
+    required int32 responseCode=2;
+    required string result=3;
+}
+
+message LoginResponse{
+    extend DubboResponse {
+        optional LoginResponse response = 12;
+    }
+    required int32 requestCode=1;
+    required int32 responseCode=2;
+    required string result=3;
+}

@@ -4,7 +4,7 @@ import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.dataflow.DataflowJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.HttpUtils;
+import org.windwant.util.HttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;

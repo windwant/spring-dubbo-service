@@ -1,0 +1,1 @@
+.\protoc.exe  ./DubboServicePro.proto --java_out=./

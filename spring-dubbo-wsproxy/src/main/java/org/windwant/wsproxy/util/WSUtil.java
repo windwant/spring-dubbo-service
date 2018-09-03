@@ -6,7 +6,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import org.springframework.util.StringUtils;
-import org.windwant.protocal.BootRequestResponse;
+import org.windwant.protocal.DubboServicePro;
 import org.windwant.wsproxy.WSProxyChannelManager;
 
 /**
@@ -24,39 +24,42 @@ public class WSUtil {
         }
 
         if (null != channel && channel.isActive()) {
-            //客户端不应该给长连接服务发送空消息
             channel.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
             channel.close();
         }
     }
 
+    public static void responseFailed(Channel channel, DubboServicePro.DubboResponse.ResponseCode type, int status, String msg) {
+        if (null != channel && channel.isActive()) {
+            DubboServicePro.DubboResponse response = DubboServicePro.DubboResponse.newBuilder().setStatus(status).setMsg(msg).setResponseCode(type).build();
+            channel.writeAndFlush(getBinaryWebSocketFrameResponse(response));
+        }
+    }
 
     /**
      * 只发送错误消息
      */
-    public static void response(Channel channel, int requestCode, int respCode, String message) {
+    public static void response(Channel channel, DubboServicePro.DubboResponse response) {
         if (null != channel && channel.isActive()) {
-            channel.writeAndFlush(getBinaryWebSocketFrameResponse(requestCode, respCode, message));
+            channel.writeAndFlush(getBinaryWebSocketFrameResponse(response));
         }
     }
 
     /**
      * 发送错误消息并关闭通道
      */
-    public static void responseThenClose(Channel channel, int requestCode, int respCode, String message) {
+    public static void responseThenClose(Channel channel, DubboServicePro.DubboResponse response) {
         if (null != channel && channel.isActive()) {
-            channel.writeAndFlush(getBinaryWebSocketFrameResponse(requestCode, respCode, message)).addListener(channelFuture -> channel.close());
+            channel.writeAndFlush(getBinaryWebSocketFrameResponse(response)).addListener(channelFuture -> channel.close());
         }
     }
 
-    protected static ByteBuf getByteBufResponse(int requestCode, int respCode, String message){
-        BootRequestResponse.BootResponse.Builder builder = BootRequestResponse.BootResponse.newBuilder();
-        builder.setRequestCode(requestCode).setRespCode(respCode).setResult(message);
-        return Unpooled.wrappedBuffer(builder.build().toByteArray());
+    protected static ByteBuf getByteBufResponse(DubboServicePro.DubboResponse response){
+        return Unpooled.wrappedBuffer(response.toByteArray());
     }
 
-    public static BinaryWebSocketFrame getBinaryWebSocketFrameResponse(int requestCode, int respCode, String message){
-        return new BinaryWebSocketFrame(getByteBufResponse(requestCode, respCode, message));
+    public static BinaryWebSocketFrame getBinaryWebSocketFrameResponse(DubboServicePro.DubboResponse response){
+        return new BinaryWebSocketFrame(getByteBufResponse(response));
     }
 
 }

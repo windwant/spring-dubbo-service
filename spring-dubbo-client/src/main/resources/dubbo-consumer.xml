@@ -20,9 +20,12 @@
     <dubbo:protocol port="${dubbo.protocal.port}"/>
 
     <!--async="true"  filter="dubboCatFilter"-->
-    <dubbo:consumer  timeout="32000" />
+    <dubbo:consumer  timeout="32000" listener="dubboDeprecatedFilter"/>
 
     <!--cache="lru"-->
     <dubbo:reference id="dubbosvr"
                      interface="org.windwant.common.api.DubboService"/>
+
+    <dubbo:reference id="dubborestsvr"
+                     interface="org.windwant.common.api.DubboRestService"/>
 </beans>
