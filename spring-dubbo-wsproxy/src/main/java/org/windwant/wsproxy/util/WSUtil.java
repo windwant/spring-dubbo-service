@@ -24,7 +24,6 @@ public class WSUtil {
         }
 
         if (null != channel && channel.isActive()) {
-            //客户端不应该给长连接服务发送空消息
             channel.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
             channel.close();
         }

@@ -7,7 +7,7 @@ import org.windwant.common.api.model.Student;
 import java.util.List;
 
 /**
- * BootService.
+ * DubboRestService.
  */
 public interface DubboRestService {
 

@@ -7,7 +7,7 @@ public interface Registry {
 
     String doRegister(RegistryService service);
 
-    void doUnRegister(String id);
+    void doDeregister(String id);
 
-    void doUnRegisterByName(String... names);
+    void doDeregisterByName(String... names);
 }

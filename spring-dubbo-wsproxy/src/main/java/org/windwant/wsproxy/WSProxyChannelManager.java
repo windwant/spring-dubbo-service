@@ -13,13 +13,13 @@ import java.util.Map;
 public class WSProxyChannelManager {
 
     public static final Map<String, Channel> userChannels;
-    public static final Map<String, Channel> pushChannels;
+    public static final Map<String, Channel> busChannels;
 
     private static final Logger logger = LoggerFactory.getLogger(WSProxyChannelManager.class);
 
     static {
         userChannels = new HashMap<>();
-        pushChannels = new HashMap<>();
+        busChannels = new HashMap<>();
     }
 
     public static Channel getUserChannel(String userId) {
@@ -34,16 +34,16 @@ public class WSProxyChannelManager {
         userChannels.remove(userId);
     }
 
-    public static Channel getPushChannel(String ip) {
-        return pushChannels.get(ip);
+    public static Channel getBusChannel(String ip) {
+        return busChannels.get(ip);
     }
 
-    public static void registerPushChannel(String ip, Channel channel) {
-        pushChannels.put(ip, channel);
+    public static void registerBusChannel(String ip, Channel channel) {
+        busChannels.put(ip, channel);
     }
 
-    public static void removePushChannel(String ip) {
-        pushChannels.remove(ip);
+    public static void removeBusChannel(String ip) {
+        busChannels.remove(ip);
     }
 
 }

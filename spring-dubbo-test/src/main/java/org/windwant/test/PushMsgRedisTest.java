@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class PushMsgRedisTest {
     private static final Logger logger = LoggerFactory.getLogger(PushMsgRedisTest.class);
     public static void main(String[] args) {
-        String queue = ConfigUtil.get("push.msg.queue");
+        String queue = ConfigUtil.get("bus.msg.queue");
         JSONObject msg = new JSONObject();
         List<String> channels = ConsulUtil.getServiceChannel();
         channels.forEach(item -> {

@@ -5,7 +5,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.dubbo.DubboSvr;
 import org.windwant.protocal.DubboServicePro;
 
 /**
@@ -16,7 +15,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        logger.info("received: {}", msg);
+        logger.info("proxy received msg: {}", msg);
         ByteBuf inMessageBytes = (ByteBuf) msg;
         byte[] inBytes = null;
         try {
@@ -25,7 +24,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
                 inMessageBytes.readBytes(inBytes);
             }
         } catch (Exception e) {
-            logger.error("parse request msg failed", e);
+            logger.error("request msg parsed failed", e);
             return;
         } finally {
             inMessageBytes.release();
@@ -33,7 +32,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
         try {
             DubboServicePro.DubboRequest dubboRequest =  DubboServicePro.DubboRequest.parseFrom(inBytes);
-            ProxyBusiHandler.getBusiResponse(DubboSvr.dubboService, dubboRequest, ctx);
+            ProxyBusiHandler.getBusiResponse(dubboRequest, ctx);
         }catch (Exception e){
             e.printStackTrace();
         }

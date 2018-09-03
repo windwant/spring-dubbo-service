@@ -50,8 +50,8 @@ public class WSProxyServer {
 
         ServerBootstrap bootstrap; //启动工具
         ChannelFuture channelFuture = null;
-        ServerBootstrap pushServerBootStrap;
-        ChannelFuture pushChannelFuture = null;
+        ServerBootstrap busServerBootStrap;
+        ChannelFuture busChannelFuture = null;
         try {
             bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
@@ -65,7 +65,7 @@ public class WSProxyServer {
                     .option(ChannelOption.SO_BACKLOG, 8192)
                     .childHandler(new WSProxyInitializer());
             channelFuture = bootstrap.bind(ConfigUtil.getInteger("websocket.connect.port"));
-            //向consul注册服务
+            //向consul注册服务 host/serviceName
             wsServiceId = RegistryFactory.INSTANCE.
                     getRegistry(RegistryFactory.CONSUL).
                     doRegister(RegistryService.build(NetUtil.getHost() + "/" + ConfigUtil.get("service.name"),
@@ -73,29 +73,30 @@ public class WSProxyServer {
                             ConfigUtil.getInteger("websocket.connect.port"),
                             ConfigUtil.get("service.version")));
 
-            //推送消息服务器
-            pushServerBootStrap = new ServerBootstrap();
-            pushServerBootStrap.group(bossGroup, workerGroup)
+            //构造消息服务器
+            busServerBootStrap = new ServerBootstrap();
+            busServerBootStrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new BusWSServerInitializer());
             //绑定端口
-            pushChannelFuture = pushServerBootStrap.bind(ConfigUtil.getInteger("websocket.connect.push.port"));
+            busChannelFuture = busServerBootStrap.bind(ConfigUtil.getInteger("websocket.connect.bus.port"));
 
+            //注册 bus server host/serviceName
             wsPushServiceId = RegistryFactory.INSTANCE.
                     getRegistry(RegistryFactory.CONSUL).
                     doRegister(RegistryService.build(NetUtil.getHost() + "/" + ConfigUtil.get("service.bus.name"),
                             NetUtil.getHost(),
-                            ConfigUtil.getInteger("websocket.connect.push.port"),
-                            ConfigUtil.get("service.push.version")));
+                            ConfigUtil.getInteger("websocket.connect.bus.port"),
+                            ConfigUtil.get("service.bus.version")));
         } catch (Exception e) {
-            logger.error("Acceptor Server Start ERROR", e);
+            logger.error("Acceptor Server Start failed", e);
             throw new RuntimeException(e);
         } finally {
             if (null != channelFuture) {
                 channelFuture.sync().channel().closeFuture().sync();
             }
-            if (null != pushChannelFuture) {
-                pushChannelFuture.sync().channel().closeFuture().sync();
+            if (null != busChannelFuture) {
+                busChannelFuture.sync().channel().closeFuture().sync();
             }
 
             bossGroup.shutdownGracefully();
@@ -114,14 +115,14 @@ public class WSProxyServer {
     		workerGroup.shutdownGracefully();
     	}
         if(wsServiceId != null) {
-            logger.info("unregister websocket service!");
+            logger.info("deregister websocket service!");
             RegistryFactory.INSTANCE.
-                    getRegistry(RegistryFactory.CONSUL).doUnRegister(wsServiceId);
+                    getRegistry(RegistryFactory.CONSUL).doDeregister(wsServiceId);
         }
         if(wsPushServiceId != null) {
-            logger.info("unregister websocket push service!");
+            logger.info("deregister websocket push service!");
             RegistryFactory.INSTANCE.
-                    getRegistry(RegistryFactory.CONSUL).doUnRegister(wsPushServiceId);
+                    getRegistry(RegistryFactory.CONSUL).doDeregister(wsPushServiceId);
         }
      }
 
