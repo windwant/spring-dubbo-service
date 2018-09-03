@@ -2,7 +2,7 @@ package org.windwant.test.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.ConfigUtil;
+import org.windwant.util.ConfigUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 

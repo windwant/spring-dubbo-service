@@ -2,7 +2,7 @@
 
 一、服务模块
 
-1、spring-boot-server
+1、spring-dubbo-server
 
   1). servlet、listener、interceptor、filter配置
   2). mybatis配置集成，多数据源
@@ -73,6 +73,10 @@
 
   消息监听推送
 
+十、spring-dubbo-rest
+
+  rest api
+
 
 二、服务部署：
 
@@ -96,3 +100,8 @@
 
 启动zookeeper
 
+3. zookeeper
+
+部署mongo服务
+
+启动mongo

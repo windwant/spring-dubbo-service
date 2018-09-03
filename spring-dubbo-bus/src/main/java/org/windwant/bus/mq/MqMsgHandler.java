@@ -1,4 +1,4 @@
-package org.windwant.bus;
+package org.windwant.bus.mq;
 
 import com.alibaba.fastjson.JSONObject;
 import io.netty.buffer.Unpooled;
@@ -6,35 +6,14 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.bus.util.JedisUtils;
-import org.windwant.common.util.ConfigUtil;
+import org.windwant.bus.BusServerChannelMgr;
 import org.windwant.protocal.DubboServicePro;
-import redis.clients.jedis.Jedis;
-
-import java.util.List;
 
 /**
- * 消息处理
- * Created by Administrator on 18-4-11.
+ * Created by Administrator on 18-9-3.
  */
-public class MqListener {
-
-    private static final Logger logger = LoggerFactory.getLogger(MqListener.class);
-
-    public void start(){
-        try {
-            logger.info("message queue listener start...");
-            while (!Thread.currentThread().isInterrupted()) {
-                Jedis jedis = JedisUtils.getJedis();
-                List<String> msg = jedis.brpop(2000, ConfigUtil.get("bus.websocket.msg_queue"));
-                if (msg.isEmpty() || msg.size() == 0) continue;
-
-                handleMsg(msg.get(1));
-            }
-        }catch (Exception e){
-            logger.error("message queue listener start failed: {}", e.getMessage());
-        }
-    }
+public class MqMsgHandler {
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMqListener.class);
 
     /**
      * 处理json格式msg
@@ -45,7 +24,7 @@ public class MqListener {
      * }
      * @param msg
      */
-    private void handleMsg(String msg){
+    public static void handleMsg(String msg){
         logger.info("begin handle msg : {}", msg);
         if(BusServerChannelMgr.websocketChannel.size() != 0){
             JSONObject push = JSONObject.parseObject(msg);

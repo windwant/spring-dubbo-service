@@ -13,8 +13,8 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.util.StringUtils;
 import org.windwant.common.api.model.User;
-import org.windwant.common.util.ConfigUtil;
-import org.windwant.common.util.MD5Util;
+import org.windwant.util.ConfigUtil;
+import org.windwant.util.MD5Util;
 
 import java.util.Collection;
 import java.util.List;

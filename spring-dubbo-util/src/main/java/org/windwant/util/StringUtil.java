@@ -1,4 +1,4 @@
-package org.windwant.spring.util;
+package org.windwant.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;

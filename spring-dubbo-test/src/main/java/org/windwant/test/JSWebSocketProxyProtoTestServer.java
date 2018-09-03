@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
-import org.windwant.common.util.ConfigUtil;
+import org.windwant.util.ConfigUtil;
 
 /**
  * Created by Administrator on 2018/2/12.

@@ -18,6 +18,7 @@
     <module>spring-dubbo-registry</module>
     <module>spring-dubbo-bus</module>
     <module>spring-dubbo-server</module>
+    <module>spring-dubbo-util</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -194,6 +195,11 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>1.2.8</version>
+    </dependency>
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>5.4.0</version>
     </dependency>
   </dependencies>
 

@@ -20,4 +20,4 @@ endpoints:
     shutdown:
         enabled: true
 
-debug: true
+debug: false

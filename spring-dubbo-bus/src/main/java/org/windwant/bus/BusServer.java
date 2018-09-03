@@ -10,10 +10,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.ConfigUtil;
-import org.windwant.common.util.NetUtil;
+import org.windwant.bus.mq.RabbitMqListener;
+import org.windwant.bus.mq.RedisQueueListener;
+import org.windwant.util.ConfigUtil;
+import org.windwant.util.NetUtil;
 
 import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * Hello world!
@@ -22,6 +25,8 @@ import java.util.List;
  */
 public class BusServer
 {
+
+    private ExecutorService mqES = Executors.newFixedThreadPool(2);
 
     private static final Logger logger = LoggerFactory.getLogger(BusServer.class);
     Bootstrap bootstrap = new Bootstrap();
@@ -42,11 +47,10 @@ public class BusServer
                     .channel(NioSocketChannel.class)
                     .handler(new BusServerInitializer());
             ChannelFuture future = bootstrap.connect(serviceHealth.getService().getAddress(), serviceHealth.getService().getPort());
-            //启动消息队列监听
             try {
-                new Thread(() -> {
-                    new MqListener().start();
-                }).start();
+                //启动消息队列监听
+                mqES.execute(new RedisQueueListener());
+                mqES.execute(new RabbitMqListener());
 
                 logger.info("message bus server start...");
                 future.sync().channel().closeFuture().sync();

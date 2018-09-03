@@ -3,7 +3,7 @@ package org.windwant.spring.job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.windwant.common.util.HttpUtils;
+import org.windwant.util.HttpUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

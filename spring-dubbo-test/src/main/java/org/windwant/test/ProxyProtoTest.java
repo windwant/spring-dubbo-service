@@ -14,7 +14,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.ConfigUtil;
+import org.windwant.util.ConfigUtil;
 import org.windwant.protocal.DubboServicePro;
 import org.windwant.test.util.RequestResponseUtil;
 

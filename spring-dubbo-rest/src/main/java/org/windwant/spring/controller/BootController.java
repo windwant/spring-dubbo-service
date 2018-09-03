@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.windwant.common.api.model.User;
-import org.windwant.common.util.ImageUtil;
+import org.windwant.util.ImageUtil;
 import org.windwant.spring.Constants;
 import org.windwant.spring.controller.rest.BaseController;
 import org.windwant.spring.util.ExcelUtil;

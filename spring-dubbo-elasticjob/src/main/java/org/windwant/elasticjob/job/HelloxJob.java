@@ -4,7 +4,7 @@ import com.dangdang.ddframe.job.api.ShardingContext;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.HttpUtils;
+import org.windwant.util.HttpUtils;
 
 /**
  * Created by Administrator on 2018/2/12.

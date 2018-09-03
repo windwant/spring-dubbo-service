@@ -4,7 +4,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import org.windwant.common.util.DateUtil;
+import org.windwant.util.DateUtil;
 import org.windwant.protocal.DubboServicePro;
 
 /**

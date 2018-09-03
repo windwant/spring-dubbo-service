@@ -1,4 +1,4 @@
-package org.windwant.common.util;
+package org.windwant.util;
 
 import org.springframework.util.StringUtils;
 

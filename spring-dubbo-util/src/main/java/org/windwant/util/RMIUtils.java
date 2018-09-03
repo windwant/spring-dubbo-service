@@ -1,4 +1,4 @@
-package org.windwant.common.util;
+package org.windwant.util;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -8,7 +8,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.RMIClientSocketFactory;
 
 /**
- * RMI ·þÎñ×¢²á
+ * RMI ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
  * Created by Administrator on 18-5-17.
  */
 public class RMIUtils {

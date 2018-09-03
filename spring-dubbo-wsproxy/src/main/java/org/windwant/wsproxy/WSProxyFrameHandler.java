@@ -11,7 +11,7 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.NetUtil;
+import org.windwant.util.NetUtil;
 import org.windwant.protocal.DubboServicePro;
 import org.windwant.wsproxy.util.ConsulUtil;
 import org.windwant.wsproxy.util.WSUtil;

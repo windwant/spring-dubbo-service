@@ -6,8 +6,8 @@ import com.orbitz.consul.KeyValueClient;
 import com.orbitz.consul.option.DeleteOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.windwant.common.util.ConfigUtil;
-import org.windwant.common.util.NetUtil;
+import org.windwant.util.ConfigUtil;
+import org.windwant.util.NetUtil;
 import org.windwant.registry.RegistryFactory;
 
 

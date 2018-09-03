@@ -21,15 +21,8 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
-
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.7</version>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -39,22 +32,86 @@
                     <compilerVersion>1.8</compilerVersion>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resourcess</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
+
     </build>
 
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <build.profile>test</build.profile>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/profiles/${build.profile}/config.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile>dev</build.profile>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/profiles/dev/config.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile>prod</build.profile>
+            </properties>
+            <build>
+                <filters>
+                    <filter>src/profiles/${build.profile}/config.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>com.orbitz.consul</groupId>
@@ -87,6 +144,11 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.windwant.spring</groupId>
+            <artifactId>spring-dubbo-util</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

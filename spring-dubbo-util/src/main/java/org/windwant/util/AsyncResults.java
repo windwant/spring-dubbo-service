@@ -1,4 +1,4 @@
-package org.windwant.common.util;
+package org.windwant.util;
 
 import com.alibaba.dubbo.remoting.exchange.ResponseCallback;
 import com.alibaba.dubbo.remoting.exchange.ResponseFuture;

@@ -1,7 +1,6 @@
 package org.windwant.common.api.model;
 
-
-import org.windwant.common.util.DateUtil;
+import org.windwant.util.DateUtil;
 
 /**
  * Created by Administrator on 2018/1/16.
