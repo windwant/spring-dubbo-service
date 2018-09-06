@@ -1,6 +1,6 @@
-# spring-boot-server
+# spring-dubbo-server
 
-springboot maven项目
+业务服务 dubbo服务
 
 1. servlet、listener、interceptor、filter配置
 2. mybatis配置集成，多数据源
