@@ -1,0 +1,20 @@
+zookeeper:
+    image: zookeeper:latest
+    ports:
+      - "2181:2181"
+redis:
+    image: redis:latest    
+    ports:
+      - "6379:6379"
+mongo:
+    image: mongo:latest    
+    ports:
+      - "27017:27017"
+memcached:
+    image: memcached:latest    
+    ports:
+      - "11211:11211"
+consul:
+    image: consul:latest    
+    ports:
+      - "8500:8500"
