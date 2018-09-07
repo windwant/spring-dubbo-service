@@ -20,7 +20,6 @@ public class DubboSvr {
             dubboService = (DubboService) context.getBean("dubbosvr");
             dubboRestService = (DubboRestService) context.getBean("dubborestsvr");
             context.registerShutdownHook();
-            test();
             logger.info("init dubbox service success... ");
         } catch (Exception e) {
             logger.error("init dubbox service error",e);
