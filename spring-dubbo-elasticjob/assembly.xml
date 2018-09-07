@@ -17,6 +17,7 @@
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>startup.sh</include>
+                <include>startupd.sh</include>
                 <include>startup.bat</include>
                 <include>Dockerfile</include>
             </includes>

@@ -105,3 +105,25 @@
 部署mongo服务
 
 启动mongo
+
+三、docker
+
+docker-compose 启动相应服务
+
+docker network create --subnet=192.168.0.0/16 mynet 创建网络
+
+dubbo-rest：
+
+docker build -t spring_dubbo_rest .
+
+docker run -it -d --network mynet -p 8086:8086 spring_dubbo_rest
+
+curl http://localhost:8086/hello/roger
+
+dubbo-service：
+
+docker build -t spring_dubbo_service .
+
+docker run -it -d --network mynet -p 8086:8086 spring_dubbo_service
+
+curl http://localhost:8083/info
