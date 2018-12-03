@@ -2,7 +2,7 @@ from centos:latest
 
 ADD jdk-8u111-linux-x64.tar.gz /usr/java/
 
-ADD spring-dubbo-server-1.0-SNAPSHOT-prod.tar.gz /usr/dubbo-server/spring-dubbo-server/
+ADD target/spring-dubbo-server-1.0-SNAPSHOT-prod.tar.gz /usr/dubbo-server/spring-dubbo-server/
 
 #RUN yum install -y dos2unix && dos2unix /usr/dubbo-server/spring-dubbo-server/startup.sh
 

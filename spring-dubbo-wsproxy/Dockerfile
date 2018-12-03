@@ -1,10 +1,8 @@
 from centos:latest
 
-EXPORT
-
 ADD jdk-8u111-linux-x64.tar.gz /usr/java/
 
-ADD spring-dubbo-wsproxy-1.0-SNAPSHOT-prod.tar.gz /usr/dubbo-server/spring-dubbo-wsproxy/
+ADD target/spring-dubbo-wsproxy-1.0-SNAPSHOT-prod.tar.gz /usr/dubbo-server/spring-dubbo-wsproxy/
 
 #RUN yum install -y dos2unix && dos2unix /usr/dubbo-server/spring-dubbo-wsproxy/startup.sh
 
