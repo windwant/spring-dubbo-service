@@ -22,7 +22,7 @@ public class OkhttpWebSocketProxyProtoTest {
             .connectTimeout(3000, TimeUnit.SECONDS)//设置连接超时时间
             .build();
 
-    private static final String url="ws://localhost:9097/websocket";
+    private static final String url="ws://localhost:9096/websocket";
 
     public static void main(String[] args) {
         Request request = new Request.Builder().url(url).build();

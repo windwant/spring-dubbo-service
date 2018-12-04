@@ -3,6 +3,7 @@ package org.windwant.spring;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.windwant.util.ConfigUtil;
 
 /**
  * Unit test for simple BootClient.
@@ -34,5 +35,9 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    public static void main(String[] args) {
+        System.out.println(ConfigUtil.get("wsserver.port"));
     }
 }

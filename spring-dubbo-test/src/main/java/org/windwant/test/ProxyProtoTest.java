@@ -20,7 +20,7 @@ import org.windwant.test.util.RequestResponseUtil;
 
 /**
  * ProxyProtoTest
- * 测试 rpc protobuf
+ * 测试 spring-dubbo-proxy rpc protobuf
  */
 public class ProxyProtoTest {
 

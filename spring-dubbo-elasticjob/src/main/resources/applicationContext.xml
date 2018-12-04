@@ -15,7 +15,7 @@
                         ">
     <context:property-placeholder location="classpath:config.properties,job/*.properties" />
 
-    <bean id="elasticJobLog" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="elasticJobLog" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClass}"/>
         <property name="url" value="${jdbc.jdbc.url}"/>
         <property name="username" value="${jdbc.jdbc.user}"/>

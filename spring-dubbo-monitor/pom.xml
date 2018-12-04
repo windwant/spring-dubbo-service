@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
     <version>1.0</version>
     <name>spring-dubbo-monitor</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/windwant/spring-dubbo-service.git</url>
 
     <properties>
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>

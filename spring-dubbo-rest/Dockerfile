@@ -1,5 +1,7 @@
 from centos:latest
 
+EXPOSE 8086 8086
+
 ADD jdk-8u111-linux-x64.tar.gz /usr/java/
 
 ADD target/spring-dubbo-rest-1.0-SNAPSHOT-prod.tar.gz /usr/dubbo-server/spring-dubbo-rest/
