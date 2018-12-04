@@ -35,10 +35,10 @@ public class MongoConfig {
         return factoryBean;
     }
 
-    @Bean
-    public Mongo mongoClient(MongoClientFactoryBean factoryBean) throws Exception {
-        return factoryBean.getObject();
-    }
+//    @Bean
+//    public Mongo mongoClient(MongoClientFactoryBean factoryBean) throws Exception {
+//        return factoryBean.getObject();
+//    }
 
     @Bean
     public MongoTemplate mongoTemplate(MongoClient mongoClient){
