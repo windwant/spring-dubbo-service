@@ -1,9 +1,11 @@
-# spring-dubbo-service  微服务
+spring-dubbo-service  微服务
+============================
+
 
 一、服务模块
 ---------------------
 
-# 1、spring-dubbo-server
+## 1、spring-dubbo-server
 
   >*  配置：servlet、listener、interceptor、filter、aop、 定时任务
   >*  mybatis配置集成，多数据源；级联查询 一对一 一对多 注解配置及xml配置方式；分页处理：传递Page参数 或者继承Page的对象参数
@@ -17,38 +19,38 @@
   >*  dubbo server
   >*  监控：dianping Cat 监控；acturtor 项目监控信息获取；Metrics监控
 
-# 2、spring-dubbo-test
+## 2、spring-dubbo-test
 
   >*  测试dubbo rpc服务
 
   >*  测试websocket protobuf
 
-# 3、spring-dubbo-common
+## 3、spring-dubbo-common
 
   >*  api 接口
 
-# 4、spring-dubbo-proxy
+## 4、spring-dubbo-proxy
 
   >*  netty rpc 服务代理，处理业务消息解析 分发
 
-# 5、spring-dubbo-wsproxy
+## 5、spring-dubbo-wsproxy
 
   >*  netty rpc websocket 服务代理
 
-# 6、spring-dubbo-protocal
+## 6、spring-dubbo-protocal
 
   >*  protobuf 资源
 
-# 7、spring-dubbo-client
+## 7、spring-dubbo-client
 
   >*  proxy websocketproxy 测试工程
 
-# 8、spring-dubbo-elasticjob
+## 8、spring-dubbo-elasticjob
 
   >*  测试spring-boot-server druid监控定时任务
 
 
-# 9、spring-dubbo-registry
+## 9、spring-dubbo-registry
 
   >*  consul服务注册：示例
 
@@ -59,11 +61,11 @@
                              ConfigUtil.getInteger("websocket.connect.port"),
                              ConfigUtil.get("service.version")));
 
-# 10、spring-dubbo-bus
+## 10、spring-dubbo-bus
 
   >*  消息监听推送
 
-# 11、spring-dubbo-rest
+## 11、spring-dubbo-rest
 
   >*  rest api
 
@@ -71,26 +73,26 @@
 二、服务部署：
 -----------------
 
-# 1. consul：
+## 1. consul：
 
 >* 部署consul服务
 
 >* 启动consul：
 >    * consul agent -server -bootstrap-expect=1  -data-dir=data -node=server0 -bind=127.0.0.1 -client 0.0.0.0 -ui
 
-# 2. redis：
+## 2. redis：
 
 >* 部署redis服务
 
 >* 启动redis
 
-# 3. zookeeper
+## 3. zookeeper
 
 >* 部署zookeeper服务
 
 >* 启动zookeeper
 
-# 4. mongo
+## 4. mongo
 
 >* 部署mongo服务
 
