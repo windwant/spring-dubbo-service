@@ -1,4 +1,4 @@
-package org.windwant.proxy;
+package org.windwant.rpcproxy;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by Administrator on 2018/2/11.
  */
-public class HeartBeatProxyHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(HeartBeatProxyHandler.class);
+public class RpcHeartBeatProxyHandler extends ChannelInboundHandlerAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(RpcHeartBeatProxyHandler.class);
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {

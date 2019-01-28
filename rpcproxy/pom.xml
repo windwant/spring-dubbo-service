@@ -7,11 +7,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.windwant.proxy</groupId>
-    <artifactId>spring-dubbo-proxy</artifactId>
+    <groupId>org.windwant.rpcproxy</groupId>
+    <artifactId>spring-dubbo-rpcproxy</artifactId>
     <packaging>jar</packaging>
 
-    <name>spring-dubbo-proxy</name>
+    <name>spring-dubbo-rpcproxy</name>
     <url>https://github.com/windwant/spring-dubbo-service.git</url>
 
     <properties>

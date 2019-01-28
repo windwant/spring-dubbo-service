@@ -28,6 +28,6 @@
             <appender-ref ref="console"/>
             <appender-ref ref="RollingFile"/>
         </root>
-        <Logger name="org.windwant.proxy" level="${log.level}"/>
+        <Logger name="org.windwant.rpcproxy" level="${log.level}"/>
     </Loggers>
 </Configuration>

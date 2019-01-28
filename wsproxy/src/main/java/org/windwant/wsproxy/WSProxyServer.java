@@ -23,8 +23,8 @@ public class WSProxyServer {
 
     private static final Logger logger = LoggerFactory.getLogger(WSProxyServer.class);
 
-    private EventLoopGroup bossGroup; //主线程组 处理连接
-    private EventLoopGroup workerGroup; //工作线程组 处理业务
+    private EventLoopGroup connectGroup; //主线程组 处理连接
+    private EventLoopGroup workGroup; //工作线程组 处理业务
 
     private String wsServiceId = null; //连接服务
     private String wsPushServiceId = null; //推送服务
@@ -44,9 +44,9 @@ public class WSProxyServer {
     private void start() throws InterruptedException {
         ConsulUtil.initClear();
         logger.info("WSProxy Starting...");
-        bossGroup = new NioEventLoopGroup(2);
+        connectGroup = new NioEventLoopGroup(2);
 
-        workerGroup = new NioEventLoopGroup();
+        workGroup = new NioEventLoopGroup();
 
         ServerBootstrap bootstrap; //启动工具
         ChannelFuture channelFuture = null;
@@ -54,7 +54,7 @@ public class WSProxyServer {
         ChannelFuture busChannelFuture = null;
         try {
             bootstrap = new ServerBootstrap();
-            bootstrap.group(bossGroup, workerGroup)
+            bootstrap.group(connectGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                             //如果要求高实时性，有数据就马上发送，该选项设置为true关闭Nagle算法
                             //如果要减少发送次数减少网络交互，就设置为false等累积一定大小后再发送。默认为false
@@ -75,7 +75,7 @@ public class WSProxyServer {
 
             //构造消息服务器
             busServerBootStrap = new ServerBootstrap();
-            busServerBootStrap.group(bossGroup, workerGroup)
+            busServerBootStrap.group(connectGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new BusWSServerInitializer());
             //绑定端口
@@ -89,7 +89,7 @@ public class WSProxyServer {
                             ConfigUtil.getInteger("websocket.connect.bus.port"),
                             ConfigUtil.get("service.bus.version")));
         } catch (Exception e) {
-            logger.error("Acceptor Server Start failed", e);
+            logger.error("WSProxy Start failed", e);
             throw new RuntimeException(e);
         } finally {
             if (null != channelFuture) {
@@ -99,20 +99,20 @@ public class WSProxyServer {
                 busChannelFuture.sync().channel().closeFuture().sync();
             }
 
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+            connectGroup.shutdownGracefully();
+            workGroup.shutdownGracefully();
 
         }
     }
 
     public void shutdownGraceFully() {
-    	if (bossGroup != null) {
-    		logger.info("boss group shutdown gracefully!");
-    		bossGroup.shutdownGracefully();
+    	if (connectGroup != null) {
+    		logger.info("connect group shutdown gracefully!");
+    		connectGroup.shutdownGracefully();
     	}
-    	if (workerGroup != null) {
+    	if (workGroup != null) {
     		logger.info("work group shutdown gracefully!");
-    		workerGroup.shutdownGracefully();
+    		workGroup.shutdownGracefully();
     	}
         if(wsServiceId != null) {
             logger.info("deregister websocket service!");

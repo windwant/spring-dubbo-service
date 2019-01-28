@@ -1,11 +1,11 @@
-package org.windwant.proxy;
+package org.windwant.rpcproxy;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple ProxyServer.
+ * Unit test for simple RpcProxyServer.
  */
 public class AppTest 
     extends TestCase

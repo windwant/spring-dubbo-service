@@ -1,4 +1,4 @@
-package org.windwant.proxy;
+package org.windwant.rpcproxy;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -10,12 +10,12 @@ import org.windwant.protocal.DubboServicePro;
 /**
  * Created by Administrator on 2018/2/7.
  */
-public class ProxyHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(ProxyHandler.class);
+public class RpcProxyHandler extends ChannelInboundHandlerAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(RpcProxyHandler.class);
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        logger.info("proxy received msg: {}", msg);
+        logger.info("rpc proxy received msg: {}", msg);
         ByteBuf inMessageBytes = (ByteBuf) msg;
         byte[] inBytes = null;
         try {
@@ -24,7 +24,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
                 inMessageBytes.readBytes(inBytes);
             }
         } catch (Exception e) {
-            logger.error("request msg parsed failed", e);
+            logger.error("rpc request msg parsed failed", e);
             return;
         } finally {
             inMessageBytes.release();
@@ -32,7 +32,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
         try {
             DubboServicePro.DubboRequest dubboRequest =  DubboServicePro.DubboRequest.parseFrom(inBytes);
-            ProxyBusiHandler.getBusiResponse(dubboRequest, ctx);
+            RpcProxyBusiHandler.getBusiResponse(dubboRequest, ctx);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package org.windwant.proxy;
+package org.windwant.rpcproxy;
 
 import com.google.protobuf.ExtensionRegistry;
 import io.netty.channel.ChannelInitializer;
@@ -13,10 +13,10 @@ import org.windwant.protocal.DubboServicePro;
 /**
  * Created by Administrator on 2018/2/7.
  */
-public class ProxyInitializer extends ChannelInitializer<SocketChannel> {
+public class RpcProxyInitializer extends ChannelInitializer<SocketChannel> {
     private static ExtensionRegistry registry;
 
-    public ProxyInitializer() {
+    public RpcProxyInitializer() {
         registry = ExtensionRegistry.newInstance();
         DubboServicePro.registerAllExtensions(registry);
     }
@@ -25,13 +25,13 @@ public class ProxyInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast(new IdleStateHandler(10, 10, 10));
-        pipeline.addLast(new HeartBeatProxyHandler());
+        pipeline.addLast(new RpcHeartBeatProxyHandler());
         //拆包
         pipeline.addLast(new ProtobufVarint32FrameDecoder());
         pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
         pipeline.addLast(new ProtobufEncoder());
         //业务处理
-        pipeline.addLast(new ProxyHandler());
+        pipeline.addLast(new RpcProxyHandler());
 
     }
 }

@@ -1,4 +1,4 @@
-package org.windwant.proxy;
+package org.windwant.rpcproxy;
 
 import com.google.protobuf.ByteString;
 import io.netty.channel.ChannelHandlerContext;
@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018/2/7.
  */
-public class ProxyBusiHandler {
-    private static final Logger logger = LoggerFactory.getLogger(ProxyBusiHandler.class);
+public class RpcProxyBusiHandler {
+    private static final Logger logger = LoggerFactory.getLogger(RpcProxyBusiHandler.class);
     public static void getBusiResponse( DubboServicePro.DubboRequest request, ChannelHandlerContext ctx) throws Exception {
         DubboServicePro.DubboResponse dubboResponse = DubboServicePro.DubboResponse.getDefaultInstance();
         try {

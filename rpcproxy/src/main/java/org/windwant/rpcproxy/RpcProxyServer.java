@@ -1,4 +1,4 @@
-package org.windwant.proxy;
+package org.windwant.rpcproxy;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -14,15 +14,15 @@ import org.windwant.util.ConfigUtil;
  * Hello world!
  *
  */
-public class ProxyServer
+public class RpcProxyServer
 {
-    private static final Logger logger = LoggerFactory.getLogger(ProxyServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(RpcProxyServer.class);
 
-    private EventLoopGroup bossGroup;
-    private EventLoopGroup workerGroup;
+    private EventLoopGroup connectGroup;
+    private EventLoopGroup workGroup;
 
     public static void main(String[] args) throws Exception {
-        ProxyServer bootProxy = new ProxyServer();
+        RpcProxyServer bootProxy = new RpcProxyServer();
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override
             public void run() {
@@ -34,42 +34,42 @@ public class ProxyServer
 
 
     private void start() throws InterruptedException {
-        logger.info("proxy server start... ");
-        bossGroup = new NioEventLoopGroup(1);
-        workerGroup = new NioEventLoopGroup();
+        logger.info("rpc proxy server start ... ");
+        connectGroup = new NioEventLoopGroup(1);
+        workGroup = new NioEventLoopGroup();
 
         ServerBootstrap bootstrap;
         ChannelFuture channelFuture = null;
         try {
             bootstrap = new ServerBootstrap();
-            bootstrap.group(bossGroup, workerGroup)
+            bootstrap.group(connectGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .option(ChannelOption.SO_RCVBUF, 256 * 1024)
                     .option(ChannelOption.SO_SNDBUF, 256 * 1024)
-                    .childHandler(new ProxyInitializer());
+                    .childHandler(new RpcProxyInitializer());
             //绑定端口
             channelFuture = bootstrap.bind(ConfigUtil.getInteger("server.port"));
         } catch (Exception e) {
-            logger.error("proxy Server Start failed", e);
+            logger.error("rpc proxy server start failed", e);
             throw new RuntimeException(e);
         } finally {
             if (null != channelFuture) {
                 channelFuture.sync().channel().closeFuture().sync();
             }
-            bossGroup.shutdownGracefully();
-            workerGroup.shutdownGracefully();
+            connectGroup.shutdownGracefully();
+            workGroup.shutdownGracefully();
         }
     }
 
     public void shutdownGraceFully() {
-        if (bossGroup != null) {
-            logger.info("boss group shutdown gracefully!");
-            bossGroup.shutdownGracefully();
+        if (connectGroup != null) {
+            logger.info("connectGroup shutdown gracefully!");
+            connectGroup.shutdownGracefully();
         }
-        if (workerGroup != null) {
-            logger.info("work group shutdown gracefully!");
-            workerGroup.shutdownGracefully();
+        if (workGroup != null) {
+            logger.info("workGroup shutdown gracefully!");
+            workGroup.shutdownGracefully();
         }
     }
 }

@@ -29,7 +29,7 @@ spring-dubbo-service  微服务
 
   >*  api 接口
 
-## 4、spring-dubbo-proxy
+## 4、spring-dubbo-rpcproxy
 
   >*  netty rpc 服务代理，处理业务消息解析 分发
 
