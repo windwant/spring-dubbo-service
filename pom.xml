@@ -6,19 +6,19 @@
   <artifactId>spring-dubbo-service</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>spring-dubbo-rest</module>
-    <module>spring-dubbo-test</module>
-    <module>spring-dubbo-common</module>
-    <module>spring-dubbo-monitor</module>
-    <module>spring-dubbo-proxy</module>
-    <module>spring-dubbo-protocal</module>
-    <module>spring-dubbo-wsproxy</module>
-    <module>spring-dubbo-client</module>
-    <module>spring-dubbo-elasticjob</module>
-    <module>spring-dubbo-registry</module>
-    <module>spring-dubbo-bus</module>
-    <module>spring-dubbo-server</module>
-    <module>spring-dubbo-util</module>
+    <module>rest</module>
+    <module>test</module>
+    <module>common</module>
+    <module>monitor</module>
+    <module>rpcproxy</module>
+    <module>protocal</module>
+    <module>wsproxy</module>
+    <module>client</module>
+    <module>elasticjob</module>
+    <module>registry</module>
+    <module>bus</module>
+    <module>server</module>
+    <module>util</module>
   </modules>
   <packaging>pom</packaging>
 

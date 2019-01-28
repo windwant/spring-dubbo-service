@@ -5,7 +5,7 @@ spring-dubbo-service  微服务
 一、服务模块
 ---------------------
 
-## 1、spring-dubbo-server
+## 1、server
 
   >*  配置：servlet、listener、interceptor、filter、aop、 定时任务
   >*  mybatis配置集成，多数据源；级联查询 一对一 一对多 注解配置及xml配置方式；分页处理：传递Page参数 或者继承Page的对象参数
@@ -19,38 +19,38 @@ spring-dubbo-service  微服务
   >*  dubbo server
   >*  监控：dianping Cat 监控；acturtor 项目监控信息获取；Metrics监控
 
-## 2、spring-dubbo-test
+## 2、test
 
   >*  测试dubbo rpc服务
 
   >*  测试websocket protobuf
 
-## 3、spring-dubbo-common
+## 3、common
 
   >*  api 接口
 
-## 4、spring-dubbo-proxy
+## 4、rpcproxy
 
   >*  netty rpc 服务代理，处理业务消息解析 分发
 
-## 5、spring-dubbo-wsproxy
+## 5、wsproxy
 
   >*  netty rpc websocket 服务代理
 
-## 6、spring-dubbo-protocal
+## 6、protocal
 
   >*  protobuf 资源
 
-## 7、spring-dubbo-client
+## 7、client
 
   >*  proxy websocketproxy 测试工程
 
-## 8、spring-dubbo-elasticjob
+## 8、elasticjob
 
   >*  测试spring-boot-server druid监控定时任务
 
 
-## 9、spring-dubbo-registry
+## 9、registry
 
   >*  consul服务注册：示例
 
@@ -61,11 +61,11 @@ spring-dubbo-service  微服务
                              ConfigUtil.getInteger("websocket.connect.port"),
                              ConfigUtil.get("service.version")));
 
-## 10、spring-dubbo-bus
+## 10、bus
 
   >*  消息监听推送
 
-## 11、spring-dubbo-rest
+## 11、rest
 
   >*  rest api
 
@@ -105,12 +105,12 @@ spring-dubbo-service  微服务
 
 >* docker network create --subnet=192.168.0.0/16 mynet 创建网络
 
->* dubbo-rest：
->    * docker build -t spring_dubbo_rest .
->    * docker run -it -d --network mynet -p 8086:8086 spring_dubbo_rest
+>* rest：
+>    * docker build -t rest .
+>    * docker run -it -d --network mynet -p 8086:8086 rest
 >    * curl http://localhost:8086/hello/roger
 
->* dubbo-service：
->    * docker build -t spring_dubbo_service .
->    * docker run -it -d --network mynet -p 8086:8086 spring_dubbo_service
+>* server：
+>    * docker build -t server .
+>    * docker run -it -d --network mynet -p 8086:8086 server
 >    * curl http://localhost:8083/info
