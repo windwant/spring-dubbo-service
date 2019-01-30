@@ -1,41 +1,41 @@
-spring-dubbo-server:
-#    image: spring-dubbo-server
-    build: ./spring-dubbo-server/
+server:
+#    image: server
+    build: ./server/
     ports:
       - "8083:8083"
     net:
         mynet
-spring-dubbo-rest:
-#    image: spring-dubbo-rest
-    build: ./spring-dubbo-rest/
+rest:
+#    image: rest
+    build: ./rest/
     ports:
       - "8086:8086"
     net:
         mynet
-spring-dubbo-bus:
-#    image: spring-dubbo-bus
-    build: ./spring-dubbo-bus/
+bus:
+#    image: bus
+    build: ./bus/
     ports:
       - "8098:8098"
     net:
         mynet
-spring-dubbo-wxproxy:
-#    image: spring-dubbo-wxproxy
-    build: ./spring-dubbo-wxproxy/
+wxproxy:
+#    image: wxproxy
+    build: ./wxproxy/
     ports:
       - "9098:9098"
     net:
         mynet
-spring-dubbo-proxy:
-#    image: spring-dubbo-proxy
-    build: ./spring-dubbo-proxy/
+proxy:
+#    image: proxy
+    build: ./proxy/
     ports:
       - "8088:8088"
     net:
         mynet
-spring-dubbo-elasticjob:
-#    image: spring-dubbo-elasticjob
-    build: ./spring-dubbo-elasticjob/
+elasticjob:
+#    image: elasticjob
+    build: ./elasticjob/
     ports:
       - "8080:8080"
     net:
