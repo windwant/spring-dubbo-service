@@ -60,6 +60,7 @@
     <spring.version>5.1.3.RELEASE</spring.version>
     <spring.data.commons.version>2.1.3.RELEASE</spring.data.commons.version>
     <commons.dbcp2.version>2.5.0</commons.dbcp2.version>
+    <arthas.version>3.0.5</arthas.version>
   </properties>
 
   <parent>
@@ -308,6 +309,11 @@
         <groupId>commons-net</groupId>
         <artifactId>commons-net</artifactId>
         <version>${common.net.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.taobao.arthas</groupId>
+        <artifactId>arthas-boot</artifactId>
+        <version>${arthas.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
