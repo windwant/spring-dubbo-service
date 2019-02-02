@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:property-placeholder location="classpath:application.yml"/>
+
+    <dubbo:application name="${dubbo.application.name}" owner="dubbo-server"
+                       organization="windwant"/>
+
+    <dubbo:registry id="dubboRegistry" address="${dubbo.registry.address}"/>
+    <!--optimizer="org.windwant.common.api.SerializationOptimizerImpl" serialization="${dubbo.protocal.serialization}"-->
+    <dubbo:protocol port="${dubbo.protocal.port}"
+                    dispatcher="all"
+                    threadpool="cached" threads="${dubbo.provider.threads}"/>
+    <!--filter="dubboCatFilter,dubboLoginFilter"-->
+    <dubbo:provider timeout="${dubbo.provider.timeout}"
+                    proxy="${dubbo.provider.proxy}" retries="${dubbo.provider.retries}"/>
+
+</beans>

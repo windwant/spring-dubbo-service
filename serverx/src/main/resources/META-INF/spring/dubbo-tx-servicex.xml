@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <bean name="xDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="url" value="$[datasource.tx.url]"/>
+        <property name="username" value="$[datasource.tx.user]"/>
+        <property name="password" value="$[datasource.tx.password]"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="initialSize" value="0" />
+        <property name="maxActive" value="180" />
+        <property name="minIdle" value="0" />
+        <property name="maxWait" value="60000" />
+        <property name="validationQuery" value="Select 'x' from DUAL" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="true" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="1800" />
+        <property name="logAbandoned" value="true" />
+        <property name="filters" value="mergeStat" />
+    </bean>
+
+    <bean id="xDataSourceProxy" class="com.alibaba.fescar.rm.datasource.DataSourceProxy">
+        <constructor-arg ref="xDataSource" />
+    </bean>
+
+    <bean id="localTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="xDataSourceProxy" />
+    </bean>
+
+    <dubbo:service interface="org.windwant.common.api.DubboTXServicex" ref="dubbotxsvrx"
+                   registry="dubboRegistry"/>
+
+    <bean class="com.alibaba.fescar.spring.annotation.GlobalTransactionScanner">
+        <constructor-arg value="$[dubbo.application.name]"/>
+        <constructor-arg value="dubbo_service_tx_group"/>
+    </bean>
+</beans>
