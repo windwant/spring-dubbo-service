@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by aayongche on 2016/7/14.
  * @param
  */
 public class SerializationOptimizerImpl implements SerializationOptimizer {

@@ -1,0 +1,73 @@
+spring:
+    messages:
+        basename: messages
+    profiles:
+        active: $[build.profile]
+datasource:
+    local:
+        url: $[datasource.local.url]
+        username: $[datasource.local.user]
+        password: $[datasource.local.password]
+        driverClassName: com.mysql.jdbc.Driver
+        type: org.apache.commons.dbcp.BasicDataSource
+        max-active: 30
+        max-idle: 10
+        max-wait: 10000
+        test-while-idle: true
+        test-on-borrow: true
+        aop-patterns: org.windwant.spring.mapper.*
+        filter:
+            stat:
+                db-type: mysql
+                log-slow-sql: true
+                slow-sql-millis: 2000
+        filters: wall,stat
+    remote:
+        url: $[datasource.remote.url]
+        username: $[datasource.remote.user]
+        password: $[datasource.remote.password]
+        driverClassName: com.mysql.jdbc.Driver
+        type: org.apache.commons.dbcp.BasicDataSource
+        max-active: 30
+        max-idle: 10
+        max-wait: 10000
+        test-while-idle: true
+        test-on-borrow: true
+        aop-patterns: org.windwant.spring.mapper.*
+        filter:
+            stat:
+                db-type: mysql
+                log-slow-sql: true
+                slow-sql-millis: 2000
+        filters: wall,stat
+log:
+    path: $[logPath]
+    level: $[logLevel]
+server:
+    port: $[server.port]
+#consul:
+#    host: $[consul.host]
+#ftp:
+#    host: $[ftp.host]
+#    port: $[ftp.port]
+#    username: ftp
+#    password: ftp
+#    connectTimeOut: 10000
+dubbo:
+    application:
+        name: dubbo-server
+    registry:
+        address: $[dubbo.registry.address]
+    protocal:
+        port: $[dubbo.protocal.port]
+        serialization: $[dubbo.protocal.serialization]
+    service:
+        version: $[dubbo.service.version]
+    provider:
+        timeout: $[dubbo.provider.timeout]
+        threads: $[dubbo.provider.threads]
+        retries: $[dubbo.provider.retries]
+        proxy: $[dubbo.provider.proxy]
+endpoints:
+    shutdown:
+        enabled: true

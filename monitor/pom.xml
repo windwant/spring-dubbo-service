@@ -85,6 +85,11 @@
             <artifactId>xbean-reflect</artifactId>
             <version>3.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.taobao.arthas</groupId>
+            <artifactId>arthas-boot</artifactId>
+            <version>3.0.5</version>
+        </dependency>
     </dependencies>
 
     <repositories>
