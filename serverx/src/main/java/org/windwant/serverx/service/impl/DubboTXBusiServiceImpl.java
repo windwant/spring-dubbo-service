@@ -63,7 +63,7 @@ public class DubboTXBusiServiceImpl {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            new String[] {"META-INF/spring/dubbo-business.xml"});
+            new String[] {"spring/dubbo-business.xml"});
         final DubboTXBusiServiceImpl business = (DubboTXBusiServiceImpl)context.getBean("dubbotx");
         business.calGrade();
     }

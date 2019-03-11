@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAutoConfiguration
 @PropertySource({"classpath:config.properties"})
 @EnableScheduling //定时任务
-@ImportResource({"META-INF/spring/dubbo-service.xml", "classpath:disconf/disconf.xml"}) //disconf 统一配置 }) //
+@ImportResource({"spring/dubbo-service.xml", "classpath:disconf/disconf.xml"}) //disconf 统一配置 }) //
 public class BusiServiceApplication
 {
     public static void main( String[] args )

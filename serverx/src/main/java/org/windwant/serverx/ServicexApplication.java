@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableAutoConfiguration
 @PropertySource({"classpath:config.properties"})
-@ImportResource({"META-INF/spring/dubbo-service.xml", "META-INF/spring/dubbo-tx-servicex.xml", "META-INF/spring/dubbo-tx-servicey.xml"}) //
+@ImportResource({"spring/dubbo-service.xml", "spring/dubbo-tx-servicex.xml", "spring/dubbo-tx-servicey.xml"}) //
 public class ServicexApplication
 {
     public static void main( String[] args )
