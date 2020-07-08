@@ -2,8 +2,6 @@
 
 ### resources下资源处理：
 
-  >*  com内的 cat-client 资源放到 maven 本地资源库对应位置
-
   >*  cat.war 放到tomcat路径下
 >    * car.war生成步骤参考 https://github.com/dianping/cat
 

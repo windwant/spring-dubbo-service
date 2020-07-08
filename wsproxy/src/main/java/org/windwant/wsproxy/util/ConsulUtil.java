@@ -1,6 +1,5 @@
 package org.windwant.wsproxy.util;
 
-import com.google.common.net.HostAndPort;
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.KeyValueClient;
 import com.orbitz.consul.option.DeleteOptions;
@@ -9,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.windwant.util.ConfigUtil;
 import org.windwant.util.NetUtil;
 import org.windwant.registry.RegistryFactory;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class ConsulUtil {
@@ -19,11 +21,17 @@ public class ConsulUtil {
 
     static {
         //构造consul kv client
-        keyValueClient = Consul.builder().withHostAndPort(
-                HostAndPort.fromParts(ConfigUtil.get("consul.host"),
-                        ConfigUtil.getInteger("consul.port")))
-                .build()
-                .keyValueClient();
+        try {
+            keyValueClient = Consul.builder()
+                    .withUrl(new URL("http", ConfigUtil.get("consul.host"),
+                            ConfigUtil.getInteger("consul.port"), ""))
+//                    .withHostAndPort(HostAndPort.fromParts(ConfigUtil.get("consul.host"),
+//                            ConfigUtil.getInteger("consul.port")))
+                    .build()
+                    .keyValueClient();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     private ConsulUtil() {

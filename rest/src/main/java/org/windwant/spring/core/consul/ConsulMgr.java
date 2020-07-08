@@ -1,6 +1,5 @@
 package org.windwant.spring.core.consul;
 
-import com.google.common.net.HostAndPort;
 import com.orbitz.consul.*;
 import com.orbitz.consul.cache.ServiceHealthCache;
 import com.orbitz.consul.model.agent.ImmutableRegCheck;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.windwant.spring.config.SpringConfig;
 import org.windwant.spring.util.JedisUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -47,13 +48,14 @@ public class ConsulMgr {
     private String redisService = "redis";
     private String bootService = "boot";
 
-    public void init(){
+    public void init() throws MalformedURLException {
         Consul consul = Consul.builder()
                 .withConnectTimeoutMillis(3000)
                 .withPing(true)
                 .withReadTimeoutMillis(2000)
                 .withWriteTimeoutMillis(2000)
-                .withHostAndPort(HostAndPort.fromParts(SpringConfig.getConsulHost(), 8500)).build();
+                .withUrl(new URL("http", SpringConfig.getConsulHost(), 8500, "")).build();
+//                .withHostAndPort(HostAndPort.fromParts(SpringConfig.getConsulHost(), 8500)).build();
         keyValueClient = consul.keyValueClient();
         healthClient = consul.healthClient();
         agentClient = consul.agentClient();

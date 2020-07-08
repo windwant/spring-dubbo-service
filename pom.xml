@@ -320,10 +320,10 @@
     </dependencies>
   </dependencyManagement>
 
-  <!--<repositories>-->
-    <!--<repository>-->
-      <!--<id>cat.repo</id>-->
-      <!--<url>https://raw.github.com/dianping/cat/mvn-repo</url>-->
-    <!--</repository>-->
-  <!--</repositories>-->
+  <repositories>
+    <repository>
+      <id>aliyun.repo</id>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
 </project>
