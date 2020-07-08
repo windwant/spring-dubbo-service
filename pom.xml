@@ -48,7 +48,7 @@
     <aspectjweaver.version>1.9.2</aspectjweaver.version>
     <netty.all.version>4.1.6.Final</netty.all.version>
     <slf4j.api.version>1.7.25</slf4j.api.version>
-    <log4j.version>2.11.0</log4j.version>
+    <log4j.version>2.13.3</log4j.version>
     <commons.configuration.version>1.10</commons.configuration.version>
     <dubbo.version>2.6.5</dubbo.version>
     <kryo.version>4.0.0</kryo.version>
