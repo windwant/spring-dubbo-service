@@ -29,7 +29,7 @@
         <common.net.version>3.6</common.net.version>
         <fastjson.version>1.2.54</fastjson.version>
         <slf4j.api.version>1.7.25</slf4j.api.version>
-        <log4j.version>2.11.0</log4j.version>
+        <log4j.version>2.13.3</log4j.version>
         <kryo.version>4.0.0</kryo.version>
         <kryo.serializers.version>0.42</kryo.serializers.version>
     </properties>
