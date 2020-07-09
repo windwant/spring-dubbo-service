@@ -7,10 +7,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.windwant.spring</groupId>
     <artifactId>util</artifactId>
-      <packaging>jar</packaging>
-      <version>1.0</version>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
     <name>util</name>
     <url>https://github.com/windwant/spring-dubbo-service.git</url>
 

@@ -5,7 +5,7 @@
     <groupId>org.windwant.dubbo</groupId>
     <artifactId>clientx</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>clientx</name>
     <url>https://github.com/windwant/spring-dubbo-service.git</url>
@@ -145,23 +145,23 @@
         <dependency>
             <groupId>org.windwant.protocal</groupId>
             <artifactId>protocal</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.spring</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.windwant.monitor</groupId>
             <artifactId>monitor</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.windwant.spring</groupId>
             <artifactId>util</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -253,7 +253,7 @@
         <dependency>
             <groupId>org.windwant.dubbo</groupId>
             <artifactId>client</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

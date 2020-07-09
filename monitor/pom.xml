@@ -10,7 +10,7 @@
     <groupId>org.windwant.monitor</groupId>
     <artifactId>monitor</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <name>monitor</name>
     <url>https://github.com/windwant/spring-dubbo-service.git</url>
 

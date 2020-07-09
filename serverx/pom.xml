@@ -5,7 +5,7 @@
     <groupId>org.windwant.spring</groupId>
     <artifactId>serverx</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
 
     <name>serverx</name>
     <url>https://github.com/windwant/spring-dubbo-service.git</url>
@@ -255,7 +255,7 @@
         <dependency>
             <groupId>org.windwant.spring</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!--<dependency>-->
@@ -273,7 +273,7 @@
         <dependency>
             <groupId>org.windwant.spring</groupId>
             <artifactId>util</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

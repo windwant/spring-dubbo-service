@@ -10,6 +10,7 @@
     <groupId>org.windwant.protocal</groupId>
     <artifactId>protocal</artifactId>
     <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
 
     <name>protocal</name>
     <url>https://github.com/windwant/spring-dubbo-service.git</url>

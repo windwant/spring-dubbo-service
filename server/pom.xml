@@ -7,7 +7,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.windwant.spring</groupId>
     <artifactId>server</artifactId>
     <packaging>jar</packaging>
 
@@ -275,7 +274,7 @@
         <dependency>
             <groupId>org.windwant.monitor</groupId>
             <artifactId>monitor</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.guava</groupId>
@@ -287,7 +286,7 @@
         <dependency>
             <groupId>org.windwant.spring</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.guava</groupId>
@@ -368,7 +367,7 @@
         <dependency>
             <groupId>org.windwant.spring</groupId>
             <artifactId>util</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.guava</groupId>
@@ -430,7 +429,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>19.0</version>
         </dependency>
 
     </dependencies>
