@@ -17,7 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <okhttp.version>3.9.0</okhttp.version>
-        <jetty.version>9.4.14.v20181114</jetty.version>
+        <jetty.version>11.0.1</jetty.version>
     </properties>
 
     <build>
