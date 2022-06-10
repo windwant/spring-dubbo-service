@@ -50,7 +50,7 @@
     <slf4j.api.version>1.7.25</slf4j.api.version>
     <log4j.version>2.11.0</log4j.version>
     <commons.configuration.version>1.10</commons.configuration.version>
-    <dubbo.version>2.6.5</dubbo.version>
+    <dubbo.version>2.6.12</dubbo.version>
     <kryo.version>4.0.0</kryo.version>
     <kryo.serializers.version>0.42</kryo.serializers.version>
     <zkclient.version>0.10</zkclient.version>
